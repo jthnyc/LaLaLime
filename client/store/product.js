@@ -3,7 +3,7 @@ import axios from 'axios'
 /**
  * ACTION TYPES
  */
-const GOT_PRODUCTS = 'GET_PRODUCTS'
+const GOT_PRODUCTS = 'GOT_PRODUCTS'
 
 /**
  * INITIAL STATE
