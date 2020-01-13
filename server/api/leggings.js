@@ -1,10 +1,10 @@
 const router = require('express').Router()
-const { Leggings } = require('../db/models')
+const {Legging} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const leggings = await Leggings.findAll({
+    const leggings = await Legging.findAll({
       attributes: ['productId', 'name', 'imageUrl']
     })
     res.json(leggings)
@@ -15,8 +15,8 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:productId', async (req, res, next) => {
   try {
-    const productId = req.params.productId;
-    const legging = await Leggings.findOne({
+    const productId = req.params.productId
+    const legging = await Legging.findOne({
       where: {
         productId: productId
       }
@@ -26,6 +26,3 @@ router.get('/:productId', async (req, res, next) => {
     next(error)
   }
 })
-
-
-
