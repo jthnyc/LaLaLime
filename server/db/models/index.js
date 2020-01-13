@@ -17,10 +17,10 @@ const Bra = require('./bra')
  * instead of: const User = require('../db/models/user')
  */
 
-Legging.belongsTo(Category, {as: 'products'})
+Legging.belongsTo(Category)
 Category.hasMany(Legging)
 
-Bra.belongsTo(Category, {as: 'products'})
+Bra.belongsTo(Category)
 Category.hasMany(Bra)
 
 module.exports = {
