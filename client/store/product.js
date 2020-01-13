@@ -9,7 +9,7 @@ const GOT_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT'
 /**
  * INITIAL STATE
  */
-const defaultProducts = {
+const products = {
   products: [],
   singleProduct: {}
 }
@@ -29,7 +29,7 @@ const gotSingleProduct = singleProduct => ({
 export const getProducts = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/products/all')
-    dispatch(gotProducts(data || defaultProducts.products))
+    dispatch(gotProducts(data))
   } catch (error) {
     console.error(error)
   }
@@ -38,7 +38,7 @@ export const getProducts = () => async dispatch => {
 export const getSingleProduct = singleProduct => async dispatch => {
   try {
     const {data} = await axios.get(`/api/products/${singleProduct}`)
-    dispatch(gotSingleProduct(data || defaultProducts.singleProduct))
+    dispatch(gotSingleProduct(data))
   } catch (error) {
     console.error(error)
   }
@@ -47,7 +47,7 @@ export const getSingleProduct = singleProduct => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = defaultProducts, action) {
+export default function(state = products, action) {
   switch (action.type) {
     case GOT_PRODUCTS:
       return {...state, products: action.products}
