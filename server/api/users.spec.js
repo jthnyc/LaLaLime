@@ -11,7 +11,7 @@ describe('User routes', () => {
     return db.sync({force: true})
   })
 
-  describe('/api/users/', () => {
+  describe('GET /api/users/', () => {
     const rachelsEmail = 'rachel@gmail.com'
 
     beforeEach(() => {
@@ -20,7 +20,7 @@ describe('User routes', () => {
       })
     })
 
-    it('GET /api/users', async () => {
+    it('Displays a list of all users', async () => {
       const res = await request(app).get('/api/users')
 
       expect(res.status).to.be.equal(200)
@@ -29,7 +29,7 @@ describe('User routes', () => {
     })
 
     describe('GET /api/users/:userId', async () => {
-      it('gets the user with the specified id', async () => {
+      it('displays the user with the specified id', async () => {
         const res = await request(app)
           .get('/api/users/1')
           .expect(200)
@@ -44,31 +44,32 @@ describe('User routes', () => {
           const res = await request(app)
             .post('/api/users')
             .send({
-              email: 'rachel@gmail.com'
+              email: 'cercle@gmail.com'
             })
 
           expect(res.status).to.be.equal(201)
           expect(res.body).to.be.an('object')
-          expect(res.body.email).to.equal('rachel@gmail.com')
+          expect(res.body.email).to.equal('cercle@gmail.com')
         })
 
         it('saves the new user to the database', async () => {
           const newUser = await User.findOne({
             where: {
-              email: 'rachel@gmail.com'
+              email: 'cercle@gmail.com'
             }
           })
 
           expect(newUser).to.be.an('object')
-          expect(newUser.email).to.equal('rachel@gmail.com')
+          expect(newUser.email).to.equal('cercle@gmail.com')
         })
 
         it('responds with an error if there is already a user with that email', async () => {
+          const res = await request(app)
           const firstNewUser = await User.create({
-            email: 'rachel@gmail.com'
+            email: 'cercle@gmail.com'
           })
           const secondNewUser = await User.build({
-            email: 'rachel@gmail.com'
+            email: 'cercle@gmail.com'
           })
 
           expect(res.status).to.equal(400)
