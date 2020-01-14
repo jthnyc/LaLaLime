@@ -62,7 +62,18 @@ describe('User routes', () => {
           expect(newUser).to.be.an('object')
           expect(newUser.email).to.equal('rachel@gmail.com')
         })
-        it('responds with an error if there is already a user with that email', async () => {})
+
+        it('responds with an error if there is already a user with that email', async () => {
+          const firstNewUser = await User.create({
+            email: 'rachel@gmail.com'
+          })
+          const secondNewUser = await User.build({
+            email: 'rachel@gmail.com'
+          })
+
+          expect(res.status).to.equal(400)
+          expect(secondNewUser).to.be.equal(undefined)
+        })
       })
     })
   })
