@@ -12,9 +12,6 @@ describe('Product routes', () => {
   })
 
   describe('/api/products/', () => {
-    // const coolProductType1 = 'legging'
-    // const coolProductType2 = 'bra'
-
     beforeEach(() => {
       return Product.create({
         SKU: '12345679',
@@ -34,6 +31,30 @@ describe('Product routes', () => {
 
       expect(res.body).to.be.an('array')
       console.log('res body', res.body)
+      expect(res.body.length).to.be.equal(1)
+      expect(res.body[0].name).to.be.equal('legging1')
+    })
+  })
+
+  describe('/api/products/:SKU/', async () => {
+    beforeEach(() => {
+      return Product.create({
+        SKU: '12345679',
+        name: 'legging1',
+        color: 'black',
+        size: 's',
+        price: 30,
+        quantity: 10,
+        category: 'leggings'
+      })
+    })
+
+    it('gets the product(s) with the specified id', async () => {
+      const res = await request(app)
+        .get('/api/products/12345679')
+        .expect(200)
+
+      expect(res.body).to.be.an('array')
       expect(res.body.length).to.be.equal(1)
       expect(res.body[0].name).to.be.equal('legging1')
     })
