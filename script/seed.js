@@ -24,8 +24,8 @@ async function seed() {
       category: 'leggings'
     }),
     Product.create({
-      lineId: '12345680',
-      name: 'legging2',
+      lineId: '12345679',
+      name: 'legging1',
       color: 'black',
       size: 's',
       price: 30,
