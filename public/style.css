@@ -19,3 +19,32 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+/* Product Card Styles Placeholders */
+.faceted-grid {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.product-card-grid-all {
+  display: flex;
+  flex-direction: row;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card-image {
+  width: 100%;
+}
+
+.product-card-name {
+  color: gray;
+}
+
+.product-card-price {
+  color: black;
+}
