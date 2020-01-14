@@ -8,14 +8,17 @@ const GOT_PRODUCTS = 'GOT_PRODUCTS'
 /**
  * INITIAL STATE
  */
-const products = {
+const initialState = {
   products: []
 }
 
 /**
  * ACTION CREATORS
  */
-const gotProducts = () => ({type: GOT_PRODUCTS})
+const gotProducts = products => ({
+  type: GOT_PRODUCTS,
+  products
+})
 
 /**
  * THUNK CREATORS
@@ -31,7 +34,7 @@ export const getProducts = () => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = products, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case GOT_PRODUCTS:
       return {...state, products: action.products}

@@ -19,9 +19,13 @@ class AllProducts extends React.Component {
         <div className="faceted-grid">
           <div className="product-card-grid-all">
             <div className="product-card">
-              {products.map(product => {
-                return <Product key={product.id} product={product} />
-              })}
+              {products ? (
+                products.map(product => {
+                  return <Product key={product.id} product={product} />
+                })
+              ) : (
+                <div>No products :/</div>
+              )}
             </div>
           </div>
         </div>
@@ -36,7 +40,7 @@ class AllProducts extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    products: state.products
+    products: state.product.products
   }
 }
 
@@ -46,4 +50,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapDispatchToProps, mapStateToProps)(AllProducts)
+export default connect(mapStateToProps, mapDispatchToProps)(AllProducts)
