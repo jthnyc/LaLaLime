@@ -20,7 +20,7 @@ form div {
   display: inline-block;
 }
 
-.product-row {
+.cart-product-row {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
