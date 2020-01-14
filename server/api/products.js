@@ -13,12 +13,12 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:lineId', async (req, res, next) => {
+router.get('/:SKU', async (req, res, next) => {
   try {
-    const lineId = req.params.lineId
+    const SKU = req.params.SKU
     const product = await Product.findAll({
       where: {
-        lineId: lineId
+        SKU: SKU
       }
     })
     res.json(product)
