@@ -25,7 +25,9 @@ const Product = db.define('product', {
     type: Sequelize.INTEGER
   },
   imageUrl: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue:
+      'https://athleta.gap.com/webcontent/0018/263/970/cn18263970.jpg'
   },
   category: {
     type: Sequelize.STRING,
