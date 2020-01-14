@@ -1,20 +1,19 @@
 import React from 'react'
 import {getSingleProduct} from '../store'
 import {connect} from 'react-redux'
-import Product from './product'
 
 /**
  * COMPONENT
  */
 
-class singleProduct extends React.Component {
+class SingleProduct extends React.Component {
   componentDidMount() {
-    // this.props.getSingleProduct(SKU)
+    this.props.getSingleProduct(this.props.SKU)
   }
 
   render() {
     console.log(this.props.SKU)
-    const products = this.props.products
+    // const products = this.props.products
     return (
       <div>
         <div className="faceted-grid">
@@ -42,14 +41,14 @@ class singleProduct extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     products: state.product.products,
-    SKU: ownProps
+    SKU: ownProps.match.params.SKU
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getSingleProduct: () => dispatch(getSingleProduct())
+    getSingleProduct: SKU => dispatch(getSingleProduct(SKU))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(singleProduct)
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct)

@@ -22,9 +22,9 @@ const gotProducts = products => ({
   type: GOT_PRODUCTS,
   products
 })
-const gotSingleProduct = product => ({
-  type: GOT_PRODUCTS,
-  currentProduct: product
+const gotSingleProduct = currentProduct => ({
+  type: GOT_SINGLE_PRODUCT,
+  currentProduct
 })
 
 /**
@@ -41,7 +41,7 @@ export const getProducts = () => async dispatch => {
 
 export const getSingleProduct = SKU => async dispatch => {
   try {
-    const {data} = await axios.get('/api/products/:SKU')
+    const {data} = await axios.get(`/api/products/${SKU}`)
     dispatch(gotSingleProduct(data))
   } catch (error) {
     console.error(error)
