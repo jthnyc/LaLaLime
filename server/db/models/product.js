@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Legging = db.define('legging', {
-  productId: {
+const Product = db.define('product', {
+  lineId: {
     type: Sequelize.STRING,
     allowNull: false
   },
@@ -26,7 +26,11 @@ const Legging = db.define('legging', {
   },
   imageUrl: {
     type: Sequelize.STRING
+  },
+  category: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 })
 
-module.exports = Legging
+module.exports = Product

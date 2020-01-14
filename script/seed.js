@@ -2,7 +2,7 @@
 
 const db = require('../server/db')
 const {User} = require('../server/db/models')
-const {Legging, Category, Bra} = require('../server/db/models/')
+const {Product} = require('../server/db/models/')
 
 async function seed() {
   await db.sync({force: true})
@@ -13,76 +13,48 @@ async function seed() {
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
-  const categories = await Promise.all([
-    Category.create({type: 'legging'}),
-    Category.create({type: 'bra'}),
-    Category.create({type: 'shirt'})
-  ])
-
-  const leggings = await Promise.all([
-    Legging.create({
-      productId: '12345679',
+  const products = await Promise.all([
+    Product.create({
+      lineId: '12345679',
       name: 'legging1',
       color: 'black',
       size: 's',
       price: 30,
       quantity: 10,
-      categoryId: categories[0].id
+      category: 'leggings'
     }),
-    Legging.create({
-      productId: '12345680',
+    Product.create({
+      lineId: '12345680',
       name: 'legging2',
       color: 'black',
       size: 's',
       price: 30,
       quantity: 10,
-      categoryId: categories[0].id
+      category: 'leggings'
     }),
-    Legging.create({
-      productId: '12345681',
+    Product.create({
+      lineId: '12345681',
       name: 'legging3',
       color: 'black',
       size: 's',
       price: 30,
       quantity: 10,
-      categoryId: categories[0].id
-    })
-  ])
-
-  const bras = await Promise.all([
-    Bra.create({
-      productId: '12342342345679',
-      name: 'superBra',
+      category: 'leggings'
+    }),
+    Product.create({
+      lineId: '1234566681',
+      name: 'wonder bra',
       color: 'black',
       size: 's',
       price: 30,
       quantity: 10,
-      categoryId: categories[1].id
-    }),
-    Bra.create({
-      productId: '12342342345679',
-      name: 'superBra',
-      color: 'black',
-      size: 'L',
-      price: 30,
-      quantity: 10,
-      categoryId: categories[1].id
-    }),
-    Bra.create({
-      productId: '12345681',
-      name: 'cuteBra',
-      color: 'black',
-      size: 's',
-      price: 30,
-      quantity: 10,
-      categoryId: categories[1].id
+      category: 'bra'
     })
   ])
 
   console.log(`seeded ${users.length} users`)
 
-  console.log(`seeded ${leggings.length} leggings`)
-  console.log(`seeded ${bras.length} bras`)
+  console.log(`seeded ${products.length} products`)
   console.log(`seeded successfully`)
 }
 
