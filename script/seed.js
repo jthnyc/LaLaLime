@@ -15,7 +15,7 @@ async function seed() {
 
   const products = await Promise.all([
     Product.create({
-      lineId: '12345679',
+      SKU: '12345679',
       name: 'legging1',
       color: 'black',
       size: 's',
@@ -24,7 +24,7 @@ async function seed() {
       category: 'leggings'
     }),
     Product.create({
-      lineId: '12345679',
+      SKU: '12345679',
       name: 'legging1',
       color: 'black',
       size: 's',
@@ -33,7 +33,7 @@ async function seed() {
       category: 'leggings'
     }),
     Product.create({
-      lineId: '12345681',
+      SKU: '12345681',
       name: 'legging3',
       color: 'black',
       size: 's',
@@ -42,7 +42,7 @@ async function seed() {
       category: 'leggings'
     }),
     Product.create({
-      lineId: '1234566681',
+      SKU: '1234566681',
       name: 'wonder bra',
       color: 'black',
       size: 's',

@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Product = db.define('product', {
-  lineId: {
+  SKU: {
     type: Sequelize.STRING,
     allowNull: false
   },
