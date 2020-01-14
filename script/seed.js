@@ -2,8 +2,7 @@
 
 const db = require('../server/db')
 const {User} = require('../server/db/models')
-const {Legging} = require('../server/db/models/')
-const {Category} = require('../server/db/models/')
+const {Legging, Category, Bra} = require('../server/db/models/')
 
 async function seed() {
   await db.sync({force: true})
@@ -50,7 +49,40 @@ async function seed() {
     })
   ])
 
+  const bras = await Promise.all([
+    Bra.create({
+      productId: '12342342345679',
+      name: 'superBra',
+      color: 'black',
+      size: 's',
+      price: 30,
+      quantity: 10,
+      categoryId: categories[1].id
+    }),
+    Bra.create({
+      productId: '12342342345679',
+      name: 'superBra',
+      color: 'black',
+      size: 'L',
+      price: 30,
+      quantity: 10,
+      categoryId: categories[1].id
+    }),
+    Bra.create({
+      productId: '12345681',
+      name: 'cuteBra',
+      color: 'black',
+      size: 's',
+      price: 30,
+      quantity: 10,
+      categoryId: categories[1].id
+    })
+  ])
+
   console.log(`seeded ${users.length} users`)
+
+  console.log(`seeded ${leggings.length} leggings`)
+  console.log(`seeded ${bras.length} bras`)
   console.log(`seeded successfully`)
 }
 
