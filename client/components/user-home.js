@@ -11,6 +11,9 @@ export const UserHome = props => {
   return (
     <div>
       <h3>Welcome, {email}</h3>
+      <h3>Past Orders: </h3>
+      <h3>Recently Viewed: </h3>
+      <h3>Recommendations: </h3>
     </div>
   )
 }

@@ -20,10 +20,16 @@ form div {
   display: inline-block;
 }
 
+/* Cart Styles */
+
 .cart-product-row {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+}
+
+.quantity-btn {
+  display: flex;
 }
 
 /* Product Card Styles Placeholders */

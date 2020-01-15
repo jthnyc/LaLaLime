@@ -3,10 +3,30 @@
 const db = require('../server/db')
 const {User} = require('../server/db/models')
 const {Product} = require('../server/db/models/')
+const {Order} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
+
+  const orders = await Promise.all([
+    Order.create({
+      status: 'pending',
+      date: '2020-01-15',
+      firstName: 'Lala',
+      lastName: 'Lime',
+      address: '27 Lime St',
+      cardInfo: '5105105105105100'
+    }),
+    Order.create({
+      status: 'processed',
+      date: '2020-01-13',
+      firstName: 'Lolo',
+      lastName: 'Orange',
+      address: '35 Orange St',
+      cardInfo: '4012888888881881'
+    })
+  ])
 
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
@@ -53,7 +73,7 @@ async function seed() {
   ])
 
   console.log(`seeded ${users.length} users`)
-
+  console.log(`seeded ${orders.length} orders`)
   console.log(`seeded ${products.length} products`)
   console.log(`seeded successfully`)
 }

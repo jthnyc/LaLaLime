@@ -17,7 +17,7 @@ class CartItem extends React.Component {
           <div>$20</div>
           <div className="quantity-btn">
             <button type="button">-</button>
-            <button type="button">1</button>
+            <p>1</p>
             <button type="button">+</button>
           </div>
           <div>
