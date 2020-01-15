@@ -1,5 +1,5 @@
 import React from 'react'
-import {getSingleProduct} from '../store'
+import {getSingleProduct, addProductToCart, me} from '../store'
 import {connect} from 'react-redux'
 
 /**
@@ -7,8 +7,20 @@ import {connect} from 'react-redux'
  */
 
 class SingleProduct extends React.Component {
+  constructor() {
+    super()
+    this.handleClick = this.handleClick.bind(this)
+  }
+
   componentDidMount() {
-    this.props.getSingleProduct(this.props.id)
+    this.props.getSingleProduct(this.props.productId)
+    this.props.getMe()
+  }
+
+  handleClick(evt) {
+    evt.preventDefault()
+    console.log('handleclick', this.props.userId, this.props.productId)
+    this.props.addProductToCart(this.props.userId, this.props.productId)
   }
 
   render() {
@@ -18,6 +30,7 @@ class SingleProduct extends React.Component {
           <div className="product-card-grid-all">
             <div>{this.props.currentProduct.name}</div>
             <img src={this.props.currentProduct.imageUrl} />
+            <button onClick={this.handleClick}>Add to cart</button>
           </div>
         </div>
       </div>
@@ -32,13 +45,17 @@ class SingleProduct extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     currentProduct: state.product.currentProduct,
-    id: ownProps.match.params.id
+    productId: ownProps.match.params.id,
+    userId: state.user.currentUser.id
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getSingleProduct: id => dispatch(getSingleProduct(id))
+    getSingleProduct: id => dispatch(getSingleProduct(id)),
+    getMe: () => dispatch(me()),
+    addProductToCart: (userId, productId) =>
+      dispatch(addProductToCart(userId, productId))
   }
 }
 

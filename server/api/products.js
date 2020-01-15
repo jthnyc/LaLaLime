@@ -15,7 +15,6 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    console.log('req params', req.params)
     const id = req.params.id
     const product = await Product.findOne({
       where: {
