@@ -20,7 +20,7 @@ class SingleProduct extends React.Component {
   handleClick(evt) {
     evt.preventDefault()
     console.log('handleclick', this.props.userId, this.props.productId)
-    addProductToCart(this.props.userId, this.props.productId)
+    this.props.addProductToCart(this.props.userId, this.props.productId)
   }
 
   render() {
