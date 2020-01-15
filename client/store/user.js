@@ -6,22 +6,17 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
-const ADD_PRODUCT_TO_STATE = 'ADD_PRODUCT_TO_STATE'
 
 /**
  * INITIAL STATE
  */
-const initialState = {
-  currentUser: {},
-  currentProduct: {}
-}
+const initialState = {}
 
 /**
  * ACTION CREATORS
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
-const addProductToState = productId => ({type: ADD_PRODUCT_TO_STATE, productId})
 
 /**
  * THUNK CREATORS
@@ -29,7 +24,7 @@ const addProductToState = productId => ({type: ADD_PRODUCT_TO_STATE, productId})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    dispatch(getUser(res.data || initialState.currentUser))
+    dispatch(getUser(res.data || initialState))
   } catch (err) {
     console.error(err)
   }
@@ -61,30 +56,15 @@ export const logout = () => async dispatch => {
   }
 }
 
-export const addProductToCart = (userId, productId) => async dispatch => {
-  try {
-    console.log('addProdToCart')
-    const res = await axios.post('/api/users/order', {
-      userId: userId,
-      productId: productId
-    })
-    dispatch(addProductToState(productId))
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 /**
  * REDUCER
  */
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_USER:
-      return {...state, currentUser: action.user}
+      return action.user
     case REMOVE_USER:
       return initialState
-    case ADD_PRODUCT_TO_STATE:
-      return {...state, currentProduct: action.productId}
     default:
       return state
   }

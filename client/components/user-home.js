@@ -22,6 +22,7 @@ export const UserHome = props => {
  * CONTAINER
  */
 const mapState = state => {
+  console.log('STATE IN USER-HOME:', state)
   return {
     email: state.user.email
   }
