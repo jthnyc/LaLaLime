@@ -13,7 +13,6 @@ class AllProducts extends React.Component {
   }
 
   render() {
-    console.log('allprodprops', this.props)
     const products = this.props.products
     return (
       <div>
