@@ -22,9 +22,15 @@ const Product = db.define('product', {
     min: 0,
     max: 100
   },
-  quantity: {
-    type: Sequelize.INTEGER
+  inventory: {
+    type: Sequelize.INTEGER,
+    min: 0
   },
+  // quantity: {
+  //   type: Sequelize.INTEGER,
+  //   min: 0,
+  //   max:
+  // },
   imageUrl: {
     type: Sequelize.STRING,
     defaultValue:
