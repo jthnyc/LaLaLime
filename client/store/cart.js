@@ -24,8 +24,7 @@ const gotCartItems = cartItems => ({
  */
 export const getCartItems = () => async dispatch => {
   try {
-    // NEED TO FIX API ROUTE
-    const {data} = await axios.get('/api/leggings')
+    const {data} = await axios.get('/api/products')
     dispatch(gotCartItems(data))
   } catch (error) {
     console.error(error)
