@@ -5,7 +5,7 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll({
-      attributes: ['name', 'imageUrl', 'SKU']
+      attributes: ['name', 'imageUrl', 'id']
     })
     res.json(products)
   } catch (error) {
@@ -13,12 +13,13 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:SKU', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
-    const SKU = req.params.SKU
-    const product = await Product.findAll({
+    console.log('req params', req.params)
+    const id = req.params.id
+    const product = await Product.findOne({
       where: {
-        SKU: SKU
+        id: id
       }
     })
     res.json(product)
