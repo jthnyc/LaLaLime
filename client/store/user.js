@@ -61,9 +61,9 @@ export const logout = () => async dispatch => {
   }
 }
 
-export const addProductToOrder = (userId, productId) => async dispatch => {
+export const addProductToCart = (userId, productId) => async dispatch => {
   try {
-    console.log('addProdToOrder')
+    console.log('addProdToCart')
     const res = await axios.post('/api/users/order', {
       userId: userId,
       productId: productId

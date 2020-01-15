@@ -1,5 +1,5 @@
 import React from 'react'
-import {getSingleProduct, addProductToOrder, me} from '../store'
+import {getSingleProduct, addProductToCart, me} from '../store'
 import {connect} from 'react-redux'
 
 /**
@@ -20,7 +20,7 @@ class SingleProduct extends React.Component {
   handleClick(evt) {
     evt.preventDefault()
     console.log('handleclick', this.props.userId, this.props.productId)
-    addProductToOrder(this.props.userId, this.props.productId)
+    addProductToCart(this.props.userId, this.props.productId)
   }
 
   render() {
@@ -54,8 +54,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getSingleProduct: id => dispatch(getSingleProduct(id)),
     getMe: () => dispatch(me()),
-    addProductToOrder: (userId, productId) =>
-      dispatch(addProductToOrder(userId, productId))
+    addProductToCart: (userId, productId) =>
+      dispatch(addProductToCart(userId, productId))
   }
 }
 
