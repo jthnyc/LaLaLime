@@ -9,6 +9,7 @@ class Cart extends React.Component {
       outOfStock: false
     }
     this.increment = this.increment.bind(this)
+    this.decrement = this.decrement.bind(this)
     this.removeFromCart = this.removeFromCart.bind(this)
   }
 
