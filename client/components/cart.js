@@ -49,35 +49,13 @@ class Cart extends React.Component {
           {this.cartItems ? (
             this.cartItems.map(item => {
               return (
-                <div key={item.id} className="cart-list">
-                  <div className="cart-product-row">
-                    <img
-                      src="https://cdn.shopify.com/s/files/1/2185/2813/products/W5824R_03093R_1_8f37f807-0efa-4472-b478-6c353a5b5670.jpg?v=1578621956"
-                      width="100"
-                      height="120"
-                    />
-                  </div>
-                  <div className="cart-product-detail">
-                    <div>{item.name}</div>
-                    <div>SKU: {item.SKU}</div>
-                    <div>Color: {item.color}</div>
-                    <div>Size: {item.size}</div>
-                    <div>Price: ${item.price}</div>
-                    <div className="quantity-btn">
-                      <button type="button">-</button>
-                      <p>1</p>
-                      <button type="button">+</button>
-                    </div>
-                    <div>
-                      <button type="button">Edit</button>
-                    </div>
-                    <div>
-                      <button type="button" onClick={this.removeFromCart}>
-                        X
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <CartItem
+                  key={item.id}
+                  item={item}
+                  increment={this.increment}
+                  decrement={this.decrement}
+                  remove={this.removeFromCart}
+                />
               )
             })
           ) : (
