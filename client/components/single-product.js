@@ -8,13 +8,10 @@ import {connect} from 'react-redux'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
-    console.log('componentdidmount', this.props)
     this.props.getSingleProduct(this.props.id)
   }
 
   render() {
-    console.log('render', this.props)
-    // const products = this.props.products
     return (
       <div>
         <div className="faceted-grid">
