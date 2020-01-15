@@ -29,6 +29,11 @@ const Product = db.define('product', {
     defaultValue:
       'https://athleta.gap.com/webcontent/0018/263/970/cn18263970.jpg'
   },
+  description: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+    defaultValue: 'Badass clothes'
+  },
   category: {
     type: Sequelize.STRING,
     allowNull: false
