@@ -39,9 +39,9 @@ export const getProducts = () => async dispatch => {
   }
 }
 
-export const getSingleProduct = SKU => async dispatch => {
+export const getSingleProduct = id => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/products/${SKU}`)
+    const {data} = await axios.get(`/api/products/${id}`)
     dispatch(gotSingleProduct(data))
   } catch (error) {
     console.error(error)

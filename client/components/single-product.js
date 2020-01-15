@@ -8,25 +8,16 @@ import {connect} from 'react-redux'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
-    this.props.getSingleProduct(this.props.SKU)
+    this.props.getSingleProduct(this.props.id)
   }
 
   render() {
-    console.log(this.props.SKU)
-    // const products = this.props.products
     return (
       <div>
         <div className="faceted-grid">
           <div className="product-card-grid-all">
-            {/* <div className="product-card">
-              {products ? (
-                products.map(product => {
-                  return <Product key={product.id} product={product} />
-                })
-              ) : (
-                <div>No products :/</div>
-              )}
-            </div> */}
+            <div>{this.props.currentProduct.name}</div>
+            <img src={this.props.currentProduct.imageUrl} />
           </div>
         </div>
       </div>
@@ -40,14 +31,14 @@ class SingleProduct extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    products: state.product.products,
-    SKU: ownProps.match.params.SKU
+    currentProduct: state.product.currentProduct,
+    id: ownProps.match.params.id
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getSingleProduct: SKU => dispatch(getSingleProduct(SKU))
+    getSingleProduct: id => dispatch(getSingleProduct(id))
   }
 }
 
