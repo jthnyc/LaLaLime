@@ -29,3 +29,11 @@ router.get('/:id', async (req, res, next) => {
     next(error)
   }
 })
+
+router.post('/order', async (req, res, next) => {
+  try {
+    console.log('reqbody', req.body)
+  } catch (error) {
+    next(error)
+  }
+})
