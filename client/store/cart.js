@@ -33,18 +33,17 @@ export const getCartItems = () => async dispatch => {
   }
 }
 
-// export const addProductToCart = (userId, productId) => async dispatch => {
-//   try {
-//     console.log('addProdToCart')
-//     const res = await axios.post('/api/users/order', {
-//       userId: userId,
-//       productId: productId
-//     })
-//     dispatch(addProductToState(productId))
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }
+export const addProductToCart = (userId, productId) => async dispatch => {
+  try {
+    console.log('addProdToCart')
+    const res = await axios.post('/api/users/order', {
+      userId: userId,
+      productId: productId
+    })
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 /**
  * REDUCER
