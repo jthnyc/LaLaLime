@@ -5,8 +5,8 @@ import axios from 'axios'
  */
 const GOT_CART_ITEMS = 'GOT_CART_ITEMS'
 const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART'
-const INCREMENT_ITEM_QUANTITY = 'INCREMENT_ITEM_QUANTITY'
-const DECREMENT_ITEM_QUANTITY = 'DECREMENT_ITEM_QUANTITY'
+// const INCREMENT_ITEM_QUANTITY = 'INCREMENT_ITEM_QUANTITY'
+// const DECREMENT_ITEM_QUANTITY = 'DECREMENT_ITEM_QUANTITY'
 
 /**
  * INITIAL STATE
@@ -28,15 +28,15 @@ const deletedProductFromCart = updatedCart => ({
   cartItems: updatedCart
 })
 
-const incrementedItemQuantity = productId => ({
-  type: INCREMENT_ITEM_QUANTITY,
-  productId
-})
+// const incrementedItemQuantity = productId => ({
+//   type: INCREMENT_ITEM_QUANTITY,
+//   productId
+// })
 
-const decrementedItemQuantity = productId => ({
-  type: DECREMENT_ITEM_QUANTITY,
-  productId
-})
+// const decrementedItemQuantity = productId => ({
+//   type: DECREMENT_ITEM_QUANTITY,
+//   productId
+// })
 
 /**
  * THUNK CREATORS
@@ -55,6 +55,7 @@ export const deleteProductFromCart = user => async dispatch => {
   try {
     console.log('USERID IN DELETE: ', user)
     let productList = initialState.cartItems
+    console.log(productList)
     let product
     console.log('PRODUCT IN DELETE: ', product)
     await axios.delete(`/api/cart/${user}`)
@@ -65,17 +66,17 @@ export const deleteProductFromCart = user => async dispatch => {
   }
 }
 
-// export const incrementItemQuantity = (productId) => async dispatch => {
+// export const incrementItemQuantity = (userId, product) => async dispatch => {
 //   try {
-
+//     const updatedProduct = await axios.put(`/api/cart/${userId}`, product)
+//     dispatch(incrementedItemQuantity(updatedProduct))
 //   } catch (error) {
 //     console.error(error)
 //   }
 // }
 
-// export const decrementItemQuantity = (productId) => async dispatch => {
+// export const decrementItemQuantity = (userId, productId) => async dispatch => {
 //   try {
-
 //   } catch (error) {
 //     console.error(error)
 //   }
@@ -88,13 +89,13 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case GOT_CART_ITEMS:
       return {...state, cartItems: action.cartItems}
-    case DELETE_PRODUCT_FROM_CART:
-      return {
-        ...state,
-        cartItems: state.cartItems.filter(
-          item => item.id != action.cartItems.id
-        )
-      }
+    // case DELETE_PRODUCT_FROM_CART:
+    //   return {
+    //     ...state,
+    //     cartItems: state.cartItems.filter(
+    //       item => item.id != action.cartItems.id
+    //     )
+    //   }
     default:
       return state
   }

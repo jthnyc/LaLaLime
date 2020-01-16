@@ -1,25 +1,35 @@
 import React from 'react'
 import CartItem from './cart-item'
 import {connect} from 'react-redux'
-import {getCartItems, deleteProductFromCart} from '../store'
+import {getCartItems, incrementItemQuantity} from '../store'
 
 class Cart extends React.Component {
   constructor() {
     super()
+    this.state = {
+      quantity: 0
+    }
     // this.increment = this.increment.bind(this)
     // this.decrement = this.decrement.bind(this)
     // this.removeFromCart = this.removeFromCart.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.increment = this.increment.bind(this)
   }
 
   componentDidMount() {
     this.props.getCartItems(this.props.match.params.userId)
   }
 
-  handleClick(e) {
-    console.log('EVENT TARGET: ', e.target)
-    this.props.deleteProductFromCart(e.target.id)
-  }
+  // increment = () => {
+  //   this.setState({
+  //     quantity: this.state.quantity + 1
+  //   })
+  // }
+
+  // handleClick(e) {
+  //   console.log('EVENT TARGET: ', e.target)
+  //   this.props.deleteProductFromCart(e.target.id)
+  // }
 
   // increment(item) {
   //   const max = 10
@@ -62,9 +72,10 @@ class Cart extends React.Component {
                 <CartItem
                   key={item.id}
                   item={item}
+                  quantity={this.state.quantity}
                   // increment={this.increment}
                   // decrement={this.decrement}
-                  removeItem={this.handleClick}
+                  // removeItem={this.handleClick}
                   userId={this.props.userId}
                 />
               )
@@ -89,7 +100,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getCartItems: userId => dispatch(getCartItems(userId)),
-    removeItem: userId => dispatch(deleteProductFromCart(userId))
+    // removeItem: userId => dispatch(deleteProductFromCart(userId))
+    increment: () => dispatch(incrementItemQuantity())
   }
 }
 
