@@ -30,7 +30,9 @@ class SingleProduct extends React.Component {
           <div className="product-card-grid-all">
             <div>{this.props.currentProduct.name}</div>
             <img src={this.props.currentProduct.imageUrl} />
-            <button onClick={this.handleClick}>Add to cart</button>
+            <button type="submit" onClick={this.handleClick}>
+              Add to cart
+            </button>
           </div>
         </div>
       </div>
@@ -44,7 +46,7 @@ class SingleProduct extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    // currentProduct: state.product.currentProduct,
+    currentProduct: state.product.currentProduct,
     productId: ownProps.match.params.id,
     userId: state.user.id
   }
@@ -53,9 +55,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     getSingleProduct: id => dispatch(getSingleProduct(id)),
-    getMe: () => dispatch(me())
-    // addProductToCart: (userId, productId) =>
-    //   dispatch(addProductToCart(userId, productId))
+    getMe: () => dispatch(me()),
+    addProductToCart: (userId, productId) =>
+      dispatch(addProductToCart(userId, productId))
   }
 }
 

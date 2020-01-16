@@ -9,7 +9,7 @@ const GOT_CART_ITEMS = 'GOT_CART_ITEMS'
 /**
  * INITIAL STATE
  */
-const cartItems = {
+const initialState = {
   cartItems: []
 }
 
@@ -33,23 +33,22 @@ export const getCartItems = () => async dispatch => {
   }
 }
 
-// export const addProductToCart = (userId, productId) => async dispatch => {
-//   try {
-//     console.log('addProdToCart')
-//     const res = await axios.post('/api/users/order', {
-//       userId: userId,
-//       productId: productId
-//     })
-//     dispatch(addProductToState(productId))
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }
+export const addProductToCart = (userId, productId) => async dispatch => {
+  try {
+    console.log('addProdToCart')
+    const res = await axios.post('/api/cart/order', {
+      userId: userId,
+      productId: productId
+    })
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 /**
  * REDUCER
  */
-export default function(state = cartItems, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case GOT_CART_ITEMS:
       return {...state, cartItems: action.cartItems}
