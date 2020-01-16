@@ -9,7 +9,7 @@ const GOT_CART_ITEMS = 'GOT_CART_ITEMS'
 /**
  * INITIAL STATE
  */
-const cartItems = {
+const initialState = {
   cartItems: []
 }
 
@@ -48,7 +48,7 @@ export const addProductToCart = (userId, productId) => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = cartItems, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case GOT_CART_ITEMS:
       return {...state, cartItems: action.cartItems}
