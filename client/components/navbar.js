@@ -17,7 +17,7 @@ const Navbar = ({handleClick, isLoggedIn, props}) => (
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
           <Link to="/products">Products</Link>
-          <Link to={`/cart/${isLoggedIn}`}>My Cart</Link>
+          <Link to="/cart/:userId">My Cart</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -26,7 +26,7 @@ const Navbar = ({handleClick, isLoggedIn, props}) => (
         <div>
           {/* The navbar will show these links before you log in */}
           <Link to="/products">Products</Link>
-          <Link to="/cart">My Cart</Link>
+          <Link to="/cart/:userId">My Cart</Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
         </div>
@@ -42,7 +42,6 @@ const Navbar = ({handleClick, isLoggedIn, props}) => (
 const mapStateToProps = state => {
   return {
     isLoggedIn: !!state.user.id
-    // userId: state.user.id
   }
 }
 

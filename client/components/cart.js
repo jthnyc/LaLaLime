@@ -70,7 +70,7 @@ class Cart extends React.Component {
             this.props.cartItems.map(item => {
               return (
                 <CartItem
-                  key={item.id}
+                  key={item.productId}
                   item={item}
                   quantity={this.state.quantity}
                   // increment={this.increment}
@@ -99,9 +99,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCartItems: userId => dispatch(getCartItems(userId)),
+    getCartItems: userId => dispatch(getCartItems(userId))
     // removeItem: userId => dispatch(deleteProductFromCart(userId))
-    increment: () => dispatch(incrementItemQuantity())
+    // increment: () => dispatch(incrementItemQuantity())
   }
 }
 
