@@ -1,18 +1,24 @@
 import React from 'react'
 import CartItem from './cart-item'
 import {connect} from 'react-redux'
-import {getCartItems} from '../store'
+import {getCartItems, deleteProductFromCart} from '../store'
 
 class Cart extends React.Component {
-  // constructor() {
-  //   super()
-  //   this.increment = this.increment.bind(this)
-  //   this.decrement = this.decrement.bind(this)
-  //   this.removeFromCart = this.removeFromCart.bind(this)
-  // }
+  constructor() {
+    super()
+    // this.increment = this.increment.bind(this)
+    // this.decrement = this.decrement.bind(this)
+    // this.removeFromCart = this.removeFromCart.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+  }
 
   componentDidMount() {
-    this.props.getCartItems()
+    this.props.getCartItems(this.props.match.params.userId)
+  }
+
+  handleClick(e) {
+    console.log('EVENT TARGET: ', e.target)
+    this.props.deleteProductFromCart(e.target.id)
   }
 
   // increment(item) {
@@ -45,6 +51,7 @@ class Cart extends React.Component {
   // }
 
   render() {
+    console.log('THIS PROPS: ', this.props)
     return (
       <div className="cart-page">
         <h2>Shopping cart</h2>
@@ -57,7 +64,8 @@ class Cart extends React.Component {
                   item={item}
                   // increment={this.increment}
                   // decrement={this.decrement}
-                  // remove={this.removeFromCart}
+                  removeItem={this.handleClick}
+                  userId={this.props.userId}
                 />
               )
             })
@@ -74,13 +82,14 @@ const mapStateToProps = state => {
   console.log('STATE IN CART: ', state)
   return {
     cartItems: state.cart.cartItems,
-    userId: state.user.userId
+    userId: state.user.id
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCartItems: () => dispatch(getCartItems())
+    getCartItems: userId => dispatch(getCartItems(userId)),
+    removeItem: userId => dispatch(deleteProductFromCart(userId))
   }
 }
 

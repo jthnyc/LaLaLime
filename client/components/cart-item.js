@@ -1,7 +1,7 @@
 import React from 'react'
 
 const CartItem = props => {
-  const {key, item, increment, decrement, remove} = props
+  const {key, item, increment, decrement, removeItem, userId} = props
   return (
     <div key={item.id} className="cart-list">
       <div className="cart-product-row">
@@ -18,19 +18,16 @@ const CartItem = props => {
         <div>Size: {item.size}</div>
         <div>Price: ${item.price}</div>
         <div className="quantity-btn">
-          <button type="button" onClick={cartItem => decrement(cartItem)}>
+          <button type="button" onClick={product => decrement(product)}>
             -
           </button>
           <p>1</p>
-          <button type="button" onClick={cartItem => increment(cartItem)}>
+          <button type="button" onClick={product => increment(product)}>
             +
           </button>
         </div>
         <div>
-          <button type="button">Edit</button>
-        </div>
-        <div>
-          <button type="button" onClick={cartItem => remove(cartItem)}>
+          <button type="button" onClick={() => removeItem(item)}>
             X
           </button>
         </div>

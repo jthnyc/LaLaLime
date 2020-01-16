@@ -5,6 +5,7 @@ import axios from 'axios'
  */
 const GOT_PRODUCTS = 'GOT_PRODUCTS'
 const GOT_SINGLE_PRODUCT = 'GOT_SINGLE_PRODUCT'
+const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART'
 
 /**
  * INITIAL STATE
@@ -24,6 +25,10 @@ const gotProducts = products => ({
 const gotSingleProduct = currentProduct => ({
   type: GOT_SINGLE_PRODUCT,
   currentProduct
+})
+const addedProductToCart = productId => ({
+  type: ADD_PRODUCT_TO_CART,
+  productId
 })
 
 /**
@@ -46,6 +51,20 @@ export const getSingleProduct = id => async dispatch => {
     console.error(error)
   }
 }
+
+export const addProductToCart = (userId, productId) => async dispatch => {
+  try {
+    console.log('addProdToCart')
+    const res = await axios.post('/api/cart/order', {
+      userId: userId,
+      productId: productId
+    })
+    dispatch(addedProductToCart(res.data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 /**
  * REDUCER
  */
@@ -55,6 +74,8 @@ export default function(state = initialState, action) {
       return {...state, products: action.products}
     case GOT_SINGLE_PRODUCT:
       return {...state, currentProduct: action.currentProduct}
+    case ADD_PRODUCT_TO_CART:
+      return {...state, currentProduct: action.productId}
     default:
       return state
   }

@@ -4,14 +4,12 @@ module.exports = router
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    console.log('REQ.PARAMS: ', req.params)
     const cart = await Order.findOne({
       where: {
         userId: req.params.userId,
         status: 'pending'
       }
     })
-    console.log('CART: ', cart)
     const orderId = cart.id
     const productList = await ProductOrder.findAll({
       where: {
