@@ -34,7 +34,10 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const user = await User.create({email: `${req.session.id}@email.com`})
+    const user = await User.create({
+      email: `${req.session.id}@email.com`,
+      sessionId: `${req.session.id}`
+    })
     res.json(user)
   } catch (error) {
     next(error)
