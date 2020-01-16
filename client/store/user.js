@@ -30,9 +30,6 @@ export const me = () => async dispatch => {
   }
 }
 
-//a thunk that dispatch a post request to /api/users to look for the same session id or create a new guess user profile
-//dispage getUser
-
 export const auth = (email, password, method) => async dispatch => {
   let res
   try {
