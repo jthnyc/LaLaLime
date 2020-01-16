@@ -61,3 +61,34 @@ router.post('/order', async (req, res, next) => {
     next(error)
   }
 })
+
+router.put('/:userId', async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
+      where: {
+        userId: req.params.userId
+      }
+    })
+    const orderId = orderId.id
+    const productOrder = await ProductOrder.findOne({
+      where: {
+        orderId: orderId,
+        productId: req.body.productId
+      }
+    })
+    if (req.body.method === 'increment') {
+      productOrder.quantity++
+      productOrder.save()
+    }
+    if (req.body.method === 'decrement') {
+      if (productOrder.quantity > 1) {
+        productOrder.quantity--
+        productOrder.save()
+      } else {
+        productOrder.destroy()
+      }
+    }
+  } catch (error) {
+    next(error)
+  }
+})

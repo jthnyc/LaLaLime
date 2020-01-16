@@ -23,7 +23,7 @@ const CartItem = props => {
           </button>
         </div>
         <div>
-          <button type="button" onClick={() => removeItem(item)}>
+          <button type="button" onClick={() => removeItem()}>
             X
           </button>
         </div>
