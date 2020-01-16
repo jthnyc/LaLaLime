@@ -4,7 +4,7 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GOT_CART_ITEMS = 'GOT_CART_ITEMS'
-const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART'
+// const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART'
 // const INCREMENT_ITEM_QUANTITY = 'INCREMENT_ITEM_QUANTITY'
 // const DECREMENT_ITEM_QUANTITY = 'DECREMENT_ITEM_QUANTITY'
 
@@ -24,10 +24,10 @@ const gotCartItems = cartItems => ({
   cartItems
 })
 
-const deletedProductFromCart = updatedCart => ({
-  type: DELETE_PRODUCT_FROM_CART,
-  cartItems: updatedCart
-})
+// const deletedProductFromCart = updatedCart => ({
+//   type: DELETE_PRODUCT_FROM_CART,
+//   cartItems: updatedCart
+// })
 
 // const incrementedItemQuantity = productId => ({
 //   type: INCREMENT_ITEM_QUANTITY,
@@ -65,20 +65,19 @@ export const addProductToCart = (userId, productId) => async dispatch => {
   }
 }
 
-export const deleteProductFromCart = user => async dispatch => {
-  try {
-    console.log('USERID IN DELETE: ', user)
-    let productList = initialState.cartItems
-    console.log(productList)
-    let product
-    console.log('PRODUCT IN DELETE: ', product)
-    await axios.delete(`/api/cart/${user}`)
-    const {data} = await axios.get(`/api/cart/${user}`)
-    dispatch(deletedProductFromCart(data))
-  } catch (error) {
-    console.error(error)
-  }
-}
+// export const deleteProductFromCart = (userId, productId) => async dispatch => {
+//   try {
+//     await axios.delete(`/api/cart/${userId}`, {
+//       userId: userId,
+//       productId: productId
+//     })
+
+//     const {data} = await axios.get(`/api/cart/${userId}`)
+//     dispatch(deletedProductFromCart(data))
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
 
 // export const incrementItemQuantity = (userId, product) => async dispatch => {
 //   try {
@@ -106,9 +105,7 @@ export default function(state = initialState, action) {
     // case DELETE_PRODUCT_FROM_CART:
     //   return {
     //     ...state,
-    //     cartItems: state.cartItems.filter(
-    //       item => item.id != action.cartItems.id
-    //     )
+    //     cartItems: [...action.cartItems]
     //   }
     default:
       return state

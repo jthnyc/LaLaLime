@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 // import xslogo from './xslogo.png'
 
-const Navbar = ({handleClick, isLoggedIn, props}) => (
+const Navbar = ({handleClick, isLoggedIn, userId}) => (
   <div className="main-nav">
     <Link to="/home">
       <h1>LaLaLime</h1>
@@ -17,7 +17,7 @@ const Navbar = ({handleClick, isLoggedIn, props}) => (
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
           <Link to="/products">Products</Link>
-          <Link to="/cart/:userId">My Cart</Link>
+          <Link to={`/cart/${userId}`}>My Cart</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -26,7 +26,7 @@ const Navbar = ({handleClick, isLoggedIn, props}) => (
         <div>
           {/* The navbar will show these links before you log in */}
           <Link to="/products">Products</Link>
-          <Link to="/cart/:userId">My Cart</Link>
+          <Link to={`/cart/${userId}`}>My Cart</Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
         </div>
@@ -41,7 +41,8 @@ const Navbar = ({handleClick, isLoggedIn, props}) => (
  */
 const mapStateToProps = state => {
   return {
-    isLoggedIn: !!state.user.email
+    isLoggedIn: !!state.user.email,
+    userId: state.user.id
   }
 }
 
