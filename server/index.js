@@ -10,6 +10,7 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
+const {User} = require('../server/db/models')
 module.exports = app
 
 // This is a global Mocha hook, used for resource cleanup.
@@ -63,6 +64,27 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  app.use('*', async (req, res, next) => {
+    try {
+      if (!req.session.user) {
+        //if you are logged in
+        if (req.user) {
+          req.session.user = req.user
+        } else {
+          //if you are a guest
+          const newUser = await User.create({sessionId: req.session.id})
+          req.session.user = newUser
+          req.user = newUser
+        }
+      }
+      next()
+    } catch (error) {
+      next(error)
+    }
+
+    // needed to continue through express middleware
+  })
+
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
@@ -72,7 +94,6 @@ const createApp = () => {
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {
-    console.log('req.body', req.session.id)
     if (path.extname(req.path).length) {
       const err = new Error('Not found')
       err.status = 404

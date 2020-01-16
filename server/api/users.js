@@ -32,14 +32,14 @@ router.get('/:id', async (req, res, next) => {
 
 //when a guess browse a page, server look at the session/cookie id, and findOrCreate a user
 
-router.post('/', async (req, res, next) => {
-  try {
-    const user = await User.create({
-      email: `${req.session.id}@email.com`,
-      sessionId: `${req.session.id}`
-    })
-    res.json(user)
-  } catch (error) {
-    next(error)
-  }
-})
+// router.post('/', async (req, res, next) => {
+//   try {
+//     const user = await User.create({
+//       email: `${req.session.id}@email.com`,
+//       sessionId: `${req.session.id}`
+//     })
+//     res.json(user)
+//   } catch (error) {
+//     next(error)
+//   }
+// })

@@ -24,11 +24,7 @@ const removeUser = () => ({type: REMOVE_USER})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    let newUser
-    if (!res.data) {
-      newUser = await axios.post('/api/users')
-    }
-    dispatch(getUser(res.data || newUser.data || initialState))
+    dispatch(getUser(res.data || initialState))
   } catch (err) {
     console.error(err)
   }
