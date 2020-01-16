@@ -11,7 +11,7 @@ const GOT_SINGLE_PRODUCT = 'GOT_SINGLE_PRODUCT'
  */
 const initialState = {
   products: [],
-  currentProduct: []
+  currentProduct: {}
 }
 
 /**
@@ -46,6 +46,7 @@ export const getSingleProduct = id => async dispatch => {
     console.error(error)
   }
 }
+
 /**
  * REDUCER
  */
