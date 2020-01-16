@@ -24,11 +24,18 @@ const removeUser = () => ({type: REMOVE_USER})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    dispatch(getUser(res.data || initialState))
+    let newUser
+    if (!res.data) {
+      newUser = await axios.post('/api/users')
+    }
+    dispatch(getUser(res.data || newUser.data || initialState))
   } catch (err) {
     console.error(err)
   }
 }
+
+//a thunk that dispatch a post request to /api/users to look for the same session id or create a new guess user profile
+//dispage getUser
 
 export const auth = (email, password, method) => async dispatch => {
   let res

@@ -29,3 +29,14 @@ router.get('/:id', async (req, res, next) => {
     next(error)
   }
 })
+
+//when a guess browse a page, server look at the session/cookie id, and findOrCreate a user
+
+router.post('/', async (req, res, next) => {
+  try {
+    const user = await User.create({email: `${req.session.id}@email.com`})
+    res.json(user)
+  } catch (error) {
+    next(error)
+  }
+})
