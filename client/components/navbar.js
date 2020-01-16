@@ -41,7 +41,7 @@ const Navbar = ({handleClick, isLoggedIn, props}) => (
  */
 const mapStateToProps = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.email
   }
 }
 
