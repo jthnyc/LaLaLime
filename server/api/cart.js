@@ -4,19 +4,12 @@ module.exports = router
 
 router.post('/order', async (req, res, next) => {
   try {
-    console.log('reqbody', req.body)
-    const newOrder = await Order.create()
-    console.log('newOrder', newOrder)
-    // const currentUser = User.findOne({
-    //   where: {
-    //     id: req.body.userId
-    //   }
-    // })
-    // newOrder.setUser(currentUser)
-    // const currentProduct = await Product.findOne({
-    //   where: {id: req.body.productId}
-    // })
-    // newOrder.hasProduct(currentProduct)
+    const newOrder = await Order.create({userId: req.body.userId})
+    const currentProduct = await Product.findOne({
+      where: {id: req.body.productId}
+    })
+    await newOrder.addProduct(currentProduct)
+    res.sendStatus(201)
   } catch (error) {
     next(error)
   }
