@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background: linear-gradient(90deg, #edf5e1, #04386c);
 }
 
 a {
@@ -10,9 +11,16 @@ label {
   display: block;
 }
 
+/* Navbar Styles */
+nav {
+  background-color: #edf5e1;
+  font-family: 'Gill Sans', sans-serif;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
+  /* background-color: #9334ae; */
 }
 
 form div {
@@ -21,7 +29,6 @@ form div {
 }
 
 /* Cart Styles */
-
 .cart-product-row {
   display: flex;
   justify-content: space-between;

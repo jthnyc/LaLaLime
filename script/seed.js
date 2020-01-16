@@ -39,7 +39,8 @@ async function seed() {
       size: 's',
       price: 30,
       quantity: 10,
-      category: 'leggings'
+      category: 'leggings',
+      imageUrl: 'https://athleta.gap.com/webcontent/0017/651/857/cn17651857.jpg'
     }),
     Product.create({
       SKU: '12345679',
@@ -48,7 +49,9 @@ async function seed() {
       size: 's',
       price: 30,
       quantity: 10,
-      category: 'leggings'
+      category: 'leggings',
+      imageUrl:
+        '//cdn.shopify.com/s/files/1/2185/2813/products/W5824R_03093R_1_8f37f807-0efa-4472-b478-6c353a5b5670.jpg?v=1578623165'
     }),
     Product.create({
       SKU: '12345681',
@@ -57,7 +60,9 @@ async function seed() {
       size: 's',
       price: 30,
       quantity: 10,
-      category: 'leggings'
+      category: 'leggings',
+      imageUrl:
+        '//cdn.shopify.com/s/files/1/2185/2813/products/W5811R_02930_1.jpg?v=1575045216'
     }),
     Product.create({
       SKU: '1234566681',
