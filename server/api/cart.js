@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Product, Order, User} = require('../db/models')
+const {Product, Order, User, ProductOrder} = require('../db/models')
 module.exports = router
 
 router.post('/order', async (req, res, next) => {
@@ -17,11 +17,24 @@ router.post('/order', async (req, res, next) => {
     } else {
       currentOrder = existingOrder
     }
-    //adding current product to the current order
-    const currentProduct = await Product.findOne({
-      where: {id: req.body.productId}
+    //find the corresponding product-order
+    const currentProductOrder = await ProductOrder.findOne({
+      where: {orderId: currentOrder.id, productId: req.body.productId}
     })
-    await currentOrder.addProduct(currentProduct)
+
+    //check to see if the current order has this kind of product befor
+    if (!currentProductOrder) {
+      //adding current product to the current order
+      const currentProduct = await Product.findOne({
+        where: {id: req.body.productId},
+        include: [{model: ProductOrder}]
+      })
+      await currentOrder.addProduct(currentProduct)
+    } else {
+      currentProductOrder.quantity++
+      currentProductOrder.save()
+    }
+
     res.sendStatus(201)
   } catch (error) {
     next(error)

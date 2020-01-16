@@ -10,7 +10,8 @@ const ProductOrder = db.define('productOrder', {
     type: Sequelize.STRING
   },
   quantity: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 1
   }
 })
 
