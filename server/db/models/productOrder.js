@@ -4,10 +4,10 @@ const db = require('../db')
 
 const ProductOrder = db.define('productOrder', {
   productId: {
-    type: Sequelize.STRING
+    type: Sequelize.INTEGER
   },
   orderId: {
-    type: Sequelize.STRING
+    type: Sequelize.INTEGER
   },
   quantity: {
     type: Sequelize.INTEGER,
