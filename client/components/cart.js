@@ -1,7 +1,7 @@
 import React from 'react'
 import CartItem from './cart-item'
 import {connect} from 'react-redux'
-import {getCartItems, incrementItemQuantity} from '../store'
+import {getCartItems} from '../store'
 
 class Cart extends React.Component {
   constructor() {
@@ -12,8 +12,8 @@ class Cart extends React.Component {
     // this.increment = this.increment.bind(this)
     // this.decrement = this.decrement.bind(this)
     // this.removeFromCart = this.removeFromCart.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-    this.increment = this.increment.bind(this)
+    // this.handleClick = this.handleClick.bind(this)
+    // this.increment = this.increment.bind(this)
   }
 
   componentDidMount() {
