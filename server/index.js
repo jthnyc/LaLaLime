@@ -81,8 +81,6 @@ const createApp = () => {
     } catch (error) {
       next(error)
     }
-
-    // needed to continue through express middleware
   })
 
   // auth and api routes
