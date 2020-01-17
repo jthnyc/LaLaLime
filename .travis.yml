@@ -13,16 +13,18 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "lalalime-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
-  - npm test             # test the code
+  - npm test # test the code
   - npm run build-client # make the bundle
-
-# before_deploy:
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy: # omit node_modules, since we set skip_cleanup below
+  - rm -rf node_modules
+deploy: # see README for details on these keys
+  # prevents travis from deleting the build
+  skip_cleanup: true
+  provider: heroku
+  # app should be your heroku app name; see README
+  app: lalalime
+  # the secure key indicates an encrypted value; see README
+  api_key:
+    secure: w2WAg7oJZXXBPdC4kOdV7solkhXsxNH7kO5kZbCqsTiPYEKN7XFahc1oRRWag9ppz9Xf9mL+8ncEsHzAS926UKRVEoYMQ3sjEa/QlLLHMlH3N70RIIagSRRBWRCzhB3vr33z3FfetA+6BQvrEFcvC+na+vjwrZGlMSo+GIuu7R+tHzR+rz4vyB4vE0pwMoDUyb5pm3Y1lM5/FsNrBB8wRp2q64sQUTxyRhQomx+UUOr0o/uOVHWoHmBdcWUGXhCBjU2+8L126GRS9b9EeT4Ypd5Q6j5hbaMfSEizxIxv2XdiD6z3EWoRu2GM0kTnMWX/mKcXVdqsTdvM8y9OkD22q7Lpti8jUgRlyFwcZenaw43LpZ9X2AYJnF2qZDtBs30WzNvHMXvee+cCAwnaUQpLpdTfwmXiYofj3tCK5Uly/0ZWW7C0OXB4enCHx4XruHNJ12d2Dtd47mWNNMmLXtKQ9sSBRPOkL40uUtWaq39he38NS5NGdu5tpocdceigCMTTLBnNJmRFfmCtVgR1hcndsmCAIGennsoOmqcpPV6kq1sZJRATm2KTkXqEO+yTkThJvDSH6dtGuC0gzyUUw0a6gIRfgrZFD3dxeG/W70vGOUwFQD4owsI+6jYSPvrIr6bCUeuvlp0Bm+EEojIxpKxoYhnJH6Jj5mZTydR7q3GzATI=
