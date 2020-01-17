@@ -1,9 +1,13 @@
 import React from 'react'
-import {deleteProductFromCart} from '../store'
+import {
+  deleteProductFromCart,
+  incrementItemQuantity,
+  decrementItemQuantity
+} from '../store'
 import {connect} from 'react-redux'
 
 const CartItem = props => {
-  const {item, increment, decrement, userId} = props
+  const {item, userId} = props
   return (
     <div key={item.id} className="cart-list">
       <div className="cart-product-row">
@@ -16,11 +20,17 @@ const CartItem = props => {
         <div>Size: {item.product.size}</div>
         <div>Price: ${item.product.price}</div>
         <div className="quantity-btn">
-          <button type="button" onClick={() => decrement(item.quantity)}>
+          <button
+            type="button"
+            onClick={() => props.decrement(userId, item.productId)}
+          >
             -
           </button>
           <p>{item.quantity}</p>
-          <button type="button" onClick={() => increment(item.quantity)}>
+          <button
+            type="button"
+            onClick={() => props.increment(userId, item.productId)}
+          >
             +
           </button>
         </div>
@@ -39,9 +49,12 @@ const CartItem = props => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    removeItem: (userId, productId) => {
-      return dispatch(deleteProductFromCart(userId, productId))
-    }
+    removeItem: (userId, productId) =>
+      dispatch(deleteProductFromCart(userId, productId)),
+    increment: (userId, productId) =>
+      dispatch(incrementItemQuantity(userId, productId)),
+    decrement: (userId, productId) =>
+      dispatch(decrementItemQuantity(userId, productId))
   }
 }
 

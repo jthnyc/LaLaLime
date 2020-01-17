@@ -1,4 +1,5 @@
 import axios from 'axios'
+import product from './product'
 
 /**
  * ACTION TYPES
@@ -28,17 +29,6 @@ const deletedProductFromCart = updatedCart => ({
   type: DELETE_PRODUCT_FROM_CART,
   cartItems: updatedCart
 })
-
-// const incrementedItemQuantity = productId => ({
-//   type: INCREMENT_ITEM_QUANTITY,
-//   productId
-// })
-
-// const decrementedItemQuantity = productId => ({
-//   type: DECREMENT_ITEM_QUANTITY,
-//   productId
-// })
-
 /**
  * THUNK CREATORS
  */
@@ -67,8 +57,6 @@ export const addProductToCart = (userId, productId) => async dispatch => {
 
 export const deleteProductFromCart = (userId, productId) => async dispatch => {
   try {
-    console.log('USERID', userId)
-    console.log('PRODUCTID', productId)
     await axios.delete(`/api/cart/${userId}`, {
       data: {
         userId: userId,
@@ -82,21 +70,31 @@ export const deleteProductFromCart = (userId, productId) => async dispatch => {
   }
 }
 
-// export const incrementItemQuantity = (userId, product) => async dispatch => {
-//   try {
-//     const updatedProduct = await axios.put(`/api/cart/${userId}`, product)
-//     dispatch(incrementedItemQuantity(updatedProduct))
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }
+export const incrementItemQuantity = (userId, productId) => async dispatch => {
+  try {
+    const updatedProduct = await axios.put(`/api/cart/${userId}`, {
+      productId: productId,
+      change: 'increment'
+    })
+    const {data} = await axios.get(`/api/cart/${userId}`)
+    dispatch(gotCartItems(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
 
-// export const decrementItemQuantity = (userId, productId) => async dispatch => {
-//   try {
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }
+export const decrementItemQuantity = (userId, productId) => async dispatch => {
+  try {
+    const updatedProduct = await axios.put(`/api/cart/${userId}`, {
+      productId: productId,
+      change: 'decrement'
+    })
+    const {data} = await axios.get(`/api/cart/${userId}`)
+    dispatch(gotCartItems(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 /**
  * REDUCER
@@ -104,9 +102,7 @@ export const deleteProductFromCart = (userId, productId) => async dispatch => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GOT_CART_ITEMS:
-      return {...state, cartItems: [...action.cartItems]}
-    case DELETE_PRODUCT_FROM_CART:
-      return {...state, cartItems: [...action.cartItems]}
+      return {...state, cartItems: action.cartItems}
     default:
       return state
   }

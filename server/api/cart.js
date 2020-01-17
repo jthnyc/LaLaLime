@@ -73,23 +73,24 @@ router.post('/order', async (req, res, next) => {
 
 router.put('/:userId', async (req, res, next) => {
   try {
+    console.log('HIT HEREEEEEE', req.body)
     const order = await Order.findOne({
       where: {
         userId: req.params.userId
       }
     })
-    const orderId = orderId.id
+    const orderId = order.id
     const productOrder = await ProductOrder.findOne({
       where: {
         orderId: orderId,
         productId: req.body.productId
       }
     })
-    if (req.method === 'increment') {
+    if (req.body.change === 'increment') {
       productOrder.quantity++
       productOrder.save()
     }
-    if (req.method === 'decrement') {
+    if (req.body.change === 'decrement') {
       if (productOrder.quantity > 1) {
         productOrder.quantity--
         productOrder.save()
