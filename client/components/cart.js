@@ -1,51 +1,12 @@
 import React from 'react'
 import CartItem from './cart-item'
 import {connect} from 'react-redux'
-import {getCartItems, deleteProductFromCart} from '../store'
+import {getCartItems} from '../store'
 
 class Cart extends React.Component {
-  constructor() {
-    super()
-
-    // this.increment = this.increment.bind(this)
-    // this.decrement = this.decrement.bind(this)
-    // this.removeFromCart = this.removeFromCart.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-    // this.increment = this.increment.bind(this)
-  }
-
   componentDidMount() {
     this.props.getCartItems(this.props.match.params.userId)
   }
-
-  // increment = () => {
-  //   this.setState({
-  //     quantity: this.state.quantity + 1
-  //   })
-  // }
-
-  handleClick(evt) {
-    console.log('EVENT', evt)
-    evt.preventDefault()
-    this.props.removeItem(this.props.match.params.userId)
-  }
-
-  // decrement(item) {
-  //   if (item.quantity >= 1) {
-  //     item.quantity--
-  //   }
-  //   if (item.quantity === 0) {
-  //     this.removeFromCart(item)
-  //   }
-  // }
-
-  // removeFromCart(item) {
-  //   const newItems = this.props.cartItems.slice()
-  //   newItems.splice(newItems.indexOf(item))
-  //   this.setState({
-  //     cartItems: newItems
-  //   })
-  // }
 
   render() {
     console.log('THIS PROPS: ', this.props)
@@ -59,9 +20,6 @@ class Cart extends React.Component {
                 <CartItem
                   key={item.productId}
                   item={item}
-                  // increment={this.increment}
-                  // decrement={this.decrement}
-                  removeItem={this.handleClick}
                   userId={this.props.userId}
                 />
               )
@@ -85,10 +43,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCartItems: userId => dispatch(getCartItems(userId)),
-    removeItem: (userId, productId) =>
-      dispatch(deleteProductFromCart(userId, productId))
-    // increment: () => dispatch(incrementItemQuantity())
+    getCartItems: userId => dispatch(getCartItems(userId))
   }
 }
 
