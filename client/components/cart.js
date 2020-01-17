@@ -10,7 +10,7 @@ class Cart extends React.Component {
     // this.increment = this.increment.bind(this)
     // this.decrement = this.decrement.bind(this)
     // this.removeFromCart = this.removeFromCart.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    // this.handleClick = this.handleDelete.bind(this)
     // this.increment = this.increment.bind(this)
   }
 
@@ -24,11 +24,11 @@ class Cart extends React.Component {
   //   })
   // }
 
-  handleClick(evt) {
-    console.log('EVENT', evt)
-    evt.preventDefault()
-    this.props.removeItem(this.props.match.params.userId)
-  }
+  // handleDelete(evt) {
+  //   console.log('EVENT', evt)
+  //   evt.preventDefault()
+  //   this.props.removeItem(this.props.match.params.userId)
+  // }
 
   // decrement(item) {
   //   if (item.quantity >= 1) {
@@ -61,7 +61,7 @@ class Cart extends React.Component {
                   item={item}
                   // increment={this.increment}
                   // decrement={this.decrement}
-                  removeItem={this.handleClick}
+                  // removeItem={this.handleDelete}
                   userId={this.props.userId}
                 />
               )
@@ -85,9 +85,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCartItems: userId => dispatch(getCartItems(userId)),
-    removeItem: (userId, productId) =>
-      dispatch(deleteProductFromCart(userId, productId))
+    getCartItems: userId => dispatch(getCartItems(userId))
+    // removeItem: (userId, productId) =>
+    //   dispatch(deleteProductFromCart(userId, productId))
     // increment: () => dispatch(incrementItemQuantity())
   }
 }

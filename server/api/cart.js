@@ -101,3 +101,25 @@ router.put('/:userId', async (req, res, next) => {
     next(error)
   }
 })
+
+router.delete('/:userId', async (req, res, next) => {
+  try {
+    console.log('CERCLE HITS HERE')
+    console.log('REQQQQ BODY', req.body)
+    const currentOrder = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        status: 'pending'
+      }
+    })
+    const currentProductOrder = await ProductOrder.findOne({
+      where: {
+        orderId: currentOrder.id,
+        productId: req.body.productId
+      }
+    })
+    await currentProductOrder.destroy()
+  } catch (error) {
+    next(error)
+  }
+})

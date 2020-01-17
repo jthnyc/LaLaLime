@@ -1,7 +1,9 @@
 import React from 'react'
+import {deleteProductFromCart} from '../store'
+import {connect} from 'react-redux'
 
 const CartItem = props => {
-  const {item, increment, decrement, removeItem, userId} = props
+  const {item, increment, decrement, userId} = props
   return (
     <div key={item.id} className="cart-list">
       <div className="cart-product-row">
@@ -25,8 +27,7 @@ const CartItem = props => {
         <div>
           <button
             type="button"
-            productid={item.id}
-            onClick={() => removeItem()}
+            onClick={() => props.removeItem(userId, item.productId)}
           >
             X
           </button>
@@ -36,4 +37,12 @@ const CartItem = props => {
   )
 }
 
-export default CartItem
+const mapDispatchToProps = dispatch => {
+  return {
+    removeItem: (userId, productId) => {
+      return dispatch(deleteProductFromCart(userId, productId))
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(CartItem)

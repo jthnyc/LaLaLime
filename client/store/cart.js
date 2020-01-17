@@ -70,12 +70,13 @@ export const deleteProductFromCart = (userId, productId) => async dispatch => {
     console.log('USERID', userId)
     console.log('PRODUCTID', productId)
     await axios.delete(`/api/cart/${userId}`, {
-      userId: userId,
-      productId: productId
+      data: {
+        userId: userId,
+        productId: productId
+      }
     })
     const {data} = await axios.get(`/api/cart/${userId}`)
-
-    dispatch(deletedProductFromCart(data))
+    dispatch(gotCartItems(data))
   } catch (error) {
     console.error(error)
   }
