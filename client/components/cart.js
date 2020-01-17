@@ -1,18 +1,16 @@
 import React from 'react'
 import CartItem from './cart-item'
 import {connect} from 'react-redux'
-import {getCartItems} from '../store'
+import {getCartItems, deleteProductFromCart} from '../store'
 
 class Cart extends React.Component {
   constructor() {
     super()
-    this.state = {
-      quantity: 0
-    }
+
     // this.increment = this.increment.bind(this)
     // this.decrement = this.decrement.bind(this)
     // this.removeFromCart = this.removeFromCart.bind(this)
-    // this.handleClick = this.handleClick.bind(this)
+    this.handleClick = this.handleClick.bind(this)
     // this.increment = this.increment.bind(this)
   }
 
@@ -26,22 +24,11 @@ class Cart extends React.Component {
   //   })
   // }
 
-  // handleClick(e) {
-  //   console.log('EVENT TARGET: ', e.target)
-  //   this.props.deleteProductFromCart(e.target.id)
-  // }
-
-  // increment(item) {
-  //   const max = 10
-  //   if (item.quantity < max) {
-  //     item.quantity++
-  //   } else {
-  //     this.setState({
-  //       outOfStock: true
-  //     })
-  //     alert('Womp womp... no more...')
-  //   }
-  // }
+  handleClick(evt) {
+    console.log('EVENT', evt)
+    evt.preventDefault()
+    this.props.removeItem(this.props.match.params.userId)
+  }
 
   // decrement(item) {
   //   if (item.quantity >= 1) {
@@ -72,10 +59,9 @@ class Cart extends React.Component {
                 <CartItem
                   key={item.productId}
                   item={item}
-                  quantity={this.state.quantity}
                   // increment={this.increment}
                   // decrement={this.decrement}
-                  // removeItem={this.handleClick}
+                  removeItem={this.handleClick}
                   userId={this.props.userId}
                 />
               )
@@ -99,8 +85,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCartItems: userId => dispatch(getCartItems(userId))
-    // removeItem: userId => dispatch(deleteProductFromCart(userId))
+    getCartItems: userId => dispatch(getCartItems(userId)),
+    removeItem: (userId, productId) =>
+      dispatch(deleteProductFromCart(userId, productId))
     // increment: () => dispatch(incrementItemQuantity())
   }
 }

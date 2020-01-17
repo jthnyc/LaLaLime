@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Product, Order, ProductOrder} = require('../db/models')
+const {Product, Order, ProductOrder, User} = require('../db/models')
 module.exports = router
 
 router.get('/:userId', async (req, res, next) => {
@@ -25,6 +25,7 @@ router.get('/:userId', async (req, res, next) => {
 
 router.post('/order', async (req, res, next) => {
   try {
+    console.log('USERID', req.body.userId)
     const existingOrder = await Order.findOne({
       where: {
         userId: req.body.userId,
@@ -34,7 +35,15 @@ router.post('/order', async (req, res, next) => {
     let currentOrder
     //if the user does not have pending order, create a new order
     if (!existingOrder) {
-      currentOrder = await Order.create({userId: req.body.userId})
+      currentOrder = await Order.create()
+      const currentUser = await User.findOne({
+        where: {
+          id: req.body.userId
+        }
+      })
+      console.log('CURRENT USER', currentUser)
+      console.log('CURRENT ORDER', currentOrder)
+      currentUser.addOrder(currentOrder)
     } else {
       currentOrder = existingOrder
     }
@@ -57,6 +66,37 @@ router.post('/order', async (req, res, next) => {
     }
 
     res.sendStatus(201)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:userId', async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
+      where: {
+        userId: req.params.userId
+      }
+    })
+    const orderId = orderId.id
+    const productOrder = await ProductOrder.findOne({
+      where: {
+        orderId: orderId,
+        productId: req.body.productId
+      }
+    })
+    if (req.method === 'increment') {
+      productOrder.quantity++
+      productOrder.save()
+    }
+    if (req.method === 'decrement') {
+      if (productOrder.quantity > 1) {
+        productOrder.quantity--
+        productOrder.save()
+      } else {
+        productOrder.destroy()
+      }
+    }
   } catch (error) {
     next(error)
   }
