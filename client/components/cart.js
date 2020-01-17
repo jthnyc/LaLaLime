@@ -6,9 +6,7 @@ import {getCartItems, deleteProductFromCart} from '../store'
 class Cart extends React.Component {
   constructor() {
     super()
-    // this.state = {
-    //   quantity: 0
-    // }
+
     // this.increment = this.increment.bind(this)
     // this.decrement = this.decrement.bind(this)
     // this.removeFromCart = this.removeFromCart.bind(this)
@@ -27,21 +25,10 @@ class Cart extends React.Component {
   // }
 
   handleClick(evt) {
-    console.log('EVENT TARGET: ', evt.productId)
-    this.props.deleteProductFromCart(evt.productId)
+    console.log('EVENT', evt)
+    evt.preventDefault()
+    this.props.removeItem(this.props.match.params.userId)
   }
-
-  // increment(item) {
-  //   const max = 10
-  //   if (item.quantity < max) {
-  //     item.quantity++
-  //   } else {
-  //     this.setState({
-  //       outOfStock: true
-  //     })
-  //     alert('Womp womp... no more...')
-  //   }
-  // }
 
   // decrement(item) {
   //   if (item.quantity >= 1) {
@@ -72,7 +59,6 @@ class Cart extends React.Component {
                 <CartItem
                   key={item.productId}
                   item={item}
-                  // quantity={this.state.quantity}
                   // increment={this.increment}
                   // decrement={this.decrement}
                   removeItem={this.handleClick}
@@ -100,7 +86,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getCartItems: userId => dispatch(getCartItems(userId)),
-    removeItem: userId => dispatch(deleteProductFromCart(userId))
+    removeItem: (userId, productId) =>
+      dispatch(deleteProductFromCart(userId, productId))
     // increment: () => dispatch(incrementItemQuantity())
   }
 }
