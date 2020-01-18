@@ -13,18 +13,20 @@ class Checkout extends React.Component {
       email: '',
       address: '',
       city: '',
-      zipcode: 11111,
-      phone: 111 - 111 - 1111
+      zipcode: 0,
+      phone: 0
     }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange(e) {
+  handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     })
   }
 
-  handleSubmit(e) {
+  handleSubmit(event) {
     event.preventDefault()
     const newOrder = {
       firstName: this.state.firstName,
@@ -50,6 +52,7 @@ class Checkout extends React.Component {
               name="firstName"
               onChange={this.handleChange}
               value={this.state.firstName}
+              placeholder="First Name"
             />
             <label htmlFor="lastName">Last Name:</label>
             <input
@@ -57,6 +60,7 @@ class Checkout extends React.Component {
               name="lastName"
               onChange={this.handleChange}
               value={this.state.lastName}
+              placeholder="Last Name"
             />
             <label htmlFor="email">Email:</label>
             <input
@@ -64,6 +68,7 @@ class Checkout extends React.Component {
               name="email"
               onChange={this.handleChange}
               value={this.state.email}
+              placeholder="Email"
             />
             <label htmlFor="address">Address:</label>
             <input
@@ -71,6 +76,7 @@ class Checkout extends React.Component {
               name="address"
               onChange={this.handleChange}
               value={this.state.address}
+              placeholder="Address"
             />
             {/* may want to do city as a dropdown in tier 2*/}
             <label htmlFor="city">City: </label>
@@ -79,20 +85,23 @@ class Checkout extends React.Component {
               name="city"
               onChange={this.handleChange}
               value={this.state.city}
+              placeholder="City"
             />
             <label htmlFor="zipcode">Zipcode: </label>
             <input
               type="text"
               name="zipcode"
               onChange={this.handleChange}
-              value={this.state.city}
+              value={this.state.zipcode}
+              placeholder="Zip Code"
             />
             <label htmlFor="phone">Phone: </label>
             <input
               type="text"
               name="phone"
               onChange={this.handleChange}
-              value={this.state.city}
+              value={this.state.phone}
+              placeholder="Phone Number"
             />
           </form>
         </div>
