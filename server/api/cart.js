@@ -116,7 +116,7 @@ router.delete('/:userId', async (req, res, next) => {
     const currentProductOrder = await ProductOrder.findOne({
       where: {
         orderId: currentOrder.id,
-        productId: req.body.productId
+        productId: req.params.productId
       }
     })
     await currentProductOrder.destroy()
