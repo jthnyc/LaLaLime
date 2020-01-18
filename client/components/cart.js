@@ -8,12 +8,22 @@ class Cart extends React.Component {
     this.props.getCartItems(this.props.match.params.userId)
   }
 
+  // will probably need to add new action submitOrder and add a handleclick in component
+
   render() {
     console.log('THIS PROPS: ', this.props)
+    let subtotal = this.props.cartItems.reduce(
+      (acc, item) => acc + item.product.price,
+      0
+    )
+    // may need to leave this to tier 2?
+    let subtotalWithTax
+
+    // eslint-disable-next-line no-return-assign
     return (
       <div className="cart-page">
-        <h2>Shopping cart</h2>
         <div className="cart-list">
+          <h2>Shopping cart</h2>
           {this.props.cartItems ? (
             this.props.cartItems.map(item => {
               return (
@@ -27,6 +37,27 @@ class Cart extends React.Component {
           ) : (
             <div>No items in cart!</div>
           )}
+        </div>
+        <div className="cart-order-summary">
+          <div className="cart-line-items">
+            <h2>Order Summary</h2>
+            <h4>
+              Subtotal:
+              {/* { 
+                subtotal = this.props.cartItems.reduce((acc, item) => acc + item.product.price, 0)
+              } */}
+              {subtotal}
+            </h4>
+            {/* // perhaps we can consider to include shipping in tier 2?
+            <h4>Shipping: </h4> */}
+            <h4>Estimated Tax:</h4>
+            <h2>Subtotal: {subtotal}</h2>
+            <a href={`/cart/${this.props.userId}/checkout`}>
+              <button type="button" className="cart-checkout-btn">
+                Checkout
+              </button>
+            </a>
+          </div>
         </div>
       </div>
     )
