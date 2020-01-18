@@ -8,12 +8,14 @@ class Cart extends React.Component {
     this.props.getCartItems(this.props.match.params.userId)
   }
 
+  // will probably need to add new action submitOrder and add a handleclick in component
+
   render() {
     console.log('THIS PROPS: ', this.props)
     return (
       <div className="cart-page">
-        <h2>Shopping cart</h2>
         <div className="cart-list">
+          <h2>Shopping cart</h2>
           {this.props.cartItems ? (
             this.props.cartItems.map(item => {
               return (
@@ -27,6 +29,20 @@ class Cart extends React.Component {
           ) : (
             <div>No items in cart!</div>
           )}
+        </div>
+        <div className="cart-order-summary">
+          <div className="cart-line-items">
+            <h2>Order Summary</h2>
+            <h4>Subtotal: </h4>
+            <h4>Shipping: </h4>
+            <h4>Estimated Tax:</h4>
+            <h2>Subtotal: </h2>
+            <a href={`/cart/${this.props.userId}/checkout`}>
+              <button type="button" className="cart-checkout-btn">
+                Checkout
+              </button>
+            </a>
+          </div>
         </div>
       </div>
     )
