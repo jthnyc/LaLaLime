@@ -12,6 +12,14 @@ class Cart extends React.Component {
 
   render() {
     console.log('THIS PROPS: ', this.props)
+    let subtotal = this.props.cartItems.reduce(
+      (acc, item) => acc + item.product.price,
+      0
+    )
+    // may need to leave this to tier 2?
+    let subtotalWithTax
+
+    // eslint-disable-next-line no-return-assign
     return (
       <div className="cart-page">
         <div className="cart-list">
@@ -33,10 +41,17 @@ class Cart extends React.Component {
         <div className="cart-order-summary">
           <div className="cart-line-items">
             <h2>Order Summary</h2>
-            <h4>Subtotal: </h4>
-            <h4>Shipping: </h4>
+            <h4>
+              Subtotal:
+              {/* { 
+                subtotal = this.props.cartItems.reduce((acc, item) => acc + item.product.price, 0)
+              } */}
+              {subtotal}
+            </h4>
+            {/* // perhaps we can consider to include shipping in tier 2?
+            <h4>Shipping: </h4> */}
             <h4>Estimated Tax:</h4>
-            <h2>Subtotal: </h2>
+            <h2>Subtotal: {subtotal}</h2>
             <a href={`/cart/${this.props.userId}/checkout`}>
               <button type="button" className="cart-checkout-btn">
                 Checkout

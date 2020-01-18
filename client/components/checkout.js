@@ -41,17 +41,7 @@ class Checkout extends React.Component {
   render() {
     return (
       <div className="checkout-page">
-        <h2>Order Confirmation</h2>
-        <div className="checkout-list">
-          {this.props.cartItems ? (
-            this.props.cartItems.map(item => {
-              return <CartItem key={item.productId} item={item} />
-            })
-          ) : (
-            <div>Cart is empty!</div>
-          )}
-        </div>
-        <div>
+        <div className="checkout-payment-info">
           <h2>Payment Information</h2>
           <form onSubmit={this.handleSubmit}>
             <label htmlFor="firstName">First Name:</label>
@@ -82,23 +72,43 @@ class Checkout extends React.Component {
               onChange={this.handleChange}
               value={this.state.address}
             />
-            <div className="city-dropdown">
-              <button type="button" className="city-drop-btn">
-                City
-              </button>
-              <div className="city-drop-content">
-                <li>New York</li>
-                <li>Chicago</li>
-                <li>San Francisco</li>
-              </div>
-            </div>
-            <input type="text" className="zipcode">
-              Zipcode
-            </input>
-            <input type="text" className="phone">
-              Phone
-            </input>
+            {/* may want to do city as a dropdown in tier 2*/}
+            <label htmlFor="city">City: </label>
+            <input
+              type="text"
+              name="city"
+              onChange={this.handleChange}
+              value={this.state.city}
+            />
+            <label htmlFor="zipcode">Zipcode: </label>
+            <input
+              type="text"
+              name="zipcode"
+              onChange={this.handleChange}
+              value={this.state.city}
+            />
+            <label htmlFor="phone">Phone: </label>
+            <input
+              type="text"
+              name="phone"
+              onChange={this.handleChange}
+              value={this.state.city}
+            />
           </form>
+        </div>
+        <div className="checkout-list">
+          {this.props.orderItems ? (
+            this.props.orderItems.map(item => {
+              return <CartItem key={item.productId} item={item} />
+            })
+          ) : (
+            <div>Cart is empty!</div>
+          )}
+        </div>
+        <div className="checkout-summary">
+          <h3>Subtotal </h3>
+          <h2>Total </h2>
+          <button type="submit">Confirm Order</button>
         </div>
       </div>
     )

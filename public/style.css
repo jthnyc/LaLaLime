@@ -90,6 +90,18 @@ input.item-quantity {
   padding: 13px;
 }
 
+/* Checkout Styles */
+.checkout-page {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.checkout-payment-info {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Product Card Styles Placeholders */
 .faceted-grid {
   display: flex;
