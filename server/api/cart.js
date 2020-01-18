@@ -73,7 +73,6 @@ router.post('/order', async (req, res, next) => {
 
 router.put('/:userId', async (req, res, next) => {
   try {
-    console.log('HIT HEREEEEEE', req.body)
     const order = await Order.findOne({
       where: {
         userId: req.params.userId
@@ -98,6 +97,7 @@ router.put('/:userId', async (req, res, next) => {
         productOrder.destroy()
       }
     }
+    res.sendStatus(204)
   } catch (error) {
     next(error)
   }
@@ -106,7 +106,7 @@ router.put('/:userId', async (req, res, next) => {
 router.delete('/:userId', async (req, res, next) => {
   try {
     console.log('CERCLE HITS HERE')
-    console.log('REQQQQ BODY', req.body)
+    console.log('REQQQQ params', req.params)
     const currentOrder = await Order.findOne({
       where: {
         userId: req.params.userId,
@@ -116,7 +116,7 @@ router.delete('/:userId', async (req, res, next) => {
     const currentProductOrder = await ProductOrder.findOne({
       where: {
         orderId: currentOrder.id,
-        productId: req.body.productId
+        productId: req.params.productId
       }
     })
     await currentProductOrder.destroy()

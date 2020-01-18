@@ -5,9 +5,6 @@ import product from './product'
  * ACTION TYPES
  */
 const GOT_CART_ITEMS = 'GOT_CART_ITEMS'
-const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART'
-// const INCREMENT_ITEM_QUANTITY = 'INCREMENT_ITEM_QUANTITY'
-// const DECREMENT_ITEM_QUANTITY = 'DECREMENT_ITEM_QUANTITY'
 
 /**
  * INITIAL STATE
@@ -25,10 +22,6 @@ const gotCartItems = cartItems => ({
   cartItems
 })
 
-const deletedProductFromCart = updatedCart => ({
-  type: DELETE_PRODUCT_FROM_CART,
-  cartItems: updatedCart
-})
 /**
  * THUNK CREATORS
  */
@@ -58,7 +51,7 @@ export const addProductToCart = (userId, productId) => async dispatch => {
 export const deleteProductFromCart = (userId, productId) => async dispatch => {
   try {
     await axios.delete(`/api/cart/${userId}`, {
-      data: {
+      params: {
         userId: userId,
         productId: productId
       }
@@ -72,7 +65,7 @@ export const deleteProductFromCart = (userId, productId) => async dispatch => {
 
 export const incrementItemQuantity = (userId, productId) => async dispatch => {
   try {
-    const updatedProduct = await axios.put(`/api/cart/${userId}`, {
+    await axios.put(`/api/cart/${userId}`, {
       productId: productId,
       change: 'increment'
     })
@@ -85,7 +78,7 @@ export const incrementItemQuantity = (userId, productId) => async dispatch => {
 
 export const decrementItemQuantity = (userId, productId) => async dispatch => {
   try {
-    const updatedProduct = await axios.put(`/api/cart/${userId}`, {
+    await axios.put(`/api/cart/${userId}`, {
       productId: productId,
       change: 'decrement'
     })
