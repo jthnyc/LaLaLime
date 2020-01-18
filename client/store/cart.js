@@ -51,7 +51,7 @@ export const addProductToCart = (userId, productId) => async dispatch => {
 export const deleteProductFromCart = (userId, productId) => async dispatch => {
   try {
     await axios.delete(`/api/cart/${userId}`, {
-      params: {
+      data: {
         userId: userId,
         productId: productId
       }
