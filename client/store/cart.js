@@ -36,7 +36,6 @@ export const getCartItems = userId => async dispatch => {
 
 export const addProductToCart = (userId, productId) => async dispatch => {
   try {
-    console.log('addProdToCart')
     await axios.post('/api/cart/order', {
       userId: userId,
       productId: productId
@@ -79,7 +78,6 @@ export const decrementItemQuantity = (userId, productId) => async dispatch => {
       productId: productId,
       change: 'decrement'
     })
-
     dispatch(getCartItems(userId))
   } catch (error) {
     console.error(error)
