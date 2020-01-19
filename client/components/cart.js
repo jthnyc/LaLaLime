@@ -13,7 +13,7 @@ class Cart extends React.Component {
   render() {
     console.log('THIS PROPS in Cart view: ', this.props.cartItems)
     let subtotal = this.props.cartItems.reduce(
-      (acc, item) => acc + item.product.price,
+      (acc, item) => acc + item.product.price * item.quantity,
       0
     )
     // may need to leave this to tier 2?
