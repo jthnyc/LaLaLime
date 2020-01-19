@@ -24,7 +24,7 @@ class Cart extends React.Component {
       <div className="cart-page">
         <div className="cart-list">
           <h2>Shopping cart</h2>
-          {this.props.cartItems.id ? (
+          {this.props.cartItems[0] ? (
             this.props.cartItems.map(item => {
               return (
                 <CartItem

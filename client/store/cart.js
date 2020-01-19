@@ -28,7 +28,6 @@ const gotCartItems = cartItems => ({
 export const getCartItems = userId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/cart/${userId}`)
-    console.log('DATA IN THUNK: ', data)
     dispatch(gotCartItems(data))
   } catch (error) {
     console.error(error)
@@ -38,7 +37,7 @@ export const getCartItems = userId => async dispatch => {
 export const addProductToCart = (userId, productId) => async dispatch => {
   try {
     console.log('addProdToCart')
-    const res = await axios.post('/api/cart/order', {
+    await axios.post('/api/cart/order', {
       userId: userId,
       productId: productId
     })
