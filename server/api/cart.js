@@ -106,7 +106,6 @@ router.put('/:userId', async (req, res, next) => {
 
 router.delete('/:userId', async (req, res, next) => {
   try {
-    console.log('CERCLE HITS HERE')
     console.log('REQQQQ params', req.body)
     const currentOrder = await Order.findOne({
       where: {

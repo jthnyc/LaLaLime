@@ -28,11 +28,18 @@ class SingleProduct extends React.Component {
       <div>
         <div className="faceted-grid">
           <div className="product-card-grid-all">
-            <div>{this.props.currentProduct.name}</div>
-            <img src={this.props.currentProduct.imageUrl} />
-            <button type="submit" onClick={this.handleClick}>
-              Add to cart
-            </button>
+            <div className="product-card-grid-left">
+              <img src={this.props.currentProduct.imageUrl} />
+            </div>
+            <div className="product-card-grid-right">
+              <div>{this.props.currentProduct.name}</div>
+              <div>{this.props.currentProduct.description}</div>
+              <div>
+                <button type="submit" onClick={this.handleClick}>
+                  Add to cart
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

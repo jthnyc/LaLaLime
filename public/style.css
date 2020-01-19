@@ -110,8 +110,18 @@ input.item-quantity {
 }
 
 .product-card-grid-all {
+  margin: 2em;
   display: flex;
   flex-direction: row;
+}
+.product-card-grid-left {
+  margin: 2em;
+  width: 400px;
+}
+.product-card-grid-right {
+  margin: 2em;
+  display: flex;
+  flex-direction: column;
 }
 
 .product-card {
@@ -120,7 +130,7 @@ input.item-quantity {
 }
 
 .product-card-image {
-  width: 100%;
+  width: 200px;
 }
 
 .product-card-name {
