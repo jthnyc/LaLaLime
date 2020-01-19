@@ -4,20 +4,59 @@ module.exports = router
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    const cart = await Order.findOne({
-      where: {
-        userId: req.params.userId,
-        status: 'pending'
+    //Check if user is logged in
+    if (req.session.passport) {
+      //Check if user is attempting to view their own cart
+      if (req.session.passport.user == req.params.userId) {
+        const cart = await Order.findOne({
+          where: {
+            userId: req.params.userId,
+            status: 'pending'
+          }
+        })
+        //check if an order was found
+        if (cart) {
+          const orderId = cart.id
+          const productList = await ProductOrder.findAll({
+            where: {
+              orderId: orderId
+            },
+            include: [{model: Product, as: 'product'}]
+          })
+          res.json(productList)
+        } else {
+          //if not, send string
+          res.json(['No items in cart!'])
+        }
+      } else {
+        //if not authorized, send string
+        res.json(['Forbidden'])
       }
-    })
-    const orderId = cart.id
-    const productList = await ProductOrder.findAll({
-      where: {
-        orderId: orderId
-      },
-      include: [{model: Product, as: 'product'}]
-    })
-    res.json(productList)
+    } else {
+      //if not signed in, check that session user id matches the cart being requested
+      if (req.session.user.id == req.params.userId) {
+        const cart = await Order.findOne({
+          where: {
+            userId: req.params.userId,
+            status: 'pending'
+          }
+        })
+        if (cart) {
+          const orderId = cart.id
+          const productList = await ProductOrder.findAll({
+            where: {
+              orderId: orderId
+            },
+            include: [{model: Product, as: 'product'}]
+          })
+          res.json(productList)
+        } else {
+          res.json(['No items in cart!'])
+        }
+      } else {
+        res.json(['Forbidden'])
+      }
+    }
   } catch (error) {
     next(error)
   }
@@ -73,7 +112,6 @@ router.post('/order', async (req, res, next) => {
 
 router.put('/:userId', async (req, res, next) => {
   try {
-    console.log('HIT HEREEEEEE', req.body)
     const order = await Order.findOne({
       where: {
         userId: req.params.userId
@@ -107,7 +145,7 @@ router.put('/:userId', async (req, res, next) => {
 router.delete('/:userId', async (req, res, next) => {
   try {
     console.log('CERCLE HITS HERE')
-    console.log('REQQQQ params', req.body)
+    console.log('REQQQQ params', req.params)
     const currentOrder = await Order.findOne({
       where: {
         userId: req.params.userId,
@@ -117,11 +155,10 @@ router.delete('/:userId', async (req, res, next) => {
     const currentProductOrder = await ProductOrder.findOne({
       where: {
         orderId: currentOrder.id,
-        productId: req.body.productId
+        productId: req.params.productId
       }
     })
     await currentProductOrder.destroy()
-    res.sendStatus(202)
   } catch (error) {
     next(error)
   }

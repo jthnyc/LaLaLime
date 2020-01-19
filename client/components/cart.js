@@ -12,10 +12,13 @@ class Cart extends React.Component {
 
   render() {
     console.log('THIS PROPS in Cart view: ', this.props.cartItems)
-    let subtotal = this.props.cartItems.reduce(
-      (acc, item) => acc + item.product.price * item.quantity,
-      0
-    )
+    let subtotal = 0
+    if (this.props.cartItems[1]) {
+      subtotal = this.props.cartItems.reduce(
+        (acc, item) => acc + item.product.price * item.quantity,
+        0
+      )
+    }
     // may need to leave this to tier 2?
     let subtotalWithTax
 
@@ -24,7 +27,7 @@ class Cart extends React.Component {
       <div className="cart-page">
         <div className="cart-list">
           <h2>Shopping cart</h2>
-          {this.props.cartItems[0] ? (
+          {this.props.cartItems[1] ? (
             this.props.cartItems.map(item => {
               return (
                 <CartItem
@@ -35,7 +38,7 @@ class Cart extends React.Component {
               )
             })
           ) : (
-            <div>No items in cart!</div>
+            <div>{`${this.props.cartItems[0]}`}</div>
           )}
         </div>
         <div className="cart-order-summary">
