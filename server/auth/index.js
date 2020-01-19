@@ -21,13 +21,11 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
-    console.log('req.session.user.id', req.session.user)
     const user = await User.findOne({
       where: {
         id: req.session.user.id
       }
     })
-    console.log('user'.user)
     user.password = req.body.password
     user.email = req.body.email
     user.save()

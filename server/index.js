@@ -75,7 +75,6 @@ const createApp = () => {
           const newUser = await User.create({sessionId: req.session.id})
           req.session.user = newUser
           req.user = newUser
-          console.log('REQ USER', req.user)
         }
       }
       next()
