@@ -13,7 +13,7 @@ class Cart extends React.Component {
   render() {
     console.log('THIS PROPS in Cart view: ', this.props.cartItems)
     let subtotal = 0
-    if (this.props.cartItems[1]) {
+    if (typeof this.props.cartItems[0] !== 'string') {
       subtotal = this.props.cartItems.reduce(
         (acc, item) => acc + item.product.price * item.quantity,
         0
@@ -27,7 +27,7 @@ class Cart extends React.Component {
       <div className="cart-page">
         <div className="cart-list">
           <h2>Shopping cart</h2>
-          {this.props.cartItems[1] ? (
+          {typeof this.props.cartItems[0] !== 'string' ? (
             this.props.cartItems.map(item => {
               return (
                 <CartItem
@@ -38,7 +38,7 @@ class Cart extends React.Component {
               )
             })
           ) : (
-            <div>{`${this.props.cartItems[0]}`}</div>
+            <div>{`${this.props.cartItems}`}</div>
           )}
         </div>
         <div className="cart-order-summary">

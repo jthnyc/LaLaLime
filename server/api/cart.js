@@ -23,14 +23,15 @@ router.get('/:userId', async (req, res, next) => {
             },
             include: [{model: Product, as: 'product'}]
           })
+          console.log(productList)
           res.json(productList)
         } else {
           //if not, send string
-          res.json(['No items in cart!'])
+          res.json('No items in cart!')
         }
       } else {
         //if not authorized, send string
-        res.json(['Forbidden'])
+        res.json('Forbidden')
       }
     } else {
       //if not signed in, check that session user id matches the cart being requested
@@ -51,10 +52,10 @@ router.get('/:userId', async (req, res, next) => {
           })
           res.json(productList)
         } else {
-          res.json(['No items in cart!'])
+          res.json('No items in cart!')
         }
       } else {
-        res.json(['Forbidden'])
+        res.json('Forbidden')
       }
     }
   } catch (error) {
