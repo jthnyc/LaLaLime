@@ -4,59 +4,31 @@ module.exports = router
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    //Check if user is logged in
-    // Do we need to check if a user is logged in if guests get a user ID? Trying to key the code DRY
-    if (req.session.passport) {
-      //Check if user is attempting to view their own cart
-      if (req.session.passport.user == req.params.userId) {
-        const cart = await Order.findOne({
-          where: {
-            userId: req.params.userId,
-            status: 'pending'
-          }
-        })
-        //check if an order was found
-        if (cart) {
-          const currentOrderId = cart.id
-          const productList = await ProductOrder.findAll({
-            where: {
-              orderId: currentOrderId
-            },
-            include: [{model: Product, as: 'product'}]
-          })
-          res.json(productList)
-        } else {
-          //if no order, send string
-          res.json('No items in cart!')
+    // if the current userId is the same in the url
+    if (req.session.user.id == req.params.userId) {
+      const cart = await Order.findOne({
+        where: {
+          userId: req.params.userId,
+          status: 'pending'
         }
+      })
+      //check if an order was found
+      if (cart) {
+        const currentOrderId = cart.id
+        const productList = await ProductOrder.findAll({
+          where: {
+            orderId: currentOrderId
+          },
+          include: [{model: Product, as: 'product'}]
+        })
+        res.json(productList)
       } else {
-        //if not authorized, send string
-        res.status(403).json('Forbidden')
+        //if no order, send string
+        res.json([])
       }
     } else {
-      // if not signed in, check that session user id matches the cart being requested
-      if (req.session.user.id == req.params.userId) {
-        const cart = await Order.findOne({
-          where: {
-            userId: req.params.userId,
-            status: 'pending'
-          }
-        })
-        if (cart) {
-          const orderId = cart.id
-          const productList = await ProductOrder.findAll({
-            where: {
-              orderId: orderId
-            },
-            include: [{model: Product, as: 'product'}]
-          })
-          res.json(productList)
-        } else {
-          res.json('No items in cart!')
-        }
-      } else {
-        res.json('Forbidden')
-      }
+      //if not authorized, send string
+      res.sendStatus(403)
     }
   } catch (error) {
     next(error)

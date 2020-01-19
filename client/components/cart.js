@@ -11,14 +11,10 @@ class Cart extends React.Component {
   // will probably need to add new action submitOrder and add a handleclick in component
 
   render() {
-    console.log('THIS PROPS in Cart view: ', this.props.cartItems)
-    let subtotal = 0
-    if (Array.isArray(this.props.cartItems)) {
-      subtotal = this.props.cartItems.reduce(
-        (acc, item) => acc + item.product.price * item.quantity,
-        0
-      )
-    }
+    let subtotal = this.props.cartItems.reduce(
+      (acc, item) => acc + item.product.price * item.quantity,
+      0
+    )
     // may need to leave this to tier 2?
     let subtotalWithTax
 
@@ -38,7 +34,7 @@ class Cart extends React.Component {
               )
             })
           ) : (
-            <div>{`${this.props.cartItems}`}</div>
+            <div>no item in cart</div>
           )}
         </div>
         <div className="cart-order-summary">
