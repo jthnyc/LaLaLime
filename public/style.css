@@ -106,14 +106,11 @@ input.item-quantity {
 .faceted-grid {
   display: flex;
   justify-content: space-around;
-  flex-direction: column;
-}
-
-.product-card-grid-all {
+  flex-wrap: wrap;
   margin: 2em;
-  display: flex;
   flex-direction: row;
 }
+
 .product-card-grid-left {
   margin: 2em;
   width: 400px;
