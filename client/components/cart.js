@@ -13,7 +13,7 @@ class Cart extends React.Component {
   render() {
     console.log('THIS PROPS in Cart view: ', this.props.cartItems)
     let subtotal = 0
-    if (typeof this.props.cartItems[0] !== 'string') {
+    if (Array.isArray(this.props.cartItems)) {
       subtotal = this.props.cartItems.reduce(
         (acc, item) => acc + item.product.price * item.quantity,
         0
@@ -27,7 +27,7 @@ class Cart extends React.Component {
       <div className="cart-page">
         <div className="cart-list">
           <h2>Shopping cart</h2>
-          {typeof this.props.cartItems[0] !== 'string' ? (
+          {subtotal ? (
             this.props.cartItems.map(item => {
               return (
                 <CartItem
@@ -44,17 +44,10 @@ class Cart extends React.Component {
         <div className="cart-order-summary">
           <div className="cart-line-items">
             <h2>Order Summary</h2>
-            <h4>
-              Subtotal:
-              {/* {
-                subtotal = this.props.cartItems.reduce((acc, item) => acc + item.product.price, 0)
-              } */}
-              {subtotal}
-            </h4>
+            <h4>Subtotal: {subtotal}</h4>
             {/* // perhaps we can consider to include shipping in tier 2?
             <h4>Shipping: </h4> */}
-            <h4>Estimated Tax:</h4>
-            <h2>Subtotal: {subtotal}</h2>
+            {/* <h2>Subtotal: {subtotal}</h2> */}
             <a href={`/cart/${this.props.userId}/checkout`}>
               <button type="button" className="cart-checkout-btn">
                 Checkout
@@ -68,7 +61,6 @@ class Cart extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('STATE IN CART: ', state)
   return {
     cartItems: state.cart.cartItems,
     userId: state.user.id

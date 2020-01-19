@@ -5,59 +5,60 @@ module.exports = router
 router.get('/:userId', async (req, res, next) => {
   try {
     //Check if user is logged in
-    if (req.session.passport) {
-      //Check if user is attempting to view their own cart
-      if (req.session.passport.user == req.params.userId) {
-        const cart = await Order.findOne({
-          where: {
-            userId: req.params.userId,
-            status: 'pending'
-          }
-        })
-        //check if an order was found
-        if (cart) {
-          const orderId = cart.id
-          const productList = await ProductOrder.findAll({
-            where: {
-              orderId: orderId
-            },
-            include: [{model: Product, as: 'product'}]
-          })
-          console.log(productList)
-          res.json(productList)
-        } else {
-          //if not, send string
-          res.json('No items in cart!')
+    // Do we need to check if a user is logged in if guests get a user ID? Trying to key the code DRY
+    // if (req.session.passport) {
+    //Check if user is attempting to view their own cart
+    if (req.session.user.id == req.params.userId) {
+      const cart = await Order.findOne({
+        where: {
+          userId: req.params.userId,
+          status: 'pending'
         }
+      })
+      //check if an order was found
+      if (cart) {
+        const currentOrderId = cart.id
+        const productList = await ProductOrder.findAll({
+          where: {
+            orderId: currentOrderId
+          },
+          include: [{model: Product, as: 'product'}]
+        })
+        res.json(productList)
       } else {
-        //if not authorized, send string
-        res.json('Forbidden')
+        //if no order, send string
+        res.json('No items in cart!')
       }
     } else {
-      //if not signed in, check that session user id matches the cart being requested
-      if (req.session.user.id == req.params.userId) {
-        const cart = await Order.findOne({
-          where: {
-            userId: req.params.userId,
-            status: 'pending'
-          }
-        })
-        if (cart) {
-          const orderId = cart.id
-          const productList = await ProductOrder.findAll({
-            where: {
-              orderId: orderId
-            },
-            include: [{model: Product, as: 'product'}]
-          })
-          res.json(productList)
-        } else {
-          res.json('No items in cart!')
-        }
-      } else {
-        res.json('Forbidden')
-      }
+      //if not authorized, send string
+      res.json('Forbidden')
     }
+    // }
+    // else {
+    //   // if not signed in, check that session user id matches the cart being requested
+    //   if (req.session.user.id == req.params.userId) {
+    //     const cart = await Order.findOne({
+    //       where: {
+    //         userId: req.params.userId,
+    //         status: 'pending'
+    //       }
+    //     })
+    //     if (cart) {
+    //       const orderId = cart.id
+    //       const productList = await ProductOrder.findAll({
+    //         where: {
+    //           orderId: orderId
+    //         },
+    //         include: [{model: Product, as: 'product'}]
+    //       })
+    //       res.json(productList)
+    //     } else {
+    //       res.json('No items in cart!')
+    //     }
+    //   } else {
+    //     res.json('Forbidden')
+    //   }
+    // }
   } catch (error) {
     next(error)
   }
@@ -65,7 +66,6 @@ router.get('/:userId', async (req, res, next) => {
 
 router.post('/order', async (req, res, next) => {
   try {
-    console.log('USERID', req.body.userId)
     const existingOrder = await Order.findOne({
       where: {
         userId: req.body.userId,
@@ -81,8 +81,6 @@ router.post('/order', async (req, res, next) => {
           id: req.body.userId
         }
       })
-      console.log('CURRENT USER', currentUser)
-      console.log('CURRENT ORDER', currentOrder)
       currentUser.addOrder(currentOrder)
     } else {
       currentOrder = existingOrder
@@ -113,28 +111,28 @@ router.post('/order', async (req, res, next) => {
 
 router.put('/:userId', async (req, res, next) => {
   try {
-    const order = await Order.findOne({
+    const currentOrder = await Order.findOne({
       where: {
         userId: req.params.userId
       }
     })
-    const orderId = order.id
-    const productOrder = await ProductOrder.findOne({
+    const currentOrderId = currentOrder.id
+    const currentProductOrder = await ProductOrder.findOne({
       where: {
-        orderId: orderId,
+        orderId: currentOrderId,
         productId: req.body.productId
       }
     })
     if (req.body.change === 'increment') {
-      productOrder.quantity++
-      productOrder.save()
+      currentProductOrder.quantity++
+      currentProductOrder.save()
     }
     if (req.body.change === 'decrement') {
-      if (productOrder.quantity > 1) {
-        productOrder.quantity--
-        productOrder.save()
+      if (currentProductOrder.quantity > 1) {
+        currentProductOrder.quantity--
+        currentProductOrder.save()
       } else {
-        productOrder.destroy()
+        currentProductOrder.destroy()
       }
     }
     res.sendStatus(204)
@@ -145,8 +143,6 @@ router.put('/:userId', async (req, res, next) => {
 
 router.delete('/:userId', async (req, res, next) => {
   try {
-    console.log('CERCLE HITS HERE')
-    console.log('REQQQQ params', req.params)
     const currentOrder = await Order.findOne({
       where: {
         userId: req.params.userId,
@@ -156,7 +152,7 @@ router.delete('/:userId', async (req, res, next) => {
     const currentProductOrder = await ProductOrder.findOne({
       where: {
         orderId: currentOrder.id,
-        productId: req.params.productId
+        productId: req.body.productId
       }
     })
     await currentProductOrder.destroy()
