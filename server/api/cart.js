@@ -121,6 +121,7 @@ router.delete('/:userId', async (req, res, next) => {
       }
     })
     await currentProductOrder.destroy()
+    res.sendStatus(202)
   } catch (error) {
     next(error)
   }
