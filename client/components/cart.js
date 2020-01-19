@@ -11,7 +11,7 @@ class Cart extends React.Component {
   // will probably need to add new action submitOrder and add a handleclick in component
 
   render() {
-    console.log('THIS PROPS: ', this.props)
+    console.log('THIS PROPS in Cart view: ', this.props.cartItems)
     let subtotal = this.props.cartItems.reduce(
       (acc, item) => acc + item.product.price,
       0
@@ -43,7 +43,7 @@ class Cart extends React.Component {
             <h2>Order Summary</h2>
             <h4>
               Subtotal:
-              {/* { 
+              {/* {
                 subtotal = this.props.cartItems.reduce((acc, item) => acc + item.product.price, 0)
               } */}
               {subtotal}

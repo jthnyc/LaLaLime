@@ -42,7 +42,7 @@ export const addProductToCart = (userId, productId) => async dispatch => {
       userId: userId,
       productId: productId
     })
-    dispatch(gotCartItems(res.data))
+    dispatch(getCartItems(userId))
   } catch (error) {
     console.error(error)
   }
@@ -56,8 +56,7 @@ export const deleteProductFromCart = (userId, productId) => async dispatch => {
         productId: productId
       }
     })
-    const {data} = await axios.get(`/api/cart/${userId}`)
-    dispatch(gotCartItems(data))
+    dispatch(getCartItems(userId))
   } catch (error) {
     console.error(error)
   }
@@ -69,8 +68,7 @@ export const incrementItemQuantity = (userId, productId) => async dispatch => {
       productId: productId,
       change: 'increment'
     })
-    const {data} = await axios.get(`/api/cart/${userId}`)
-    dispatch(gotCartItems(data))
+    dispatch(getCartItems(userId))
   } catch (error) {
     console.error(error)
   }
@@ -82,8 +80,8 @@ export const decrementItemQuantity = (userId, productId) => async dispatch => {
       productId: productId,
       change: 'decrement'
     })
-    const {data} = await axios.get(`/api/cart/${userId}`)
-    dispatch(gotCartItems(data))
+
+    dispatch(getCartItems(userId))
   } catch (error) {
     console.error(error)
   }
