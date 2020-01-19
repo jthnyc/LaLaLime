@@ -31,7 +31,7 @@ router.get('/:userId', async (req, res, next) => {
         }
       } else {
         //if not authorized, send string
-        res.json('Forbidden')
+        res.status(403).json('Forbidden')
       }
     } else {
       // if not signed in, check that session user id matches the cart being requested
