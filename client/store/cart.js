@@ -1,5 +1,4 @@
 import axios from 'axios'
-import product from './product'
 
 /**
  * ACTION TYPES
@@ -33,7 +32,7 @@ export const getCartItems = userId => async dispatch => {
     console.error(error)
   }
 }
-
+//at single product view when adding to cart
 export const addProductToCart = (userId, productId) => async dispatch => {
   try {
     await axios.post('/api/cart/order', {
@@ -46,6 +45,7 @@ export const addProductToCart = (userId, productId) => async dispatch => {
   }
 }
 
+//at cart view
 export const deleteProductFromCart = (userId, productId) => async dispatch => {
   try {
     await axios.delete(`/api/cart/${userId}`, {

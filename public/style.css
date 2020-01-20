@@ -106,21 +106,43 @@ input.item-quantity {
 .faceted-grid {
   display: flex;
   justify-content: space-around;
-  flex-direction: column;
+  margin: 2em;
 }
 
-.product-card-grid-all {
+.product-card-grid-left {
+  margin: 2em;
+  width: 400px;
+  flex-shrink: 1;
+}
+
+.product-card-grid-left > img {
+  width: 100%;
+}
+.product-card-grid-right {
+  margin: 2em;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  flex-shrink: 1;
+  width: 400px;
+}
+.product-card-grid-right > div {
+  margin: 1rem;
+  display: flex;
 }
 
+#single-product-name {
+  font-size: 20px;
+}
+#single-product-description {
+  width: 100%;
+}
 .product-card {
   display: flex;
   flex-direction: column;
 }
 
 .product-card-image {
-  width: 100%;
+  width: 200px;
 }
 
 .product-card-name {
