@@ -9,33 +9,28 @@ import CompletedOrder from './completed-order'
 export const UserHome = props => {
   const {email, orders, recentlyViewed} = props
 
-  if (props.orders) {
-    return (
-      <div>
-        <h3>Welcome, {email}</h3>
-        <h3>
-          Past Orders:{' '}
-          {orders.map(order => <CompletedOrder key={order.id} order={order} />)}
-        </h3>
-      </div>
-    )
-  } else {
-    return (
-      <div>
-        <h3>Welcome, {email}</h3>
-        <h3>
-          {props.recentlyViewed.name ? (
-            <div>
-              Recently Viewed: <div>{props.recentlyViewed.name}</div>
-              <img src={props.recentlyViewed.imageUrl} />
-            </div>
-          ) : (
-            <div />
-          )}
-        </h3>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <h3>Welcome, {email}</h3>
+      <h3>
+        {props.orders ? (
+          <div>
+            Order History:
+            {props.orders.map(order => (
+              <CompletedOrder key={order.id} order={order} />
+            ))}
+          </div>
+        ) : (
+          <div />
+        )}
+      </h3>
+      <h3>
+        Recently Viewed:
+        <div>{props.recentlyViewed.name}</div>
+        <img src={props.recentlyViewed.imageUrl} />
+      </h3>
+    </div>
+  )
 }
 
 /**
