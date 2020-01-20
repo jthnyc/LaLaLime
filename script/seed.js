@@ -44,7 +44,7 @@ async function seed() {
     }),
     Product.create({
       SKU: '12345679',
-      name: 'legging1',
+      name: 'legging2',
       color: 'black',
       size: 's',
       price: 30,
