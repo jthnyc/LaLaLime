@@ -12,7 +12,7 @@ describe('Product routes', () => {
     return db.sync({force: true})
   })
 
-  describe('/api/products/', () => {
+  describe('/api/products', () => {
     beforeEach(() => {
       return Product.create({
         SKU: '12345679',
@@ -35,13 +35,12 @@ describe('Product routes', () => {
         .expect(200)
 
       expect(res.body).to.be.an('array')
-      console.log('res body', res.body)
       expect(res.body.length).to.be.equal(1)
       expect(res.body[0].name).to.be.equal('legging1')
     })
   })
 
-  describe('/api/products/:SKU/', () => {
+  describe('/api/products/:SKU', () => {
     let bestProduct
 
     beforeEach(async () => {
@@ -80,23 +79,15 @@ describe('Product routes', () => {
     })
 
     it('gets the product(s) with the specified id', async () => {
-      const res = await agent
-        .get('/api/products/' + bestProduct.SKU)
-        .expect(200)
+      const res = await agent.get('/api/products/1').expect(200)
 
-      if (typeof res.body === 'object') {
-        console.log('its an object!')
-        console.log('res.body: ', res.body)
-        // res.body is currently an object but also null?
-      }
-
-      // expect(res.body.SKU).to.be.an('string')
-      // expect(res.body.length).to.equal(1)
-      // expect(res.body[0].name).to.equal('legging2')
+      expect(res.body).to.be.an('object')
+      expect(res.body.id).to.equal(1)
+      expect(res.body.name).to.equal('legging1')
     })
 
-    it('returns a 404 error if the SKU is not correct', () => {
-      return agent.get('/api/products/1').expect(404)
-    })
+    // it('returns a 404 error if the SKU is not correct', () => {
+    //   return agent.get('/api/products/100').expect(404)
+    // })
   })
 })
