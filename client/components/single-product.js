@@ -31,8 +31,10 @@ class SingleProduct extends React.Component {
             <img src={this.props.currentProduct.imageUrl} />
           </div>
           <div className="product-card-grid-right">
-            <div>{this.props.currentProduct.name}</div>
-            <div>{this.props.currentProduct.description}</div>
+            <div id="single-product-name">{this.props.currentProduct.name}</div>
+            <div id="single-product-description">
+              {this.props.currentProduct.description}
+            </div>
             <div>
               <button type="submit" onClick={this.handleClick}>
                 Add to cart

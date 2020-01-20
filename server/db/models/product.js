@@ -39,7 +39,8 @@ const Product = db.define('product', {
   description: {
     type: Sequelize.TEXT,
     allowNull: false,
-    defaultValue: 'Badass clothes'
+    defaultValue:
+      'fab badass clothes fab badass clothes fab badass clothes fab badass clothes fab badass clothes fab badass clothes fab badass clothes fab badass clothes  fab badass clothes fab badass clothes fab badass clothes fab badass clothes fab badass clothes'
   },
   category: {
     type: Sequelize.STRING,
