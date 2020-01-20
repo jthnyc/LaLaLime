@@ -78,8 +78,6 @@ describe('User routes', () => {
         })
         expect(newUser).to.be.equal(undefined)
       } catch (err) {
-        console.log('err', err.name)
-
         expect(err.name).to.equal('SequelizeUniqueConstraintError')
       }
     })
