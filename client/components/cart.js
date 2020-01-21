@@ -36,9 +36,11 @@ class Cart extends React.Component {
             })
           ) : (
             <div>
-              <p>No items in cart</p>
+              <p>No items in cart ...</p>
               <Link to="/products">
-                Time to look for that something special
+                <h3>
+                  It's Time to <span1>Treat Yourself</span1>
+                </h3>
               </Link>
             </div>
           )}
