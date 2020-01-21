@@ -39,7 +39,11 @@ class SingleProduct extends React.Component {
               {this.props.currentProduct.description}
             </div>
             <div>
-              <button type="submit" onClick={this.handleClick}>
+              <button
+                id="single-product-submit-button"
+                type="submit"
+                onClick={this.handleClick}
+              >
                 Add to cart
               </button>
             </div>
