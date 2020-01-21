@@ -119,4 +119,4 @@ describe('Product model', () => {
       expect(result.category).to.equal('leggings')
     })
   })
-}) // end describe('User model')
+}) // end describe('Product model')
