@@ -4,8 +4,9 @@ module.exports = router
 
 router.get('/:userId', async (req, res, next) => {
   try {
+    console.log('reqsess', req.session)
     // if the current userId is the same in the url
-    if (req.session.user.id == req.params.userId) {
+    if (req.user.id == req.params.userId) {
       const cart = await Order.findOne({
         where: {
           userId: req.params.userId,

@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const User = require('../db/models/user')
+const Order = require('../db/models/order')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
@@ -45,10 +46,28 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/me', (req, res) => {
+router.get('/me', async (req, res) => {
+  let userWithOrders
   if (req.user) {
-    res.json(req.user)
+    console.log('req.user', req.user)
+    userWithOrders = await User.findOne({
+      where: {
+        id: req.user.id
+      },
+      include: [
+        {
+          model: Order,
+          where: {
+            status: 'processed'
+          }
+        }
+      ]
+    })
+    console.log('userworders', userWithOrders)
+    userWithOrders ? res.json(userWithOrders) : res.json(req.user)
   } else {
+    console.log('req.sess.user', req.session.user)
+
     res.json(req.session.user)
   }
 })
