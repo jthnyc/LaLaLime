@@ -35,8 +35,7 @@ export const getCartItems = userId => async dispatch => {
 //at single product view when adding to cart
 export const addProductToCart = (userId, productId) => async dispatch => {
   try {
-    await axios.post('/api/cart/order', {
-      userId: userId,
+    await axios.post(`/api/cart/${userId}`, {
       productId: productId
     })
     dispatch(getCartItems(userId))
