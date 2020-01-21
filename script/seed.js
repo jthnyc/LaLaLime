@@ -39,7 +39,7 @@ async function seed() {
       color: 'Black',
       size: 'S',
       price: 100,
-      quantity: 50,
+      inventory: 30,
       category: 'leggings',
       imageUrl:
         'https://athleta.gap.com/webcontent/0018/236/777/cn18236777.jpg',
@@ -52,7 +52,7 @@ async function seed() {
       color: 'Brown',
       size: 'S',
       price: 90,
-      quantity: 10,
+      inventory: 10,
       category: 'leggings',
       imageUrl:
         'https://athleta.gap.com/webcontent/0018/293/091/cn18293091.jpg',
@@ -65,7 +65,7 @@ async function seed() {
       color: 'Gray',
       size: 's',
       price: 90,
-      quantity: 10,
+      inventory: 10,
       category: 'leggings',
       imageUrl:
         'https://athleta.gap.com/webcontent/0016/857/860/cn16857860.jpg',
@@ -78,7 +78,7 @@ async function seed() {
       color: 'Black',
       size: 'S',
       price: 100,
-      quantity: 10,
+      inventory: 20,
       category: 'leggings',
       imageUrl:
         'https://athleta.gap.com/webcontent/0017/065/000/cn17065000.jpg',
@@ -91,7 +91,7 @@ async function seed() {
       color: 'Coral',
       size: 'S',
       price: 100,
-      quantity: 10,
+      inventory: 25,
       category: 'leggings',
       imageUrl:
         'https://athleta.gap.com/webcontent/0018/208/996/cn18208996.jpg',
@@ -104,7 +104,7 @@ async function seed() {
       color: 'Burgundy',
       size: 'M',
       price: 100,
-      quantity: 10,
+      inventory: 10,
       category: 'leggings',
       imageUrl:
         'https://athleta.gap.com/webcontent/0017/308/223/cn17308223.jpg',
@@ -117,7 +117,7 @@ async function seed() {
       color: 'Russet Brown',
       size: 'M',
       price: 110,
-      quantity: 10,
+      inventory: 10,
       category: 'leggings',
       imageUrl:
         'https://athleta.gap.com/webcontent/0018/236/740/cn18236740.jpg',
@@ -130,7 +130,7 @@ async function seed() {
       color: 'Gray',
       size: 'L',
       price: 150,
-      quantity: 10,
+      inventory: 10,
       category: 'leggings',
       imageUrl:
         'https://images.lululemon.com/is/image/lululemon/LW5CESS_036666_1?$pdp_image_carousel$&wid=1280&op_usm=0.5,2,10,0&fmt=webp&qlt=90,1&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72',
@@ -143,12 +143,51 @@ async function seed() {
       color: 'Gray',
       size: 'L',
       price: 100,
-      quantity: 10,
+      inventory: 10,
       category: 'leggings',
       imageUrl:
         'https://images.lululemon.com/is/image/lululemon/LW5CE5S_042134_1?$pdp_image_carousel$&wid=1280&op_usm=0.5,2,10,0&fmt=webp&qlt=90,1&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72',
       description:
         "Fitted, High-rise \nWaistband lies flat and won't dig in \nFeature: Waistband pocket, Moisture-wicking, Breathable, Four-way stretch \nMaterial: Recycled Nylon/Lycra \nCare: Machine wash cold and tumble dry low."
+    }),
+    Product.create({
+      SKU: '10107001',
+      name: 'High-Rise Sequence Legging',
+      color: 'Blue',
+      size: 'S',
+      price: 130,
+      inventory: 20,
+      category: 'leggings',
+      imageUrl:
+        'https://cdn.shopify.com/s/files/1/2185/2813/products/W5775R_02951_1.jpg?v=1575956195',
+      description:
+        'Second-skin feel, 4-way-stretch fabric for a move-with-you feel \nFeatures: Moisture-wicking, Breathable \nMaterial: Signature Airlift fabric'
+    }),
+    Product.create({
+      SKU: '10202004',
+      name: 'High-rise Ripped Warrior Legging',
+      color: 'Concrete',
+      size: 'M',
+      price: 125,
+      inventory: 15,
+      category: 'leggings',
+      imageUrl:
+        'https://cdn.shopify.com/s/files/1/2185/2813/products/W5555R_02550_1_3182126b-4bb0-4d15-8cb6-4a2a36a5b5f6.jpg?v=1571609459',
+      description:
+        'Engineered to lift, sculpt, contour and smooth \n4-way-stretch fabric for a move-with-you feel \nFeatures: Moisture-wicking, Breathable \nMaterial: Signature Airbrush fabric'
+    }),
+    Product.create({
+      SKU: '10301003',
+      name: 'High-rise Coast Capri',
+      color: 'Black',
+      size: 'L',
+      price: 95,
+      inventory: 20,
+      category: 'leggings',
+      imageUrl:
+        'https://cdn.shopify.com/s/files/1/2185/2813/products/W5521R_01_2.jpg?v=1575220584',
+      description:
+        'Engineered to lift, sculpt, contour and smooth \n4-way-stretch fabric for a move-with-you feel \nBreathable mesh detail \nFeatures: Moisture-wicking, Breathable \nMaterial: Ultimate Performance Nylon Spandex + Micro Mesh'
     })
   ])
   const productOrder = await Promise.all([
