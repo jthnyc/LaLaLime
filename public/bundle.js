@@ -1152,7 +1152,7 @@ __webpack_require__.r(__webpack_exports__);
 var UserHome = function UserHome(props) {
   var email = props.email,
       orders = props.orders,
-      recentlyViewed = props.recentlyViewed;
+      currentProduct = props.currentProduct;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Welcome, ", email), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, props.orders ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Order History:", props.orders.map(function (order) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_completed_order__WEBPACK_IMPORTED_MODULE_3__["default"], {
       key: order.id,
@@ -1171,7 +1171,7 @@ var mapState = function mapState(state) {
   return {
     email: state.user.email,
     orders: state.user.orders,
-    recentlyViewed: state.product.recentlyViewed
+    recentlyViewed: state.product.currentProduct
   };
 };
 
@@ -1903,8 +1903,7 @@ var GOT_SINGLE_PRODUCT = 'GOT_SINGLE_PRODUCT';
 
 var initialState = {
   products: [],
-  currentProduct: {},
-  recentlyViewed: {}
+  currentProduct: {}
   /**
    * ACTION CREATORS
    */
@@ -2031,8 +2030,7 @@ var getSingleProduct = function getSingleProduct(id) {
 
     case GOT_SINGLE_PRODUCT:
       return _objectSpread({}, state, {
-        currentProduct: action.currentProduct,
-        recentlyViewed: action.currentProduct
+        currentProduct: action.currentProduct
       });
 
     default:

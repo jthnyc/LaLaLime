@@ -7,7 +7,7 @@ import CompletedOrder from './completed-order'
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email, orders, recentlyViewed} = props
+  const {email, orders, currentProduct} = props
 
   return (
     <div>
@@ -41,7 +41,7 @@ const mapState = state => {
   return {
     email: state.user.email,
     orders: state.user.orders,
-    recentlyViewed: state.product.recentlyViewed
+    recentlyViewed: state.product.currentProduct
   }
 }
 

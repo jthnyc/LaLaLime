@@ -11,8 +11,7 @@ const GOT_SINGLE_PRODUCT = 'GOT_SINGLE_PRODUCT'
  */
 const initialState = {
   products: [],
-  currentProduct: {},
-  recentlyViewed: {}
+  currentProduct: {}
 }
 
 /**
@@ -58,8 +57,7 @@ export default function(state = initialState, action) {
     case GOT_SINGLE_PRODUCT:
       return {
         ...state,
-        currentProduct: action.currentProduct,
-        recentlyViewed: action.currentProduct
+        currentProduct: action.currentProduct
       }
     default:
       return state
