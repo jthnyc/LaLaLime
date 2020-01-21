@@ -28,50 +28,127 @@ async function seed() {
 
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({email: 'murphy@email.com', password: '123'}),
+    User.create({email: 'cercle@email.com', password: '123'})
   ])
 
   const products = await Promise.all([
     Product.create({
-      SKU: '12345679',
-      name: 'legging1',
-      color: 'black',
-      size: 's',
-      price: 30,
-      quantity: 10,
+      SKU: '10101001',
+      name: 'Salutation Stash Pocket II 7/8 Tight',
+      color: 'Black',
+      size: 'S',
+      price: 98,
+      quantity: 50,
       category: 'leggings',
-      imageUrl: 'https://athleta.gap.com/webcontent/0017/651/857/cn17651857.jpg'
+      imageUrl:
+        'https://athleta.gap.com/webcontent/0018/236/777/cn18236777.jpg',
+      description:
+        'Fabric is buttery soft with support that feels like a gentle hug.\n Dries in a flash for ultimate comfort when breaking a sweat \nFeatures: Side pocket, Moisture-wicking, Breathable, Quick-drying \nMaterial: Nylon/Lycra \nCare: Machine wash and dry.'
     }),
     Product.create({
-      SKU: '12345679',
-      name: 'legging2',
-      color: 'black',
-      size: 's',
-      price: 30,
+      SKU: '10102001',
+      name: 'Chelsea Utility Jogger',
+      color: 'Brown',
+      size: 'S',
+      price: 90,
       quantity: 10,
       category: 'leggings',
       imageUrl:
-        '//cdn.shopify.com/s/files/1/2185/2813/products/W5824R_03093R_1_8f37f807-0efa-4472-b478-6c353a5b5670.jpg?v=1578623165'
+        'https://athleta.gap.com/webcontent/0018/293/091/cn18293091.jpg',
+      description:
+        'Semi-fitted, skims easily over the body with a mid-rise waistband \nFeatures: 6 pockets, Sustainable, Abrasion-resistant \nMaterial: Recycled Polyester/Spandex'
     }),
     Product.create({
-      SKU: '12345681',
-      name: 'legging3',
-      color: 'black',
+      SKU: '10103001',
+      name: 'Sutton Jogger',
+      color: 'Gray',
       size: 's',
-      price: 30,
+      price: 90,
       quantity: 10,
       category: 'leggings',
       imageUrl:
-        '//cdn.shopify.com/s/files/1/2185/2813/products/W5811R_02930_1.jpg?v=1575045216'
+        'https://athleta.gap.com/webcontent/0016/857/860/cn16857860.jpg',
+      description:
+        'Semi-fitted, Mid-rise \nSits below the natural waist \nKnit cuffs for extra comfort and mobility \nFeatures: 2 front zip pockets, 2 cargo pockets and 2 back pockets secure essentials \nMaterial: Recycled Polyester/Spandex \nCare: Machine wash and line dry.'
     }),
     Product.create({
-      SKU: '1234566681',
-      name: 'wonder bra',
-      color: 'black',
-      size: 's',
-      price: 30,
+      SKU: '10101002',
+      name: 'Chelsea Cargo Pant',
+      color: 'Black',
+      size: 'S',
+      price: 100,
       quantity: 10,
-      category: 'bra'
+      category: 'leggings',
+      imageurl:
+        'https://athleta.gap.com/webcontent/0017/065/000/cn17065000.jpg',
+      description:
+        'Semi-fitted, Mid-rise, Tapered leg \nGreat for commuting, work and travel \n6 pockets stash all your essentials \nFeatures: Wrinkle-resistant, Breathable, Quick-drying \nMaterial: Recycled Polyester/Spandex \nCare: Machine wash and dry.'
+    }),
+    Product.create({
+      SKU: '10104001',
+      name: 'Elation Tie Dye 7/8 Tight',
+      color: 'Coral',
+      size: 'S',
+      price: 100,
+      quantity: 10,
+      category: 'leggings',
+      imageurl:
+        'https://athleta.gap.com/webcontent/0018/208/996/cn18208996.jpg',
+      description:
+        'Fitted next to the body with an ultra high-rise waistband that holds you in \nGreat for yoga \nFabric feels smooth and compressive on body\nFeatures: Moisture-wicking, Breathable \nMaterial: Polyester/Lycra \nCare: Machine wash and dry.'
+    }),
+    Product.create({
+      SKU: '10205001',
+      name: 'Lightning 7/8 Tight',
+      color: 'Burgundy',
+      size: 'M',
+      price: 100,
+      quantity: 10,
+      category: 'leggings',
+      imageurl:
+        'https://athleta.gap.com/webcontent/0017/308/223/cn17308223.jpg',
+      description:
+        'Fitted, High-rise \nGreat for long distance, short distance and trail running \nHybrid design with lightweight, breathable panels on lower leg \nFeatures: Sustainable, Moisture-wicking, Breathable, Quick-drying, Fair Trade \nMaterial: Recycled Nylon/Spandex \nCare: Machine wash and dry.'
+    }),
+    Product.create({
+      SKU: '10206001',
+      name: 'Salutation Stash Pocket II Twist 7/8 Tight',
+      color: 'Russet Brown',
+      size: 'M',
+      price: 110,
+      quantity: 10,
+      category: 'leggings',
+      imageurl:
+        'https://athleta.gap.com/webcontent/0018/236/740/cn18236740.jpg',
+      description:
+        'Fitted next to the body, with a high rise waistband that holds you in \nGreat for yoga \nFeatures: Side pocket, Moisture-wicking, Breathable, Quick-drying \nMaterial: Recycled Polyester/Spandex \nCare: Machine wash and dry.'
+    }),
+    Product.create({
+      SKU: '10101002',
+      name: 'Chelsea Cargo Pant',
+      color: 'Black',
+      size: 'S',
+      price: 100,
+      quantity: 10,
+      category: 'leggings',
+      imageurl:
+        'https://athleta.gap.com/webcontent/0017/065/000/cn17065000.jpg',
+      description:
+        'Semi-fitted, Mid-rise, Tapered leg \nGreat for commuting, work and travel \n6 pockets stash all your essentials \nFeature: Wrinkle-resistant, Breathable, Quick-drying \nMaterial: Recycled Polyester/Spandex \nCare: Machine wash and dry.'
+    }),
+    Product.create({
+      SKU: '10101002',
+      name: 'Chelsea Cargo Pant',
+      color: 'Black',
+      size: 'S',
+      price: 100,
+      quantity: 10,
+      category: 'leggings',
+      imageurl:
+        'https://athleta.gap.com/webcontent/0017/065/000/cn17065000.jpg',
+      description:
+        'Semi-fitted, Mid-rise, Tapered leg \nGreat for commuting, work and travel \n6 pockets stash all your essentials \nFeature: Wrinkle-resistant, Breathable, Quick-drying \nMaterial: Recycled Polyester/Spandex \nCare: Machine wash and dry.'
     })
   ])
   const productOrder = await Promise.all([
