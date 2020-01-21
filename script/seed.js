@@ -38,7 +38,7 @@ async function seed() {
       name: 'Salutation Stash Pocket II 7/8 Tight',
       color: 'Black',
       size: 'S',
-      price: 98,
+      price: 100,
       quantity: 50,
       category: 'leggings',
       imageUrl:
@@ -80,7 +80,7 @@ async function seed() {
       price: 100,
       quantity: 10,
       category: 'leggings',
-      imageurl:
+      imageUrl:
         'https://athleta.gap.com/webcontent/0017/065/000/cn17065000.jpg',
       description:
         'Semi-fitted, Mid-rise, Tapered leg \nGreat for commuting, work and travel \n6 pockets stash all your essentials \nFeatures: Wrinkle-resistant, Breathable, Quick-drying \nMaterial: Recycled Polyester/Spandex \nCare: Machine wash and dry.'
@@ -93,7 +93,7 @@ async function seed() {
       price: 100,
       quantity: 10,
       category: 'leggings',
-      imageurl:
+      imageUrl:
         'https://athleta.gap.com/webcontent/0018/208/996/cn18208996.jpg',
       description:
         'Fitted next to the body with an ultra high-rise waistband that holds you in \nGreat for yoga \nFabric feels smooth and compressive on body\nFeatures: Moisture-wicking, Breathable \nMaterial: Polyester/Lycra \nCare: Machine wash and dry.'
@@ -106,7 +106,7 @@ async function seed() {
       price: 100,
       quantity: 10,
       category: 'leggings',
-      imageurl:
+      imageUrl:
         'https://athleta.gap.com/webcontent/0017/308/223/cn17308223.jpg',
       description:
         'Fitted, High-rise \nGreat for long distance, short distance and trail running \nHybrid design with lightweight, breathable panels on lower leg \nFeatures: Sustainable, Moisture-wicking, Breathable, Quick-drying, Fair Trade \nMaterial: Recycled Nylon/Spandex \nCare: Machine wash and dry.'
@@ -119,36 +119,36 @@ async function seed() {
       price: 110,
       quantity: 10,
       category: 'leggings',
-      imageurl:
+      imageUrl:
         'https://athleta.gap.com/webcontent/0018/236/740/cn18236740.jpg',
       description:
         'Fitted next to the body, with a high rise waistband that holds you in \nGreat for yoga \nFeatures: Side pocket, Moisture-wicking, Breathable, Quick-drying \nMaterial: Recycled Polyester/Spandex \nCare: Machine wash and dry.'
     }),
     Product.create({
-      SKU: '10101002',
-      name: 'Chelsea Cargo Pant',
-      color: 'Black',
-      size: 'S',
-      price: 100,
+      SKU: '10302002',
+      name: 'Sheer Will High Rise Tight',
+      color: 'Gray',
+      size: 'L',
+      price: 150,
       quantity: 10,
       category: 'leggings',
-      imageurl:
-        'https://athleta.gap.com/webcontent/0017/065/000/cn17065000.jpg',
+      imageUrl:
+        'https://images.lululemon.com/is/image/lululemon/LW5CESS_036666_1?$pdp_image_carousel$&wid=1280&op_usm=0.5,2,10,0&fmt=webp&qlt=90,1&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72',
       description:
-        'Semi-fitted, Mid-rise, Tapered leg \nGreat for commuting, work and travel \n6 pockets stash all your essentials \nFeature: Wrinkle-resistant, Breathable, Quick-drying \nMaterial: Recycled Polyester/Spandex \nCare: Machine wash and dry.'
+        'Fitted, High-rise \nGreat for yoga \nFeature: Stash Pocket, Moisture-wicking, Quick-drying \nMaterial: Recycled Nylon/Lycra \nCare: Machine wash cold and tumble dry low.'
     }),
     Product.create({
-      SKU: '10101002',
-      name: 'Chelsea Cargo Pant',
-      color: 'Black',
-      size: 'S',
+      SKU: '10302003',
+      name: 'Wunder Under High-Rise Tight',
+      color: 'Gray',
+      size: 'L',
       price: 100,
       quantity: 10,
       category: 'leggings',
-      imageurl:
-        'https://athleta.gap.com/webcontent/0017/065/000/cn17065000.jpg',
+      imageUrl:
+        'https://images.lululemon.com/is/image/lululemon/LW5CE5S_042134_1?$pdp_image_carousel$&wid=1280&op_usm=0.5,2,10,0&fmt=webp&qlt=90,1&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72',
       description:
-        'Semi-fitted, Mid-rise, Tapered leg \nGreat for commuting, work and travel \n6 pockets stash all your essentials \nFeature: Wrinkle-resistant, Breathable, Quick-drying \nMaterial: Recycled Polyester/Spandex \nCare: Machine wash and dry.'
+        "Fitted, High-rise \nWaistband lies flat and won't dig in \nFeature: Waistband pocket, Moisture-wicking, Breathable, Four-way stretch \nMaterial: Recycled Nylon/Lycra \nCare: Machine wash cold and tumble dry low."
     })
   ])
   const productOrder = await Promise.all([
