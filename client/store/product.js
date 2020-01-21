@@ -55,7 +55,10 @@ export default function(state = initialState, action) {
     case GOT_PRODUCTS:
       return {...state, products: action.products}
     case GOT_SINGLE_PRODUCT:
-      return {...state, currentProduct: action.currentProduct}
+      return {
+        ...state,
+        currentProduct: action.currentProduct
+      }
     default:
       return state
   }
