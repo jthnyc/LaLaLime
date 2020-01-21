@@ -11,8 +11,8 @@ describe('Product model', () => {
 
   let product
 
-  beforeEach(() => {
-    product = Product.create({
+  beforeEach(async () => {
+    product = await Product.create({
       SKU: '12345679',
       name: 'legging1',
       color: 'black',
@@ -27,20 +27,21 @@ describe('Product model', () => {
     })
   })
 
-  afterEach(() => {
-    return db.sync({force: true})
-  })
+  // afterEach(() => {
+  //   return db.sync({force: true})
+  // })
 
   describe('product attributes', () => {
     it('includes `SKU`, `name`, `color`, `size`, `price`, `inventory`, `imageUrl`, `description`, `category` fields', async () => {
-      const savedProduct = await product.save()
-      expect(savedProduct.SKU).to.equal('12345679')
-      expect(savedProduct.name).to.equal('legging1')
-      expect(savedProduct.color).to.equal('black')
-      expect(savedProduct.size).to.equal('s')
-      expect(savedProduct.price).to.equal(30)
-      expect(savedProduct.quantity).to.equal(10)
-      expect(savedProduct.category).to.equal('leggings')
+      //console.log("DONDE ESTA PRODUCT?: ", product)
+      // const savedProduct = await product.save()
+      expect(product.SKU).to.equal('12345679')
+      expect(product.name).to.equal('legging1')
+      expect(product.color).to.equal('black')
+      expect(product.size).to.equal('s')
+      expect(product.price).to.equal(30)
+      expect(product.quantity).to.equal(10)
+      expect(product.category).to.equal('leggings')
     })
 
     it('requires `SKU``', async () => {
