@@ -17,16 +17,14 @@ class AllProducts extends React.Component {
     return (
       <div>
         <div className="faceted-grid">
-          <div className="product-card-grid-all">
-            <div className="product-card">
-              {products ? (
-                products.map(product => {
-                  return <Product key={product.id} product={product} />
-                })
-              ) : (
-                <div>No products :/</div>
-              )}
-            </div>
+          <div className="product-card">
+            {products ? (
+              products.map(product => {
+                return <Product key={product.id} product={product} />
+              })
+            ) : (
+              <div>No products :/</div>
+            )}
           </div>
         </div>
       </div>
