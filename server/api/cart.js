@@ -70,8 +70,13 @@ router.post('/:userId', async (req, res, next) => {
       currentOrder = existingOrder
     }
     //find the corresponding product-order
-    const currentProductOrder = await ProductOrder.findOne({
-      where: {orderId: currentOrder.id, productId: req.body.productId}
+    let currentProductOrder
+    currentProductOrder = await ProductOrder.findOne({
+      where: {
+        orderId: currentOrder.id,
+        productId: req.body.productId
+      },
+      include: [{model: Product, as: 'product'}]
     })
 
     //check to see if the current order has this kind of product before
@@ -82,6 +87,13 @@ router.post('/:userId', async (req, res, next) => {
         include: [{model: ProductOrder}]
       })
       await currentOrder.addProduct(currentProduct)
+      currentProductOrder = await ProductOrder.findOne({
+        where: {
+          orderId: currentOrder.id,
+          productId: req.body.productId
+        },
+        include: [{model: Product, as: 'product'}]
+      })
     } else {
       currentProductOrder.quantity++
       currentProductOrder.save()
@@ -105,21 +117,25 @@ router.put('/:userId', async (req, res, next) => {
       where: {
         orderId: currentOrderId,
         productId: req.body.productId
-      }
+      },
+      include: [{model: Product, as: 'product'}]
     })
     if (req.body.change === 'increment') {
       currentProductOrder.quantity++
       currentProductOrder.save()
+      console.log('currentProductOrder 114: ', currentProductOrder)
+      res.status(204).send(currentProductOrder)
     }
     if (req.body.change === 'decrement') {
       if (currentProductOrder.quantity > 1) {
         currentProductOrder.quantity--
         currentProductOrder.save()
+        res.status(204).send(currentProductOrder)
       } else {
         currentProductOrder.destroy()
+        res.sendStatus(202)
       }
     }
-    res.sendStatus(204)
   } catch (error) {
     next(error)
   }

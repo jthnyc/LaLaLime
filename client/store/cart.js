@@ -4,8 +4,8 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GOT_CART_ITEMS = 'GOT_CART_ITEMS'
-const ADDED_TO_CART = 'ADDED_TO_CART'
-const ADDED_QUANTITY = 'ADDED_QUANTITY'
+const ADDED_NEW_ITEM_TO_CART = 'ADDED_NEW_ITEM_TO_CART'
+const UPDATED_QUANTITY = 'UPDATED_QUANTITY'
 
 /**
  * INITIAL STATE
@@ -23,8 +23,13 @@ const gotCartItems = cartItems => ({
   cartItems
 })
 
-const addedToCart = productOrder => ({
-  type: ADDED_TO_CART,
+const addedNewItemToCart = productOrder => ({
+  type: ADDED_NEW_ITEM_TO_CART,
+  productOrder
+})
+
+const updatedQuantity = productOrder => ({
+  type: UPDATED_QUANTITY,
   productOrder
 })
 
@@ -46,7 +51,11 @@ export const addProductToCart = (userId, productId) => async dispatch => {
       productId: productId
     })
     console.log('DATA IN CART: ', productOrder.data)
-    dispatch(addedToCart(productOrder.data))
+    if (productOrder.data.quantity === 1) {
+      dispatch(addedNewItemToCart(productOrder.data))
+    } else {
+      dispatch(updatedQuantity(productOrder.data))
+    }
   } catch (error) {
     console.error(error)
   }
@@ -69,11 +78,12 @@ export const deleteProductFromCart = (userId, productId) => async dispatch => {
 
 export const incrementItemQuantity = (userId, productId) => async dispatch => {
   try {
-    await axios.put(`/api/cart/${userId}`, {
+    const productOrder = await axios.put(`/api/cart/${userId}`, {
       productId: productId,
       change: 'increment'
     })
-    dispatch(getCartItems(userId))
+    console.log('productOrder inside incrementThunk', productOrder)
+    dispatch(changedQuantity(productOrder.data))
   } catch (error) {
     console.error(error)
   }
@@ -98,7 +108,9 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case GOT_CART_ITEMS:
       return {...state, cartItems: action.cartItems}
-    case ADDED_TO_CART:
+    case ADDED_NEW_ITEM_TO_CART:
+      return {...state, cartItems: [...state.cartItems, action.productOrder]}
+    case UPDATED_QUANTITY:
       return {...state, cartItems: [...state.cartItems, action.productOrder]}
     default:
       return state

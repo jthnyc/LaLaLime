@@ -27,7 +27,9 @@ export const UserHome = props => {
       <h3>
         Recently Viewed:
         <div>{props.recentlyViewed.name}</div>
-        <img src={props.recentlyViewed.imageUrl} />
+        <div className="cart-item">
+          <img src={props.recentlyViewed.imageUrl} />
+        </div>
       </h3>
     </div>
   )
