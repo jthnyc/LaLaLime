@@ -111,7 +111,18 @@ export default function(state = initialState, action) {
     case ADDED_NEW_ITEM_TO_CART:
       return {...state, cartItems: [...state.cartItems, action.productOrder]}
     case UPDATED_QUANTITY:
-      return {...state, cartItems: [...state.cartItems, action.productOrder]}
+      return {
+        ...state,
+        cartItems: state.cartItems.map(el => {
+          if (el.productId !== action.productOrder.productId) {
+            return el
+          } else {
+            el.quantity = action.productOrder.quantity
+            return el
+          }
+        })
+      }
+
     default:
       return state
   }
