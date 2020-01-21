@@ -4,9 +4,13 @@ body {
   background: #eaf1fa;
 }
 
+h1 {
+  color: #1b8b00;
+}
+
 a {
   text-decoration: none;
-  color: #1b8b00;
+  color: #002801;
 }
 
 label {
@@ -174,11 +178,20 @@ input.item-quantity {
   color: gray;
   align-content: flex-start;
 }
+
+/* Single Product Views */
+
 #single-product-name {
   font-size: 20px;
 }
 #single-product-description {
   width: 100%;
+}
+#single-product-submit-button {
+  height: 30px;
+  max-width: 80px;
+  background-color: white;
+  padding: 4px;
 }
 
 .submit,
