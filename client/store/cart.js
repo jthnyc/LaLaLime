@@ -4,6 +4,8 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GOT_CART_ITEMS = 'GOT_CART_ITEMS'
+const ADDED_TO_CART = 'ADDED_TO_CART'
+const ADDED_QUANTITY = 'ADDED_QUANTITY'
 
 /**
  * INITIAL STATE
@@ -21,6 +23,11 @@ const gotCartItems = cartItems => ({
   cartItems
 })
 
+const addedToCart = productOrder => ({
+  type: ADDED_TO_CART,
+  productOrder
+})
+
 /**
  * THUNK CREATORS
  */
@@ -35,10 +42,11 @@ export const getCartItems = userId => async dispatch => {
 //at single product view when adding to cart
 export const addProductToCart = (userId, productId) => async dispatch => {
   try {
-    await axios.post(`/api/cart/${userId}`, {
+    const productOrder = await axios.post(`/api/cart/${userId}`, {
       productId: productId
     })
-    dispatch(getCartItems(userId))
+    console.log('DATA IN CART: ', productOrder.data)
+    dispatch(addedToCart(productOrder.data))
   } catch (error) {
     console.error(error)
   }
@@ -90,6 +98,8 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case GOT_CART_ITEMS:
       return {...state, cartItems: action.cartItems}
+    case ADDED_TO_CART:
+      return {...state, cartItems: [...state.cartItems, action.productOrder]}
     default:
       return state
   }
