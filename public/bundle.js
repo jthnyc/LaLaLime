@@ -179,15 +179,13 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "faceted-grid"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "product-card-grid-all"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "product-card"
       }, products ? products.map(function (product) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_product__WEBPACK_IMPORTED_MODULE_3__["default"], {
           key: product.id,
           product: product
         });
-      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "No products :/")))));
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "No products :/"))));
     }
   }]);
 
@@ -247,6 +245,7 @@ var AuthForm = function AuthForm(props) {
       handleSubmit = props.handleSubmit,
       error = props.error;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    className: "submit",
     onSubmit: handleSubmit,
     name: name
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -474,7 +473,9 @@ function (_React$Component) {
           item: item,
           userId: _this.props.userId
         });
-      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "no item in cart")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "No items in cart"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+        to: "/products"
+      }, "Time to look for that something special"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "cart-order-summary"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "cart-line-items"
@@ -854,7 +855,7 @@ var Navbar = function Navbar(_ref) {
     to: "/home"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "LaLaLime")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, isLoggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/home"
-  }, "Home"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "LaLaLime")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/products"
   }, "Products"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/cart/".concat(userId)
@@ -862,6 +863,8 @@ var Navbar = function Navbar(_ref) {
     href: "#",
     onClick: handleClick
   }, "Logout")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    to: "/home"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "LaLaLime")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/products"
   }, "Products"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/cart/".concat(userId)
@@ -972,7 +975,7 @@ var Product = function Product(props) {
     className: "product-card-name"
   }, props.product.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "product-card-price"
-  }, props.product.price));
+  }, "$", props.product.price));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Product);
@@ -1059,6 +1062,8 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "single-product-name"
       }, this.props.currentProduct.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "single-product-price"
+      }, "$", this.props.currentProduct.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "single-product-description"
       }, this.props.currentProduct.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
@@ -45719,7 +45724,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
