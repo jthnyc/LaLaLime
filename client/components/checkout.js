@@ -1,7 +1,7 @@
 /* eslint-disable react/void-dom-elements-no-children */
 import React from 'react'
 import {connect} from 'react-redux'
-import CartItem from './cart-item'
+import OrderItem from './order-item'
 import {getOrderItems} from '../store'
 
 class Checkout extends React.Component {
@@ -41,6 +41,10 @@ class Checkout extends React.Component {
   }
 
   render() {
+    let subtotal = this.props.cartItems.reduce(
+      (acc, item) => acc + item.product.price * item.quantity,
+      0
+    )
     return (
       <div className="checkout-page">
         <div className="checkout-payment-info">
@@ -106,9 +110,9 @@ class Checkout extends React.Component {
           </form>
         </div>
         <div className="checkout-list">
-          {this.props.orderItems ? (
-            this.props.orderItems.map(item => {
-              return <CartItem key={item.productId} item={item} />
+          {this.props.cartItems ? (
+            this.props.cartItems.map(item => {
+              return <OrderItem key={item.productId} item={item} />
             })
           ) : (
             <div>Cart is empty!</div>
@@ -116,7 +120,7 @@ class Checkout extends React.Component {
         </div>
         <div className="checkout-summary">
           <h3>Subtotal </h3>
-          <h2>Total </h2>
+          <h2>{subtotal}</h2>
           <button type="submit">Confirm Order</button>
         </div>
       </div>
@@ -126,7 +130,7 @@ class Checkout extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    orderItems: state.cart.cartItems
+    cartItems: state.cart.cartItems
   }
 }
 
