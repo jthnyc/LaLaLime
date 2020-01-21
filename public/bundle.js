@@ -775,6 +775,31 @@ var injected = Object(react_stripe_elements__WEBPACK_IMPORTED_MODULE_4__["inject
 
 /***/ }),
 
+/***/ "./client/components/completed-order.js":
+/*!**********************************************!*\
+  !*** ./client/components/completed-order.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var CompletedOrder = function CompletedOrder(props) {
+  var order = props.order;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Placed on: ", order.date), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Shipped to: ", order.firstName + order.lastName), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, order.address));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (CompletedOrder);
+/**
+ * CONTAINER
+ */
+
+/***/ }),
+
 /***/ "./client/components/index.js":
 /*!************************************!*\
   !*** ./client/components/index.js ***!
@@ -1115,6 +1140,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _completed_order__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./completed-order */ "./client/components/completed-order.js");
+
 
 
 
@@ -1123,8 +1150,17 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 var UserHome = function UserHome(props) {
-  var email = props.email;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Welcome, ", email), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Past Orders: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Recently Viewed: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Recommendations: "));
+  var email = props.email,
+      orders = props.orders,
+      recentlyViewed = props.recentlyViewed;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Welcome, ", email), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, props.orders ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Order History:", props.orders.map(function (order) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_completed_order__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      key: order.id,
+      order: order
+    });
+  })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Recently Viewed:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, props.recentlyViewed.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: props.recentlyViewed.imageUrl
+  })));
 };
 /**
  * CONTAINER
@@ -1133,7 +1169,9 @@ var UserHome = function UserHome(props) {
 var mapState = function mapState(state) {
   console.log('STATE IN USER-HOME:', state);
   return {
-    email: state.user.email
+    email: state.user.email,
+    orders: state.user.orders,
+    recentlyViewed: state.product.recentlyViewed
   };
 };
 
@@ -1768,7 +1806,7 @@ var getOrderItems = function getOrderItems(userId) {
 /*!*******************************!*\
   !*** ./client/store/index.js ***!
   \*******************************/
-/*! exports provided: default, me, auth, logout, getProducts, getSingleProduct, getCartItems, addProductToCart, deleteProductFromCart, incrementItemQuantity, decrementItemQuantity, getOrderItems */
+/*! exports provided: default, me, auth, logout, getCartItems, addProductToCart, deleteProductFromCart, incrementItemQuantity, decrementItemQuantity, getOrderItems, getProducts, getSingleProduct */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1865,7 +1903,8 @@ var GOT_SINGLE_PRODUCT = 'GOT_SINGLE_PRODUCT';
 
 var initialState = {
   products: [],
-  currentProduct: {}
+  currentProduct: {},
+  recentlyViewed: {}
   /**
    * ACTION CREATORS
    */
@@ -1992,7 +2031,8 @@ var getSingleProduct = function getSingleProduct(id) {
 
     case GOT_SINGLE_PRODUCT:
       return _objectSpread({}, state, {
-        currentProduct: action.currentProduct
+        currentProduct: action.currentProduct,
+        recentlyViewed: action.currentProduct
       });
 
     default:
