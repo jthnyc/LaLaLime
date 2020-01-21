@@ -35,7 +35,7 @@ async function seed() {
   const products = await Promise.all([
     Product.create({
       SKU: '10101001',
-      name: 'Salutation Stash Pocket II 7/8 Tight',
+      name: 'Salutation Stash Pocket II',
       color: 'Black',
       size: 'S',
       price: 100,
@@ -113,7 +113,7 @@ async function seed() {
     }),
     Product.create({
       SKU: '10206001',
-      name: 'Salutation Stash Pocket II Twist 7/8 Tight',
+      name: 'Salutation Pocket Twist',
       color: 'Russet Brown',
       size: 'M',
       price: 110,
