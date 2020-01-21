@@ -56,7 +56,6 @@ export const addProductToCart = (userId, productId) => async dispatch => {
     const productOrder = await axios.post(`/api/cart/${userId}`, {
       productId: productId
     })
-    console.log('DATA IN CART: ', productOrder.data)
     if (productOrder.data.quantity === 1) {
       dispatch(addedNewItemToCart(productOrder.data))
     } else {
@@ -88,7 +87,6 @@ export const incrementItemQuantity = (userId, productId) => async dispatch => {
       productId: productId,
       change: 'increment'
     })
-    console.log('PRODUCT ORDER in INCREMENT: ', productOrder)
     dispatch(updatedQuantity(productOrder.data))
   } catch (error) {
     console.error(error)
@@ -101,7 +99,6 @@ export const decrementItemQuantity = (userId, productId) => async dispatch => {
       productId: productId,
       change: 'decrement'
     })
-    console.log('PRODUCT ORDER', productOrder)
     if (productOrder.data === 'Accepted') {
       dispatch(deletedProductFromCart(productId))
     } else {

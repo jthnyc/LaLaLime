@@ -4,7 +4,6 @@ module.exports = router
 
 router.use('*', (req, res, next) => {
   try {
-    console.log('REQ SESSION ID: ', req.session.user.id)
     let paramId = Number(req.params['0'].slice(1))
 
     if (req.session.user.id === paramId) {
@@ -20,9 +19,7 @@ router.use('*', (req, res, next) => {
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    console.log('reqsess', req.session)
     // if the current userId is the same in the url
-
     const cart = await Order.findOne({
       where: {
         userId: req.params.userId,
@@ -98,7 +95,6 @@ router.post('/:userId', async (req, res, next) => {
       currentProductOrder.quantity++
       currentProductOrder.save()
     }
-    console.log('CURRENT PRODUCT ORDER: ', currentProductOrder)
     res.status(201).json(currentProductOrder)
   } catch (error) {
     next(error)
@@ -123,7 +119,6 @@ router.put('/:userId', async (req, res, next) => {
     if (req.body.change === 'increment') {
       currentProductOrder.quantity++
       currentProductOrder.save()
-      console.log('currentProductOrder 126: ', currentProductOrder)
       res.json(currentProductOrder)
     }
     if (req.body.change === 'decrement') {
