@@ -12,6 +12,9 @@ const app = express()
 const socketio = require('socket.io')
 const {User} = require('../server/db/models')
 module.exports = app
+const stripe = require('stripe')(process.env.stripeSecret)
+
+app.use(require('body-parser').text())
 
 // This is a global Mocha hook, used for resource cleanup.
 // Otherwise, Mocha v4+ never quits after tests.
@@ -89,6 +92,23 @@ const createApp = () => {
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))
+
+  app.post('/charge', async (req, res) => {
+    try {
+      console.log('stripe secret', req.body)
+      let {status} = await stripe.charges.create({
+        amount: 2000,
+        currency: 'usd',
+        description: 'An example charge',
+        source: req.body
+      })
+
+      res.json({status})
+    } catch (err) {
+      console.log(err)
+      res.status(500).end()
+    }
+  })
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {

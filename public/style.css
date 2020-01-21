@@ -107,6 +107,9 @@ input.item-quantity {
   display: flex;
   flex-direction: column;
 }
+.checkout-summary {
+  width: 300px;
+}
 
 /* Product Card Styles Placeholders */
 .faceted-grid {
