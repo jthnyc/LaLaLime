@@ -6,6 +6,7 @@ import axios from 'axios'
 const GOT_CART_ITEMS = 'GOT_CART_ITEMS'
 const ADDED_NEW_ITEM_TO_CART = 'ADDED_NEW_ITEM_TO_CART'
 const UPDATED_QUANTITY = 'UPDATED_QUANTITY'
+const DELETED_PRODUCT_FROM_CART = 'DELETED_PRODUCT_FROM_CART'
 
 /**
  * INITIAL STATE
@@ -31,6 +32,11 @@ const addedNewItemToCart = productOrder => ({
 const updatedQuantity = productOrder => ({
   type: UPDATED_QUANTITY,
   productOrder
+})
+
+const deletedProductFromCart = productId => ({
+  type: DELETED_PRODUCT_FROM_CART,
+  productId
 })
 
 /**
@@ -70,7 +76,7 @@ export const deleteProductFromCart = (userId, productId) => async dispatch => {
         productId: productId
       }
     })
-    dispatch(getCartItems(userId))
+    dispatch(deletedProductFromCart(productId))
   } catch (error) {
     console.error(error)
   }
@@ -82,8 +88,8 @@ export const incrementItemQuantity = (userId, productId) => async dispatch => {
       productId: productId,
       change: 'increment'
     })
-    console.log('productOrder inside incrementThunk', productOrder)
-    dispatch(changedQuantity(productOrder.data))
+    console.log('PRODUCT ORDER in INCREMENT: ', productOrder)
+    dispatch(updatedQuantity(productOrder.data))
   } catch (error) {
     console.error(error)
   }
@@ -91,11 +97,16 @@ export const incrementItemQuantity = (userId, productId) => async dispatch => {
 
 export const decrementItemQuantity = (userId, productId) => async dispatch => {
   try {
-    await axios.put(`/api/cart/${userId}`, {
+    const productOrder = await axios.put(`/api/cart/${userId}`, {
       productId: productId,
       change: 'decrement'
     })
-    dispatch(getCartItems(userId))
+    console.log('PRODUCT ORDER', productOrder)
+    if (productOrder.data === 'Accepted') {
+      dispatch(deletedProductFromCart(productId))
+    } else {
+      dispatch(updatedQuantity(productOrder.data))
+    }
   } catch (error) {
     console.error(error)
   }
@@ -117,12 +128,18 @@ export default function(state = initialState, action) {
           if (el.productId !== action.productOrder.productId) {
             return el
           } else {
-            el.quantity = action.productOrder.quantity
-            return el
+            const newEl = action.productOrder
+            return newEl
           }
         })
       }
-
+    case DELETED_PRODUCT_FROM_CART:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          el => el.productId !== action.productId
+        )
+      }
     default:
       return state
   }

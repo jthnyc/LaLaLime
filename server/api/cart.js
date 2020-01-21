@@ -99,7 +99,7 @@ router.post('/:userId', async (req, res, next) => {
       currentProductOrder.save()
     }
     console.log('CURRENT PRODUCT ORDER: ', currentProductOrder)
-    res.status(201).send(currentProductOrder)
+    res.status(201).json(currentProductOrder)
   } catch (error) {
     next(error)
   }
@@ -123,14 +123,14 @@ router.put('/:userId', async (req, res, next) => {
     if (req.body.change === 'increment') {
       currentProductOrder.quantity++
       currentProductOrder.save()
-      console.log('currentProductOrder 114: ', currentProductOrder)
-      res.status(204).send(currentProductOrder)
+      console.log('currentProductOrder 126: ', currentProductOrder)
+      res.json(currentProductOrder)
     }
     if (req.body.change === 'decrement') {
       if (currentProductOrder.quantity > 1) {
         currentProductOrder.quantity--
         currentProductOrder.save()
-        res.status(204).send(currentProductOrder)
+        res.json(currentProductOrder)
       } else {
         currentProductOrder.destroy()
         res.sendStatus(202)
