@@ -7,7 +7,8 @@ const Order = db.define('order', {
     validate: {
       isIn: [['pending', 'processed']]
     },
-    defaultValue: 'pending'
+    defaultValue: 'pending',
+    allowNull: false
   },
   date: {
     type: Sequelize.DATE,
