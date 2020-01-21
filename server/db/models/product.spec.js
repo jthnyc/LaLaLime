@@ -27,20 +27,18 @@ describe('Product model', () => {
     })
   })
 
-  // afterEach(() => {
-  //   return db.sync({force: true})
-  // })
+  afterEach(() => {
+    return db.sync({force: true})
+  })
 
   describe('product attributes', () => {
-    it('includes `SKU`, `name`, `color`, `size`, `price`, `inventory`, `imageUrl`, `description`, `category` fields', async () => {
-      //console.log("DONDE ESTA PRODUCT?: ", product)
-      // const savedProduct = await product.save()
+    it('includes `SKU`, `name`, `color`, `size`, `price`, `inventory`, `imageUrl`, `description`, `category` fields', () => {
       expect(product.SKU).to.equal('12345679')
       expect(product.name).to.equal('legging1')
       expect(product.color).to.equal('black')
       expect(product.size).to.equal('s')
       expect(product.price).to.equal(30)
-      expect(product.quantity).to.equal(10)
+      expect(product.inventory).to.equal(10)
       expect(product.category).to.equal('leggings')
     })
 
@@ -112,7 +110,7 @@ describe('Product model', () => {
         SKU: '12345679',
         name: 'legging1',
         description: productDescription,
-        cateogry: 'leggings'
+        category: 'leggings'
       })
 
       expect(result).to.be.an('object')
