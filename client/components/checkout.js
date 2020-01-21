@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import OrderItem from './order-item'
 import {getOrderItems} from '../store'
 import {CardElement, injectStripe} from 'react-stripe-elements'
+import axios from 'axios'
 
 class Checkout extends React.Component {
   constructor() {
@@ -15,8 +16,7 @@ class Checkout extends React.Component {
       address: '',
       city: '',
       zipcode: 0,
-      phone: 0,
-      total: 0
+      phone: 0
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -38,17 +38,22 @@ class Checkout extends React.Component {
       city: this.state.city,
       zipcode: this.state.zipcode,
       phone: this.state.phone,
-      amount: this.state.total
+      amount: this.props.subtotal
     }
-    let {token} = await this.props.stripe.createToken({name: 'Name'})
-    let response = await fetch('/charge', {
-      method: 'POST',
-      headers: {'Content-Type': 'text/plain'},
-      body: token.id
+    let {token} = await this.props.stripe.createToken({
+      name: `${this.state.email}`,
+      another: 'random'
     })
-
-    if (response.ok) {
+    let response = await axios.post('/charge', {
+      tokenId: token.id,
+      amount: this.props.subtotal,
+      description: this.props.cartItems[0].orderId
+    })
+    if (response.statusText === 'ok') {
+      //place holder for further steps
       alert('Purchase Complete!')
+    } else {
+      // placeholder
     }
     // will need to create a separate reducer to handle addOrderSubmit(newOrder)
   }
