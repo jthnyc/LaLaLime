@@ -22,6 +22,7 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
+    console.log('Req.body in auth: ', req.body)
     const user = await User.findOne({
       where: {
         id: req.session.user.id

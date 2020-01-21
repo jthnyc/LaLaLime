@@ -4,12 +4,14 @@ module.exports = router
 
 router.use('*', (req, res, next) => {
   try {
+    console.log('REQ SESSION ID: ', req.session.user.id)
     let paramId = Number(req.params['0'].slice(1))
 
     if (req.session.user.id === paramId) {
       next()
     } else {
-      res.status(403).send('WRONG CART!')
+      res.set('location', `/${req.session.user.id}`)
+      res.status(403).send()
     }
   } catch (error) {
     next(error)
