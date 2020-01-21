@@ -1,8 +1,9 @@
 /* eslint-disable react/void-dom-elements-no-children */
 import React from 'react'
 import {connect} from 'react-redux'
-import CartItem from './cart-item'
+import OrderItem from './order-item'
 import {getOrderItems} from '../store'
+import {CardElement, injectStripe} from 'react-stripe-elements'
 
 class Checkout extends React.Component {
   constructor() {
@@ -14,7 +15,8 @@ class Checkout extends React.Component {
       address: '',
       city: '',
       zipcode: 0,
-      phone: 0
+      phone: 0,
+      total: 0
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -26,7 +28,7 @@ class Checkout extends React.Component {
     })
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault()
     const newOrder = {
       firstName: this.state.firstName,
@@ -35,17 +37,34 @@ class Checkout extends React.Component {
       address: this.state.address,
       city: this.state.city,
       zipcode: this.state.zipcode,
-      phone: this.state.phone
+      phone: this.state.phone,
+      amount: this.state.total
+    }
+    let {token} = await this.props.stripe.createToken({name: 'Name'})
+    let response = await fetch('/charge', {
+      method: 'POST',
+      headers: {'Content-Type': 'text/plain'},
+      body: token.id
+    })
+
+    if (response.ok) {
+      alert('Purchase Complete!')
     }
     // will need to create a separate reducer to handle addOrderSubmit(newOrder)
   }
 
   render() {
+    console.log('this.props', this.props)
     return (
       <div className="checkout-page">
         <div className="checkout-payment-info">
-          <h2>Payment Information</h2>
-          <form onSubmit={this.handleSubmit}>
+          <h2 className="checkout">Payment Information</h2>
+          <form
+            id="checkout-form"
+            action="/charge"
+            method="post"
+            onSubmit={this.handleSubmit}
+          >
             <label htmlFor="firstName">First Name:</label>
             <input
               type="text"
@@ -106,18 +125,25 @@ class Checkout extends React.Component {
           </form>
         </div>
         <div className="checkout-list">
-          {this.props.orderItems ? (
-            this.props.orderItems.map(item => {
-              return <CartItem key={item.productId} item={item} />
+          {this.props.cartItems ? (
+            this.props.cartItems.map(item => {
+              return <OrderItem key={item.productId} item={item} />
             })
           ) : (
             <div>Cart is empty!</div>
           )}
         </div>
         <div className="checkout-summary">
-          <h3>Subtotal </h3>
-          <h2>Total </h2>
-          <button type="submit">Confirm Order</button>
+          <h3>Subtotal :</h3>
+          <h2>${this.props.subtotal}</h2>
+          <CardElement />
+          <button
+            type="submit"
+            form="checkout-form"
+            onClick={this.handleSubmit}
+          >
+            Confirm Order
+          </button>
         </div>
       </div>
     )
@@ -126,14 +152,20 @@ class Checkout extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    orderItems: state.cart.cartItems
+    cartItems: state.cart.cartItems,
+    subtotal: state.cart.cartItems.reduce(
+      (acc, item) => acc + item.product.price * item.quantity,
+      0
+    )
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getOrderItems: userId => dispatch(getOrderItems(userId))
+    getOrderItems: userId => dispatch(getOrderItems(userId)),
+    updateOrderStatus: orderId => dispatch(updateOrderStatus(orderId))
   }
 }
+const injected = injectStripe(Checkout)
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
+export default connect(mapStateToProps, mapDispatchToProps)(injected)

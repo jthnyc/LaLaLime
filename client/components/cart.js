@@ -2,6 +2,7 @@ import React from 'react'
 import CartItem from './cart-item'
 import {connect} from 'react-redux'
 import {getCartItems} from '../store'
+import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
   componentDidMount() {
@@ -44,11 +45,11 @@ class Cart extends React.Component {
             {/* // perhaps we can consider to include shipping in tier 2?
             <h4>Shipping: </h4> */}
             {/* <h2>Subtotal: {subtotal}</h2> */}
-            <a href={`/cart/${this.props.userId}/checkout`}>
+            <Link to={`/cart/${this.props.userId}/checkout`}>
               <button type="button" className="cart-checkout-btn">
                 Checkout
               </button>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

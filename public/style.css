@@ -33,7 +33,7 @@ form div {
 .cart-page {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .cart-list {
@@ -68,6 +68,7 @@ input.item-quantity {
 .quantity-wrapper {
   display: flex;
   position: relative;
+  margin-left: 1em;
 }
 
 .quantity-btn {
@@ -94,12 +95,20 @@ input.item-quantity {
 .checkout-page {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .checkout-payment-info {
   display: flex;
   flex-direction: column;
+}
+.checkout-list {
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+}
+.checkout-summary {
+  width: 300px;
 }
 
 /* Product Card Styles Placeholders */
