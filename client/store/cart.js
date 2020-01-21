@@ -4,8 +4,9 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GOT_CART_ITEMS = 'GOT_CART_ITEMS'
-const ADDED_TO_CART = 'ADDED_TO_CART'
-const ADDED_QUANTITY = 'ADDED_QUANTITY'
+const ADDED_NEW_ITEM_TO_CART = 'ADDED_NEW_ITEM_TO_CART'
+const UPDATED_QUANTITY = 'UPDATED_QUANTITY'
+const DELETED_PRODUCT_FROM_CART = 'DELETED_PRODUCT_FROM_CART'
 
 /**
  * INITIAL STATE
@@ -23,9 +24,19 @@ const gotCartItems = cartItems => ({
   cartItems
 })
 
-const addedToCart = productOrder => ({
-  type: ADDED_TO_CART,
+const addedNewItemToCart = productOrder => ({
+  type: ADDED_NEW_ITEM_TO_CART,
   productOrder
+})
+
+const updatedQuantity = productOrder => ({
+  type: UPDATED_QUANTITY,
+  productOrder
+})
+
+const deletedProductFromCart = productId => ({
+  type: DELETED_PRODUCT_FROM_CART,
+  productId
 })
 
 /**
@@ -45,8 +56,11 @@ export const addProductToCart = (userId, productId) => async dispatch => {
     const productOrder = await axios.post(`/api/cart/${userId}`, {
       productId: productId
     })
-    console.log('DATA IN CART: ', productOrder.data)
-    dispatch(addedToCart(productOrder.data))
+    if (productOrder.data.quantity === 1) {
+      dispatch(addedNewItemToCart(productOrder.data))
+    } else {
+      dispatch(updatedQuantity(productOrder.data))
+    }
   } catch (error) {
     console.error(error)
   }
@@ -61,7 +75,7 @@ export const deleteProductFromCart = (userId, productId) => async dispatch => {
         productId: productId
       }
     })
-    dispatch(getCartItems(userId))
+    dispatch(deletedProductFromCart(productId))
   } catch (error) {
     console.error(error)
   }
@@ -69,11 +83,11 @@ export const deleteProductFromCart = (userId, productId) => async dispatch => {
 
 export const incrementItemQuantity = (userId, productId) => async dispatch => {
   try {
-    await axios.put(`/api/cart/${userId}`, {
+    const productOrder = await axios.put(`/api/cart/${userId}`, {
       productId: productId,
       change: 'increment'
     })
-    dispatch(getCartItems(userId))
+    dispatch(updatedQuantity(productOrder.data))
   } catch (error) {
     console.error(error)
   }
@@ -81,11 +95,15 @@ export const incrementItemQuantity = (userId, productId) => async dispatch => {
 
 export const decrementItemQuantity = (userId, productId) => async dispatch => {
   try {
-    await axios.put(`/api/cart/${userId}`, {
+    const productOrder = await axios.put(`/api/cart/${userId}`, {
       productId: productId,
       change: 'decrement'
     })
-    dispatch(getCartItems(userId))
+    if (productOrder.data === 'Accepted') {
+      dispatch(deletedProductFromCart(productId))
+    } else {
+      dispatch(updatedQuantity(productOrder.data))
+    }
   } catch (error) {
     console.error(error)
   }
@@ -98,8 +116,27 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case GOT_CART_ITEMS:
       return {...state, cartItems: action.cartItems}
-    case ADDED_TO_CART:
+    case ADDED_NEW_ITEM_TO_CART:
       return {...state, cartItems: [...state.cartItems, action.productOrder]}
+    case UPDATED_QUANTITY:
+      return {
+        ...state,
+        cartItems: state.cartItems.map(el => {
+          if (el.productId !== action.productOrder.productId) {
+            return el
+          } else {
+            const newEl = action.productOrder
+            return newEl
+          }
+        })
+      }
+    case DELETED_PRODUCT_FROM_CART:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          el => el.productId !== action.productId
+        )
+      }
     default:
       return state
   }
