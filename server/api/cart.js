@@ -2,45 +2,57 @@ const router = require('express').Router()
 const {Product, Order, ProductOrder, User} = require('../db/models')
 module.exports = router
 
-router.get('/:userId', async (req, res, next) => {
+router.use('*', (req, res, next) => {
   try {
-    console.log('reqsess', req.session)
-    // if the current userId is the same in the url
-    if (req.user.id == req.params.userId) {
-      const cart = await Order.findOne({
-        where: {
-          userId: req.params.userId,
-          status: 'pending'
-        }
-      })
-      //check if an order was found
-      if (cart) {
-        const currentOrderId = cart.id
-        const productList = await ProductOrder.findAll({
-          where: {
-            orderId: currentOrderId
-          },
-          include: [{model: Product, as: 'product'}]
-        })
-        res.json(productList)
-      } else {
-        //if no order, send string
-        res.json([])
-      }
+    console.log('REQ SESSION ID: ', req.session.user.id)
+    let paramId = Number(req.params['0'].slice(1))
+
+    if (req.session.user.id === paramId) {
+      next()
     } else {
-      //if not authorized, send string
-      res.sendStatus(403)
+      res.set('location', `../${req.session.user.id}`)
+      res.status(403).send()
     }
   } catch (error) {
     next(error)
   }
 })
 
-router.post('/order', async (req, res, next) => {
+router.get('/:userId', async (req, res, next) => {
+  try {
+    console.log('reqsess', req.session)
+    // if the current userId is the same in the url
+
+    const cart = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        status: 'pending'
+      }
+    })
+    //check if an order was found
+    if (cart) {
+      const currentOrderId = cart.id
+      const productList = await ProductOrder.findAll({
+        where: {
+          orderId: currentOrderId
+        },
+        include: [{model: Product, as: 'product'}]
+      })
+      res.json(productList)
+    } else {
+      //if no order, send string
+      res.json([])
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/:userId', async (req, res, next) => {
   try {
     const existingOrder = await Order.findOne({
       where: {
-        userId: req.body.userId,
+        userId: req.params.userId,
         status: 'pending'
       }
     })
@@ -50,7 +62,7 @@ router.post('/order', async (req, res, next) => {
       currentOrder = await Order.create()
       const currentUser = await User.findOne({
         where: {
-          id: req.body.userId
+          id: req.params.userId
         }
       })
       currentUser.addOrder(currentOrder)
@@ -74,8 +86,8 @@ router.post('/order', async (req, res, next) => {
       currentProductOrder.quantity++
       currentProductOrder.save()
     }
-
-    res.sendStatus(201)
+    console.log('CURRENT PRODUCT ORDER: ', currentProductOrder)
+    res.status(201).send(currentProductOrder)
   } catch (error) {
     next(error)
   }
