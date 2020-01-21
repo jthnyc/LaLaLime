@@ -30,13 +30,12 @@ describe('Product routes', () => {
         .expect(200)
 
       expect(res.body).to.be.an('array')
-      console.log('res body', res.body)
       expect(res.body.length).to.be.equal(1)
       expect(res.body[0].name).to.be.equal('legging1')
     })
   })
 
-  describe('/api/products/:SKU/', async () => {
+  describe('/api/products/:productId', async () => {
     beforeEach(() => {
       return Product.create({
         SKU: '12345679',
@@ -51,12 +50,12 @@ describe('Product routes', () => {
 
     it('gets the product(s) with the specified id', async () => {
       const res = await request(app)
-        .get('/api/products/12345679')
+        .get('/api/products/1')
         .expect(200)
 
-      expect(res.body).to.be.an('array')
-      expect(res.body.length).to.be.equal(1)
-      expect(res.body[0].name).to.be.equal('legging1')
+      expect(res.body).to.be.an('object')
+      expect(res.body.id).to.be.equal(1)
+      expect(res.body.name).to.be.equal('legging1')
     })
   })
 })
