@@ -32,6 +32,9 @@ class SingleProduct extends React.Component {
           </div>
           <div className="product-card-grid-right">
             <div id="single-product-name">{this.props.currentProduct.name}</div>
+            <div id="single-product-price">
+              ${this.props.currentProduct.price}
+            </div>
             <div id="single-product-description">
               {this.props.currentProduct.description}
             </div>

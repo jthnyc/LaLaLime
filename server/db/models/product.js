@@ -19,8 +19,7 @@ const Product = db.define('product', {
   price: {
     //store as pennies
     type: Sequelize.INTEGER,
-    min: 0,
-    max: 100
+    min: 0
   },
   inventory: {
     type: Sequelize.INTEGER,
