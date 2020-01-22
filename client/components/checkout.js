@@ -2,7 +2,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import OrderItem from './order-item'
-import {getOrderItems} from '../store'
+import {getCartItems} from '../store'
 import {CardElement, injectStripe} from 'react-stripe-elements'
 import axios from 'axios'
 
@@ -20,6 +20,9 @@ class Checkout extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+  componentDidMount() {
+    this.props.getCartItems(this.props.match.params.userId)
   }
 
   handleChange(event) {
@@ -41,15 +44,17 @@ class Checkout extends React.Component {
       amount: this.props.subtotal
     }
     let {token} = await this.props.stripe.createToken({
-      name: `${this.state.email}`,
-      another: 'random'
+      name: `${this.state.email}`
+      // address_city: `${this.state.city}`
     })
     let response = await axios.post('/charge', {
       tokenId: token.id,
       amount: this.props.subtotal,
       description: this.props.cartItems[0].orderId
     })
-    if (response.statusText === 'ok') {
+    console.log('response.statusText', typeof response.statusText)
+    if (response.statusText === 'OK') {
+      console.log('hit here')
       //place holder for further steps
       alert('Purchase Complete!')
     } else {
@@ -167,7 +172,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getOrderItems: userId => dispatch(getOrderItems(userId)),
+    getCartItems: userId => dispatch(getCartItems(userId)),
     updateOrderStatus: orderId => dispatch(updateOrderStatus(orderId))
   }
 }
