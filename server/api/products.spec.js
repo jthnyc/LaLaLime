@@ -35,7 +35,7 @@ describe('Product routes', () => {
     })
   })
 
-  describe('/api/products/:productId', async () => {
+  describe('/api/products/:productId', () => {
     beforeEach(() => {
       return Product.create({
         SKU: '12345679',

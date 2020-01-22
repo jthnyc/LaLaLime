@@ -30,14 +30,11 @@ export const UserHome = props => {
           )}
         </h3>
         <h3>
-          {props.currentItem.id ? (
+          {currentItem.id ? (
             <div>
               Recently Viewed:
               <div>
-                <RecentItem
-                  key={props.currentItem.id}
-                  item={props.currentItem}
-                />
+                <RecentItem key={currentItem.id} item={currentItem} />
               </div>
             </div>
           ) : (
