@@ -1,8 +1,7 @@
 import React from 'react'
 
-const OrderItem = props => {
+const RecentItem = props => {
   const {item} = props
-  console.log('order-item props', props)
   return (
     <div key={item.id} className="cart-item">
       <div className="cart-item-row">
@@ -16,11 +15,8 @@ const OrderItem = props => {
           <div>Size: {item.size}</div>
           <b>${item.price}</b>
         </div>
-        <div className="quantity-wrapper">
-          <div>quantity: {item.quantity}</div>
-        </div>
       </div>
     </div>
   )
 }
-export default OrderItem
+export default RecentItem
