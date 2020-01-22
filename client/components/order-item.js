@@ -1,8 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux'
 
 const OrderItem = props => {
-  const {item, userId} = props
+  const {item} = props
   return (
     <div key={item.id} className="cart-item">
       <div className="cart-item-row">

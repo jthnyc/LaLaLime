@@ -9,8 +9,8 @@ router.use('*', (req, res, next) => {
     if (req.session.user.id === paramId) {
       next()
     } else {
-      res.set('location', `../${req.session.user.id}`)
-      res.status(403).send()
+      // res.set('location', `../${req.session.user.id}`)
+      res.status(403).redirect(`/${req.session.user.id}`)
     }
   } catch (error) {
     next(error)
