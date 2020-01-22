@@ -60,7 +60,7 @@ class Checkout extends React.Component {
     if (response.statusText === 'OK') {
       console.log('Purchase went through')
       // alert('Purchase Complete!')
-      updateOrderStatus(newOrder)
+      this.props.updateOrderStatus(this.props.match.params.userId, newOrder)
       // console.log('orderId in checkout: ', this.props.cartItems[0].orderId)
       // console.log('purchase update request: ', res)
     } else {
@@ -193,7 +193,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getCartItems: userId => dispatch(getCartItems(userId)),
-    updateOrderStatus: order => dispatch(updateOrderStatus(order))
+    updateOrderStatus: (userId, order) =>
+      dispatch(updateOrderStatus(userId, order))
   }
 }
 const injected = injectStripe(Checkout)

@@ -13,21 +13,30 @@ async function seed() {
       date: '2020-01-15',
       firstName: 'Lala',
       lastName: 'Lime',
-      address: '27 Lime St'
+      address: '27 Lime St',
+      city: 'chicago',
+      zipcode: '23456',
+      phone: '201-293-2838'
     }),
     Order.create({
       status: 'processed',
       date: '2020-01-13',
       firstName: 'Lolo',
       lastName: 'Orange',
-      address: '35 Orange St'
+      address: '35 Orange St',
+      city: 'new york',
+      zipcode: '23456',
+      phone: '522-858-8284'
     }),
     Order.create({
       status: 'processed',
       date: '2020-01-13',
       firstName: 'Lolo',
       lastName: 'Orange',
-      address: '35 Orange St'
+      address: '35 Orange St',
+      city: 'san fran',
+      zipcode: '345687',
+      phone: '971-193-2118'
     })
   ])
 
