@@ -2,7 +2,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import OrderItem from './order-item'
-import {getCartItems} from '../store'
+import {getCartItems, updateOrderStatus} from '../store'
 import {CardElement, injectStripe} from 'react-stripe-elements'
 import axios from 'axios'
 
@@ -15,12 +15,13 @@ class Checkout extends React.Component {
       email: '',
       address: '',
       city: '',
-      zipcode: 0,
-      phone: 0
+      zipcode: '',
+      phone: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
+
   componentDidMount() {
     this.props.getCartItems(this.props.match.params.userId)
   }
@@ -41,30 +42,30 @@ class Checkout extends React.Component {
       city: this.state.city,
       zipcode: this.state.zipcode,
       phone: this.state.phone,
-      amount: this.props.subtotal
+      orderId: this.props.cartItems[0].orderId
     }
+
     let {token} = await this.props.stripe.createToken({
       name: `${this.state.email}`
-      // address_city: `${this.state.city}`
     })
+
     let response = await axios.post('/charge', {
       tokenId: token.id,
       amount: this.props.subtotal,
       description: this.props.cartItems[0].orderId
     })
+
     console.log('response.statusText', typeof response.statusText)
     if (response.statusText === 'OK') {
-      console.log('hit here')
-      //place holder for further steps
+      console.log('Purchase went through')
       alert('Purchase Complete!')
+      this.props.updateOrderStatus(this.props.match.params.userId, newOrder)
     } else {
-      // placeholder
+      alert('Please contact customer support at 212-123-1234')
     }
-    // will need to create a separate reducer to handle addOrderSubmit(newOrder)
   }
 
   render() {
-    console.log('this.props', this.props)
     return (
       <div className="checkout-page">
         <div className="checkout-payment-info">
@@ -81,15 +82,17 @@ class Checkout extends React.Component {
               name="firstName"
               onChange={this.handleChange}
               value={this.state.firstName}
-              placeholder="First Name"
+              required
             />
-            <label htmlFor="lastName">Last Name:</label>
+            <label htmlFor="lastName" required>
+              Last Name:
+            </label>
             <input
               type="text"
               name="lastName"
               onChange={this.handleChange}
               value={this.state.lastName}
-              placeholder="Last Name"
+              required
             />
             <label htmlFor="email">Email:</label>
             <input
@@ -97,7 +100,7 @@ class Checkout extends React.Component {
               name="email"
               onChange={this.handleChange}
               value={this.state.email}
-              placeholder="Email"
+              required
             />
             <label htmlFor="address">Address:</label>
             <input
@@ -105,16 +108,18 @@ class Checkout extends React.Component {
               name="address"
               onChange={this.handleChange}
               value={this.state.address}
-              placeholder="Address"
+              required
             />
             {/* may want to do city as a dropdown in tier 2*/}
-            <label htmlFor="city">City: </label>
+            <label htmlFor="city" required>
+              City:{' '}
+            </label>
             <input
               type="text"
               name="city"
               onChange={this.handleChange}
               value={this.state.city}
-              placeholder="City"
+              required
             />
             <label htmlFor="zipcode">Zipcode: </label>
             <input
@@ -122,7 +127,7 @@ class Checkout extends React.Component {
               name="zipcode"
               onChange={this.handleChange}
               value={this.state.zipcode}
-              placeholder="Zip Code"
+              required
             />
             <label htmlFor="phone">Phone: </label>
             <input
@@ -130,7 +135,7 @@ class Checkout extends React.Component {
               name="phone"
               onChange={this.handleChange}
               value={this.state.phone}
-              placeholder="Phone Number"
+              required
             />
           </form>
         </div>
@@ -151,6 +156,15 @@ class Checkout extends React.Component {
             type="submit"
             form="checkout-form"
             onClick={this.handleSubmit}
+            disabled={
+              !this.state.firstName ||
+              !this.state.lastName ||
+              !this.state.address ||
+              !this.state.zipcode ||
+              !this.state.city ||
+              !this.state.email ||
+              !this.state.phone
+            }
           >
             Confirm Order
           </button>
@@ -173,7 +187,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getCartItems: userId => dispatch(getCartItems(userId)),
-    updateOrderStatus: orderId => dispatch(updateOrderStatus(orderId))
+    updateOrderStatus: (userId, order) =>
+      dispatch(updateOrderStatus(userId, order))
   }
 }
 const injected = injectStripe(Checkout)

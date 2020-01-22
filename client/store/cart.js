@@ -7,6 +7,7 @@ const GOT_CART_ITEMS = 'GOT_CART_ITEMS'
 const ADDED_NEW_ITEM_TO_CART = 'ADDED_NEW_ITEM_TO_CART'
 const UPDATED_QUANTITY = 'UPDATED_QUANTITY'
 const DELETED_PRODUCT_FROM_CART = 'DELETED_PRODUCT_FROM_CART'
+const UPDATED_ORDER_STATUS = 'UPDATED_ORDER_STATUS'
 
 /**
  * INITIAL STATE
@@ -39,6 +40,10 @@ const deletedProductFromCart = productId => ({
   productId
 })
 
+const updatedOrderStatus = () => ({
+  type: UPDATED_ORDER_STATUS
+})
+
 /**
  * THUNK CREATORS
  */
@@ -61,6 +66,16 @@ export const addProductToCart = (userId, productId) => async dispatch => {
     } else {
       dispatch(updatedQuantity(productOrder.data))
     }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const updateOrderStatus = (userId, order) => async dispatch => {
+  try {
+    console.log('DO WE GET HEREEEEEE????')
+    await axios.put(`/api/order/${userId}`, order)
+    dispatch(updatedOrderStatus())
   } catch (error) {
     console.error(error)
   }
@@ -137,6 +152,8 @@ export default function(state = initialState, action) {
           el => el.productId !== action.productId
         )
       }
+    case UPDATED_ORDER_STATUS:
+      return initialState
     default:
       return state
   }
