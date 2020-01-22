@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react'
 
 const RecentItem = props => {
   const {item} = props
@@ -7,9 +8,9 @@ const RecentItem = props => {
       <div className="cart-item-row">
         <img src={item.imageUrl} width="100" height="120" />
         <div className="cart-item-detail">
-          <a href={`/products/${item.id}`}>
+          <Link to={`/products/${item.id}`}>
             <b>{item.name}</b>
-          </a>
+          </Link>
           <div>SKU: {item.SKU}</div>
           <div>Color: {item.color}</div>
           <div>Size: {item.size}</div>
