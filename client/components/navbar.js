@@ -6,7 +6,7 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, userId}) => (
   <div className="main-nav">
-    <Link to="/home">
+    <Link to="/">
       <h1>LaLaLime</h1>
     </Link>
     <nav>
