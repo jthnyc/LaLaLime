@@ -2,8 +2,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import OrderItem from './order-item'
-import {getOrderItems} from '../store'
+import {getCartItems} from '../store'
 import {CardElement, injectStripe} from 'react-stripe-elements'
+import axios from 'axios'
 
 class Checkout extends React.Component {
   constructor() {
@@ -15,11 +16,13 @@ class Checkout extends React.Component {
       address: '',
       city: '',
       zipcode: 0,
-      phone: 0,
-      total: 0
+      phone: 0
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+  componentDidMount() {
+    this.props.getCartItems(this.props.match.params.userId)
   }
 
   handleChange(event) {
@@ -38,17 +41,24 @@ class Checkout extends React.Component {
       city: this.state.city,
       zipcode: this.state.zipcode,
       phone: this.state.phone,
-      amount: this.state.total
+      amount: this.props.subtotal
     }
-    let {token} = await this.props.stripe.createToken({name: 'Name'})
-    let response = await fetch('/charge', {
-      method: 'POST',
-      headers: {'Content-Type': 'text/plain'},
-      body: token.id
+    let {token} = await this.props.stripe.createToken({
+      name: `${this.state.email}`
+      // address_city: `${this.state.city}`
     })
-
-    if (response.ok) {
+    let response = await axios.post('/charge', {
+      tokenId: token.id,
+      amount: this.props.subtotal,
+      description: this.props.cartItems[0].orderId
+    })
+    console.log('response.statusText', typeof response.statusText)
+    if (response.statusText === 'OK') {
+      console.log('hit here')
+      //place holder for further steps
       alert('Purchase Complete!')
+    } else {
+      // placeholder
     }
     // will need to create a separate reducer to handle addOrderSubmit(newOrder)
   }
@@ -162,7 +172,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getOrderItems: userId => dispatch(getOrderItems(userId)),
+    getCartItems: userId => dispatch(getCartItems(userId)),
     updateOrderStatus: orderId => dispatch(updateOrderStatus(orderId))
   }
 }

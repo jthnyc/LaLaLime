@@ -95,12 +95,11 @@ const createApp = () => {
 
   app.post('/charge', async (req, res) => {
     try {
-      console.log('stripe secret', req.body)
       let {status} = await stripe.charges.create({
-        amount: 2000,
+        amount: req.body.amount * 100,
         currency: 'usd',
-        description: 'An example charge',
-        source: req.body
+        description: req.body.description,
+        source: req.body.tokenId
       })
 
       res.json({status})
