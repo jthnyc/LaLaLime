@@ -17,6 +17,7 @@ class AllProducts extends React.Component {
     return (
       <div>
         <div className="faceted-grid">
+          <h2>New Arrivals</h2>
           <div className="product-card">
             {products ? (
               products.map(product => {

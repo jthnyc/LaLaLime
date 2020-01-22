@@ -10,7 +10,6 @@ async function seed() {
   const orders = await Promise.all([
     Order.create({
       status: 'pending',
-      date: '2020-01-15',
       firstName: 'Lala',
       lastName: 'Lime',
       address: '27 Lime St',
@@ -20,7 +19,6 @@ async function seed() {
     }),
     Order.create({
       status: 'processed',
-      date: '2020-01-13',
       firstName: 'Lolo',
       lastName: 'Orange',
       address: '35 Orange St',
@@ -30,7 +28,6 @@ async function seed() {
     }),
     Order.create({
       status: 'processed',
-      date: '2020-01-13',
       firstName: 'Lolo',
       lastName: 'Orange',
       address: '35 Orange St',
