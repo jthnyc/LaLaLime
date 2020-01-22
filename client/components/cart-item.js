@@ -14,7 +14,7 @@ const CartItem = props => {
       <div className="cart-item-row">
         <img src={item.product.imageUrl} width="100" height="120" />
         <div className="cart-item-detail">
-          <a href={`/products/${item.id}`}>
+          <a href={`/products/${item.product.id}`}>
             <b>{item.product.name}</b>
           </a>
           <div>SKU: {item.product.SKU}</div>
