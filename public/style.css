@@ -219,3 +219,10 @@ input.item-quantity {
 .login-submit-btn a {
   margin: 1em;
 }
+#order-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+.completed-order {
+  width: 200px;
+}

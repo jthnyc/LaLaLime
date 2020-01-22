@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react'
+import {Link} from 'react-router-dom'
 
 const RecentItem = props => {
   const {item} = props

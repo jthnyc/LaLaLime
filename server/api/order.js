@@ -19,13 +19,11 @@ router.use('*', (req, res, next) => {
 
 router.put('/:userId/', async (req, res, next) => {
   try {
-    console.log('order id: ', req.body.orderId)
     const currentOrder = await Order.findOne({
       where: {
         id: req.body.orderId
       }
     })
-    console.log('CURRENT ORDER: ', currentOrder)
     currentOrder.firstName = req.body.firstName
     currentOrder.lastName = req.body.lastName
     currentOrder.address = req.body.address

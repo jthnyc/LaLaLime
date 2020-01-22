@@ -49,7 +49,6 @@ router.post('/logout', (req, res) => {
 router.get('/me', async (req, res) => {
   let userWithOrders
   if (req.user) {
-    console.log('req.user', req.user)
     userWithOrders = await User.findOne({
       where: {
         id: req.user.id
@@ -63,11 +62,8 @@ router.get('/me', async (req, res) => {
         }
       ]
     })
-    console.log('userworders', userWithOrders)
     userWithOrders ? res.json(userWithOrders) : res.json(req.user)
   } else {
-    console.log('req.sess.user', req.session.user)
-
     res.json(req.session.user)
   }
 })
