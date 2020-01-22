@@ -28,35 +28,39 @@ describe('User routes', () => {
       expect(res.status).to.be.equal(403)
     })
   })
+  let user
 
   describe('GET /api/users/:userId', () => {
-    const rachelsEmail = 'rachel@gmail.com'
-    const sessionId = 1
-    const user = User.create({
-      email: rachelsEmail,
-      sessionId: sessionId
-    })
-
     beforeEach(() => {
+      user = User.create({
+        email: 'rachel@gmail.com',
+        sessionId: '1'
+      })
       return user
     })
 
     it('displays the user with the specified id', async () => {
-      const userId = 1
-      if (userId == user.sessionId) {
+      const paramId = '1'
+      if (paramId === user.sessionId) {
         const res = await request(app)
-          .get(`/api/users/${userId}`)
+          .get(`/api/users/${paramId}`)
           .expect(200)
 
         expect(res.body).to.be.an('object')
         expect(res.body.email).to.be.equal(rachelsEmail)
         expect(res.body.sessionId).to.be.equal(sessionId)
-      } else {
+      }
+    })
+    xit('prevents user from accessing the wrong session', async () => {
+      const paramId = '2'
+      console.log(user)
+      if (paramId !== user.sessionId) {
         const res = await request(app)
-          .get(`/api/users/${userId}`)
+          .get(`/api/users/${paramId}`)
           .expect(403)
 
-        expect(res.body).to.be('Forbidden')
+        expect(res.body).to.be.a('string')
+        expect(res.body).to.equal('Forbidden')
       }
     })
   })
