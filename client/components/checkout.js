@@ -47,7 +47,6 @@ class Checkout extends React.Component {
 
     let {token} = await this.props.stripe.createToken({
       name: `${this.state.email}`
-      // address_city: `${this.state.city}`
     })
 
     let response = await axios.post('/charge', {
@@ -59,19 +58,14 @@ class Checkout extends React.Component {
     console.log('response.statusText', typeof response.statusText)
     if (response.statusText === 'OK') {
       console.log('Purchase went through')
-      // alert('Purchase Complete!')
+      alert('Purchase Complete!')
       this.props.updateOrderStatus(this.props.match.params.userId, newOrder)
-      // console.log('orderId in checkout: ', this.props.cartItems[0].orderId)
-      // console.log('purchase update request: ', res)
     } else {
-      // placeholder
+      alert('Please contact customer support at 212-123-1234')
     }
-    // will need to create a separate reducer to handle addOrderSubmit(newOrder)
   }
 
   render() {
-    console.log('this.props', this.props)
-    console.log('update order status: ', this.props.updateOrderStatus)
     return (
       <div className="checkout-page">
         <div className="checkout-payment-info">

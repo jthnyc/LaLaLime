@@ -53,7 +53,11 @@ class Cart extends React.Component {
             <h4>Shipping: </h4> */}
             {/* <h2>Subtotal: {subtotal}</h2> */}
             <Link to={`/cart/${this.props.userId}/checkout`}>
-              <button type="button" className="cart-checkout-btn">
+              <button
+                type="button"
+                className="cart-checkout-btn"
+                disabled={!this.props.cartItems[0]}
+              >
                 Checkout
               </button>
             </Link>

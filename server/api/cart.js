@@ -156,26 +156,3 @@ router.delete('/:userId', async (req, res, next) => {
     next(error)
   }
 })
-
-router.put('/order/:userId', async (req, res, next) => {
-  try {
-    console.log('order id: ', req.body.orderId)
-    const currentOrder = await Order.findOne({
-      where: {
-        id: req.body.orderId
-      }
-    })
-    console.log('CURRENT ORDER: ', currentOrder)
-    currentOrder.firstName = req.body.firstName
-    currentOrder.lastName = req.body.lastName
-    currentOrder.address = req.body.address
-    currentOrder.zipcode = req.body.zipcode
-    currentOrder.city = req.body.city
-    currentOrder.email = req.body.email
-    currentOrder.phone = req.body.phone
-    currentOrder.save()
-    res.send(currentOrder)
-  } catch (error) {
-    next(error)
-  }
-})
