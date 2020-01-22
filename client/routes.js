@@ -10,7 +10,7 @@ import {
   Checkout,
   AllProducts,
   SingleProduct,
-  ErrorPage
+  Home
 } from './components'
 import {me} from './store'
 
@@ -34,12 +34,12 @@ class Routes extends Component {
         <Route path="/products" component={AllProducts} />
         <Route exact path="/cart/:userId" component={Cart} />
         <Route path="/cart/:userId/checkout" component={Checkout} />
-        <Route path="/home" component={UserHome} />
-        {/* <Route path="/cart/403" component={ErrorPage} /> */}
+        <Route path="/profile" component={UserHome} />
+        <Route exact path="/" component={Home} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
+            <Route path="/profile" component={UserHome} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
