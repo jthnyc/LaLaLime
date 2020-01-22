@@ -25,6 +25,9 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
+        // test: /glyphicons-halflings-regular\.(woff2|woff|svg|ttf|eot)$/,
+        // loader: require.resolve("file-loader") + "?name=../[path][name].[ext]"
+
         test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
           'file-loader',

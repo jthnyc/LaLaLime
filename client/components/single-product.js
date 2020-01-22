@@ -34,8 +34,8 @@ class SingleProduct extends React.Component {
             <div id="single-product-price">
               ${this.props.currentProduct.price}
             </div>
-            <div id="single-product-description">
-              {this.props.currentProduct.description}
+            <div id="single-product-size">
+              Size: {this.props.currentProduct.size}
             </div>
             <div>
               <button
@@ -45,6 +45,9 @@ class SingleProduct extends React.Component {
               >
                 Add to cart
               </button>
+            </div>
+            <div id="single-product-description">
+              {this.props.currentProduct.description}
             </div>
           </div>
         </div>

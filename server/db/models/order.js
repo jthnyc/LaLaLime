@@ -10,10 +10,6 @@ const Order = db.define('order', {
     defaultValue: 'pending',
     allowNull: false
   },
-  date: {
-    type: Sequelize.DATE,
-    isDate: true
-  },
   firstName: {
     type: Sequelize.STRING,
     validate: {

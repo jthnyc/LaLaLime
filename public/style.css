@@ -1,12 +1,15 @@
 body {
-  font-family: 'Alegreya Sans', sans-serif;
-  /* background: linear-gradient(90deg, #edf5e1, #04386c); */
-  background: #eaf1fa;
+  font-family: 'Gill Sans', sans-serif;
+  background: #fcfcfc;
 }
 
 h1 {
-  color: #1b8b00;
+  color: #5cda95;
   margin: 0.5em;
+}
+
+button {
+  font-family: 'Gill Sans', sans-serif;
 }
 
 a {
@@ -19,7 +22,7 @@ label {
 }
 
 span {
-  color: #1b8b00;
+  color: black;
 }
 
 p1 {
@@ -30,20 +33,25 @@ p1 {
 /* Navbar Styles */
 nav {
   font-family: 'Gill Sans', sans-serif;
-  background-color: #002801;
+  background-color: #fcfcfc;
   margin: 0.2em;
 }
 
 nav a {
   display: inline-flex;
   margin: 1em;
-  color: #f4fce9;
+  color: black;
   justify-content: flex-end;
 }
 
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* Cart Styles */
@@ -153,7 +161,7 @@ input.item-quantity {
 }
 .product-card {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
 }
 .product-card-inner {
@@ -161,7 +169,7 @@ input.item-quantity {
   margin: 1em;
   flex-wrap: wrap;
   flex-grow: 1;
-  flex-basis: 20%;
+  flex-basis: 25%;
 }
 
 .product-card-grid-left {
@@ -210,10 +218,13 @@ input.item-quantity {
   width: 100%;
 }
 #single-product-submit-button {
-  height: 30px;
-  max-width: 80px;
-  background-color: white;
+  height: 50px;
+  max-width: 180px;
+  background-color: #fff7fa;
   padding: 4px;
+  flex-grow: 4;
+  border-color: #3f0d12;
+  font-size: 150%;
 }
 
 .login-submit-btn a {
