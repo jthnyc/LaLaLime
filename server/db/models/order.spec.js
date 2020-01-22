@@ -27,13 +27,11 @@ describe('Order model', () => {
   })
 
   describe('order attributes', () => {
-    it('includes `status`, `date`, `firstName`, `lastName`, `address`, `cardInfo` fields', () => {
+    it('includes `status`, `firstName`, `lastName`, `address` fields', () => {
       expect(order.status).to.equal('pending')
-      expect(order.date).to.equal('01-01-2000')
       expect(order.firstName).to.equal('Lizzo')
       expect(order.lastName).to.equal('Einstein')
       expect(order.address).to.equal('5 Hanover Square')
-      expect(order.cardInfo).to.equal(424242424242)
     })
 
     it('requires `status`', async () => {
