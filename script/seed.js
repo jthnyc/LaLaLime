@@ -14,7 +14,9 @@ async function seed() {
       firstName: 'Lala',
       lastName: 'Lime',
       address: '27 Lime St',
-      cardInfo: '5105105105105100'
+      city: 'chicago',
+      zipcode: '23456',
+      phone: '201-293-2838'
     }),
     Order.create({
       status: 'processed',
@@ -22,7 +24,9 @@ async function seed() {
       firstName: 'Lolo',
       lastName: 'Orange',
       address: '35 Orange St',
-      cardInfo: '4012888888881881'
+      city: 'new york',
+      zipcode: '23456',
+      phone: '522-858-8284'
     }),
     Order.create({
       status: 'processed',
@@ -30,7 +34,9 @@ async function seed() {
       firstName: 'Lolo',
       lastName: 'Orange',
       address: '35 Orange St',
-      cardInfo: '4012888888881881'
+      city: 'san fran',
+      zipcode: '345687',
+      phone: '971-193-2118'
     })
   ])
 
