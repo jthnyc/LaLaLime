@@ -12,7 +12,9 @@ const app = express()
 const socketio = require('socket.io')
 const {User} = require('../server/db/models')
 module.exports = app
-const stripe = require('stripe')(process.env.stripeSecret)
+const stripe = require('stripe')(
+  process.env.stripeSecret || 'sk_test_A241quSbqDf4fnq2ok7XuIUC00cJwnQSAg'
+)
 
 app.use(require('body-parser').text())
 

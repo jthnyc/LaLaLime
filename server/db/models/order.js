@@ -13,33 +13,30 @@ const Order = db.define('order', {
   date: {
     type: Sequelize.DATE,
     isDate: true
-    // allowNull: false
   },
   firstName: {
     type: Sequelize.STRING,
-    // allowNull: false,
     validate: {
       isAlpha: true
     }
   },
   lastName: {
     type: Sequelize.STRING,
-    // allowNull: false,
     validate: {
       isAlpha: true
     }
   },
   address: {
     type: Sequelize.TEXT
-    // allowNull: false
   },
-  cardInfo: {
+  city: {
     type: Sequelize.STRING
-    // allowNull: false
-    // validate: {
-    //   isCreditCard: true,
-    //   len: [16]
-    // }
+  },
+  zipcode: {
+    type: Sequelize.STRING
+  },
+  phone: {
+    type: Sequelize.STRING
   }
 })
 

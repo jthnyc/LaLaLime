@@ -13,24 +13,21 @@ async function seed() {
       date: '2020-01-15',
       firstName: 'Lala',
       lastName: 'Lime',
-      address: '27 Lime St',
-      cardInfo: '5105105105105100'
+      address: '27 Lime St'
     }),
     Order.create({
       status: 'processed',
       date: '2020-01-13',
       firstName: 'Lolo',
       lastName: 'Orange',
-      address: '35 Orange St',
-      cardInfo: '4012888888881881'
+      address: '35 Orange St'
     }),
     Order.create({
       status: 'processed',
       date: '2020-01-13',
       firstName: 'Lolo',
       lastName: 'Orange',
-      address: '35 Orange St',
-      cardInfo: '4012888888881881'
+      address: '35 Orange St'
     })
   ])
 
