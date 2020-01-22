@@ -10,7 +10,6 @@ import {Redirect} from 'react-router'
  */
 export const UserHome = props => {
   const {email, orders, currentItem} = props
-  console.log('props in userhome', props)
   if (!props.email) {
     return <Redirect to="/products" />
   } else {
@@ -19,9 +18,9 @@ export const UserHome = props => {
         <h1>Hi {email}!</h1>
         <h3>Welcome back...</h3>
         <h3>
+          Order History:
           {props.orders ? (
-            <div>
-              Order History:
+            <div id="order-wrapper">
               {props.orders.map(order => (
                 <CompletedOrder key={order.id} order={order} />
               ))}
@@ -53,7 +52,6 @@ export const UserHome = props => {
  * CONTAINER
  */
 const mapState = state => {
-  console.log('STATE IN USER-HOME:', state)
   return {
     email: state.user.email,
     orders: state.user.orders,

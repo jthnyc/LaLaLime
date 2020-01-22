@@ -4,10 +4,10 @@ const CompletedOrder = props => {
   const order = props.order
 
   return (
-    <div>
-      <h3>Placed on: {order.date}</h3>
-      <h3>Shipped to: {order.firstName + order.lastName}</h3>
-      <h2>{order.address}</h2>
+    <div className="completed-order">
+      <div>Placed on: {order.updatedAt.slice(0, 10)}</div>
+      <div>Recipient: {order.firstName + order.lastName}</div>
+      <div>Address {order.address}</div>
     </div>
   )
 }

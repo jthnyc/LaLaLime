@@ -73,7 +73,6 @@ export const addProductToCart = (userId, productId) => async dispatch => {
 
 export const updateOrderStatus = (userId, order) => async dispatch => {
   try {
-    console.log('DO WE GET HEREEEEEE????')
     await axios.put(`/api/order/${userId}`, order)
     dispatch(updatedOrderStatus())
   } catch (error) {

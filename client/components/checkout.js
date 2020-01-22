@@ -55,9 +55,7 @@ class Checkout extends React.Component {
       description: this.props.cartItems[0].orderId
     })
 
-    console.log('response.statusText', typeof response.statusText)
     if (response.statusText === 'OK') {
-      console.log('Purchase went through')
       alert('Purchase Complete!')
       this.props.updateOrderStatus(this.props.match.params.userId, newOrder)
     } else {
