@@ -14,9 +14,9 @@ const CartItem = props => {
       <div className="cart-item-row">
         <img src={item.product.imageUrl} width="100" height="120" />
         <div className="cart-item-detail">
-          <a href={`/products/${item.product.id}`}>
+          <Link to={`/products/${item.product.id}`}>
             <b>{item.product.name}</b>
-          </a>
+          </Link>
           <div>SKU: {item.product.SKU}</div>
           <div>Color: {item.product.color}</div>
           <div>Size: {item.product.size}</div>
