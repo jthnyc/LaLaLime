@@ -13,38 +13,51 @@ describe('User routes', () => {
 
   describe('GET /api/users/', () => {
     const rachelsEmail = 'rachel@gmail.com'
+    const sessionId = 'vVsm3bnksY8qJmm_qIOF3lByOHhKopjn'
 
     beforeEach(() => {
       return User.create({
-        email: rachelsEmail
+        email: rachelsEmail,
+        sessionId: sessionId
       })
     })
 
     it('Displays a list of all users', async () => {
       const res = await request(app).get('/api/users')
 
-      expect(res.status).to.be.equal(200)
-      expect(res.body).to.be.an('array')
-      expect(res.body[0].email).to.be.equal(rachelsEmail)
+      expect(res.status).to.be.equal(403)
     })
   })
 
   describe('GET /api/users/:userId', () => {
     const rachelsEmail = 'rachel@gmail.com'
+    const sessionId = 1
+    const user = User.create({
+      email: rachelsEmail,
+      sessionId: sessionId
+    })
 
     beforeEach(() => {
-      return User.create({
-        email: rachelsEmail
-      })
+      return user
     })
 
     it('displays the user with the specified id', async () => {
-      const res = await request(app)
-        .get('/api/users/1')
-        .expect(200)
+      const userId = 1
+      if (userId == user.sessionId) {
+        const res = await request(app)
+          .get(`/api/users/${userId}`)
+          .expect(200)
 
-      expect(res.body).to.be.an('object')
-      expect(res.body.email).to.be.equal(rachelsEmail)
+        expect(res.body).to.be.an('object')
+        expect(res.body.email).to.be.equal(rachelsEmail)
+        expect(res.body.sessionId).to.be.equal(sessionId)
+      } else {
+        const res = await request(app)
+          .get(`/api/users/${userId}`)
+          .expect(403)
+
+        expect(res.body).to.be('Forbidden')
+      }
     })
   })
   describe('POST /auth/signup', () => {
@@ -59,8 +72,9 @@ describe('User routes', () => {
       expect(res.status).to.be.equal(201)
       expect(res.body).to.be.an('object')
       expect(res.body.email).to.equal('cercle@gmail.com')
+      expect(res.body.password).to.not.equal('12345')
     })
-    it('creates a new session firtst, and create a new user and responds with the user', async () => {})
+    it('creates a new session first, and create a new user and responds with the user', async () => {})
 
     it('saves the new user to the database', async () => {
       const newUser = await User.findOne({
