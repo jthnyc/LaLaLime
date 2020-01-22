@@ -13,7 +13,7 @@ describe('User routes', () => {
 
   describe('GET /api/users/', () => {
     const rachelsEmail = 'rachel@gmail.com'
-    const sessionId = 'vVsm3bnksY8qJmm_qIOF3lByOHhKopjn'
+    const sessionId = 1
 
     beforeEach(() => {
       return User.create({
