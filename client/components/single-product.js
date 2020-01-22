@@ -1,7 +1,9 @@
 import React from 'react'
 import {getSingleProduct, addProductToCart, me} from '../store'
 import {connect} from 'react-redux'
+import Popup from 'reactjs-popup'
 
+import Content from './popup-content.js'
 /**
  * COMPONENT
  */
@@ -39,13 +41,24 @@ class SingleProduct extends React.Component {
               {this.props.currentProduct.description}
             </div>
             <div>
-              <button
-                id="single-product-submit-button"
-                type="submit"
-                onClick={this.handleClick}
+              <Popup
+                modal
+                trigger={
+                  <button
+                    id="single-product-submit-button"
+                    type="submit"
+                    onClick={this.handleClick}
+                  >
+                    Add to cart
+                  </button>
+                }
+                handleClick={this.props.handleClick}
               >
-                Add to cart
-              </button>
+                <button onClick={this.handleClick}>Okay</button>
+                <div>Added to cart!</div>
+              </Popup>
+
+              {/* <Content handleClick={this.props.handleClick} close={close} /></Popup> */}
             </div>
           </div>
         </div>
