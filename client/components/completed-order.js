@@ -5,9 +5,10 @@ const CompletedOrder = props => {
 
   return (
     <div className="completed-order">
+      <div>Order number: {order.id}</div>
       <div>Placed on: {order.updatedAt.slice(0, 10)}</div>
       <div>Recipient: {order.firstName + order.lastName}</div>
-      <div>Address {order.address}</div>
+      <div>Address: {order.address}</div>
     </div>
   )
 }

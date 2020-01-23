@@ -5,6 +5,7 @@ import OrderItem from './order-item'
 import {getCartItems, updateOrderStatus} from '../store'
 import {CardElement, injectStripe} from 'react-stripe-elements'
 import axios from 'axios'
+import {Redirect} from 'react-router-dom'
 
 class Checkout extends React.Component {
   constructor() {
@@ -63,111 +64,116 @@ class Checkout extends React.Component {
     }
   }
 
+  // eslint-disable-next-line complexity
   render() {
-    return (
-      <div className="checkout-page">
-        <div className="checkout-list">
-          {this.props.cartItems ? (
-            this.props.cartItems.map(item => {
-              return <OrderItem key={item.productId} item={item} />
-            })
-          ) : (
-            <div>Cart is empty!</div>
-          )}
+    if (this.props.cartItems[0]) {
+      return (
+        <div className="checkout-page">
+          <div className="checkout-list">
+            {this.props.cartItems ? (
+              this.props.cartItems.map(item => {
+                return <OrderItem key={item.productId} item={item} />
+              })
+            ) : (
+              <div>Cart is empty!</div>
+            )}
+          </div>
+          <div className="checkout-payment-info">
+            <h2 className="checkout">Payment Information</h2>
+            <form
+              id="checkout-form"
+              action="/charge"
+              method="post"
+              onSubmit={this.handleSubmit}
+            >
+              <label htmlFor="firstName">First Name:</label>
+              <input
+                type="text"
+                name="firstName"
+                onChange={this.handleChange}
+                value={this.state.firstName}
+                required
+              />
+              <label htmlFor="lastName" required>
+                Last Name:
+              </label>
+              <input
+                type="text"
+                name="lastName"
+                onChange={this.handleChange}
+                value={this.state.lastName}
+                required
+              />
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                name="email"
+                onChange={this.handleChange}
+                value={this.state.email}
+                required
+              />
+              <label htmlFor="address">Address:</label>
+              <input
+                type="text"
+                name="address"
+                onChange={this.handleChange}
+                value={this.state.address}
+                required
+              />
+              {/* may want to do city as a dropdown in tier 2*/}
+              <label htmlFor="city" required>
+                City:{' '}
+              </label>
+              <input
+                type="text"
+                name="city"
+                onChange={this.handleChange}
+                value={this.state.city}
+                required
+              />
+              <label htmlFor="zipcode">Zipcode: </label>
+              <input
+                type="text"
+                name="zipcode"
+                onChange={this.handleChange}
+                value={this.state.zipcode}
+                required
+              />
+              <label htmlFor="phone">Phone: </label>
+              <input
+                type="text"
+                name="phone"
+                onChange={this.handleChange}
+                value={this.state.phone}
+                required
+              />
+            </form>
+          </div>
+          <div className="checkout-summary">
+            <h3>Subtotal: ${this.props.subtotal}</h3>
+            <CardElement />
+            <button
+              type="submit"
+              form="checkout-form"
+              onClick={this.handleSubmit}
+              disabled={
+                !this.state.firstName ||
+                !this.state.lastName ||
+                !this.state.address ||
+                !this.state.zipcode ||
+                !this.state.city ||
+                !this.state.email ||
+                !this.state.phone
+              }
+            >
+              Confirm Order
+            </button>
+          </div>
         </div>
-        <div className="checkout-payment-info">
-          <h2 className="checkout">Payment Information</h2>
-          <form
-            id="checkout-form"
-            action="/charge"
-            method="post"
-            onSubmit={this.handleSubmit}
-          >
-            <label htmlFor="firstName">First Name:</label>
-            <input
-              type="text"
-              name="firstName"
-              onChange={this.handleChange}
-              value={this.state.firstName}
-              required
-            />
-            <label htmlFor="lastName" required>
-              Last Name:
-            </label>
-            <input
-              type="text"
-              name="lastName"
-              onChange={this.handleChange}
-              value={this.state.lastName}
-              required
-            />
-            <label htmlFor="email">Email:</label>
-            <input
-              type="text"
-              name="email"
-              onChange={this.handleChange}
-              value={this.state.email}
-              required
-            />
-            <label htmlFor="address">Address:</label>
-            <input
-              type="text"
-              name="address"
-              onChange={this.handleChange}
-              value={this.state.address}
-              required
-            />
-            {/* may want to do city as a dropdown in tier 2*/}
-            <label htmlFor="city" required>
-              City:{' '}
-            </label>
-            <input
-              type="text"
-              name="city"
-              onChange={this.handleChange}
-              value={this.state.city}
-              required
-            />
-            <label htmlFor="zipcode">Zipcode: </label>
-            <input
-              type="text"
-              name="zipcode"
-              onChange={this.handleChange}
-              value={this.state.zipcode}
-              required
-            />
-            <label htmlFor="phone">Phone: </label>
-            <input
-              type="text"
-              name="phone"
-              onChange={this.handleChange}
-              value={this.state.phone}
-              required
-            />
-          </form>
-        </div>
-        <div className="checkout-summary">
-          <h3>Subtotal: ${this.props.subtotal}</h3>
-          <CardElement />
-          <button
-            type="submit"
-            form="checkout-form"
-            onClick={this.handleSubmit}
-            disabled={
-              !this.state.firstName ||
-              !this.state.lastName ||
-              !this.state.address ||
-              !this.state.zipcode ||
-              !this.state.city ||
-              !this.state.email ||
-              !this.state.phone
-            }
-          >
-            Confirm Order
-          </button>
-        </div>
-      </div>
-    )
+      )
+    } else {
+      return <Redirect to="/products" />
+    }
   }
 }
 
