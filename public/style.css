@@ -303,10 +303,38 @@ input.item-quantity {
   flex-wrap: wrap;
   align-content: flex-start;
 }
+
+.userhome-container {
+  margin: 1em;
+}
+
+.userhome-container > h1 {
+  color: black;
+  margin: 0em;
+}
+
 .completed-order {
+  font-weight: 300;
   display: flex;
   flex-flow: column;
-  flex-grow: 1;
+  flex-grow: 2;
   width: 20%;
   margin: 20px;
+}
+
+.cart-item-recently-viewed {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 1em;
+  margin-left: 1em;
+}
+
+.cart-item-row-recently-viewed {
+  font-weight: 300;
+}
+
+.cart-item-detail-recently-viewed {
+  flex-direction: column;
+  flex-grow: 1;
 }
