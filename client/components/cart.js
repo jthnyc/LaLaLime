@@ -24,26 +24,28 @@ class Cart extends React.Component {
       <div className="cart-page">
         <div className="cart-list">
           <h2>Shopping cart</h2>
-          {subtotal ? (
-            this.props.cartItems.map(item => {
-              return (
-                <CartItem
-                  key={item.productId}
-                  item={item}
-                  userId={this.props.userId}
-                />
-              )
-            })
-          ) : (
-            <div>
-              <p>No items in cart ...</p>
-              <Link to="/products">
-                <h3>
-                  It's Time to <span>Treat Yourself</span>
-                </h3>
-              </Link>
-            </div>
-          )}
+          <div className="cart-item-wrapper">
+            {subtotal ? (
+              this.props.cartItems.map(item => {
+                return (
+                  <CartItem
+                    key={item.productId}
+                    item={item}
+                    userId={this.props.userId}
+                  />
+                )
+              })
+            ) : (
+              <div>
+                <p>No items in cart ...</p>
+                <Link to="/products">
+                  <h3>
+                    It's Time to <span>Treat Yourself</span>
+                  </h3>
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
         <div className="cart-order-summary">
           <div className="cart-line-items">
