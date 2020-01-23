@@ -14,7 +14,7 @@ export const UserHome = props => {
     return <Redirect to="/products" />
   } else {
     return (
-      <div>
+      <div className="userhome-container">
         <h1>Hi {email}!</h1>
         <h3>Welcome back...</h3>
         <h3>
