@@ -52,7 +52,7 @@ class Cart extends React.Component {
             <div className="cart-line-items">
               <h2>Order Summary</h2>
               <h4>
-                Subtotal:
+                Subtotal: $
                 {this.props.cartItems.reduce(
                   (acc, item) => acc + item.product.price * item.quantity,
                   0
