@@ -33,7 +33,7 @@ router.put('/:userId/', async (req, res, next) => {
     currentOrder.phone = req.body.phone
     currentOrder.status = 'processed'
     currentOrder.save()
-    res.sendStatus(204)
+    res.redirect('/')
   } catch (error) {
     next(error)
   }
