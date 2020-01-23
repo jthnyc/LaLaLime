@@ -1,22 +1,25 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const OrderItem = props => {
   const {item} = props
   return (
-    <div key={item.id} className="cart-item">
+    <div key={item.id} className="cart-item-checkout">
       <div className="cart-item-row">
-        <img src={item.product.imageUrl} width="100" height="120" />
-        <div className="cart-item-detail">
-          <a href={`/products/${item.id}`}>
+        <img
+          className="cart-item-image"
+          src={item.product.imageUrl}
+          width="100"
+          height="120"
+        />
+        <div className="cart-item-detail-checkout">
+          <Link to={`/products/${item.product.id}`}>
             <b>{item.product.name}</b>
-          </a>
-          <div>SKU: {item.product.SKU}</div>
+          </Link>
           <div>Color: {item.product.color}</div>
           <div>Size: {item.product.size}</div>
+          <div>Quantity: {item.quantity}</div>
           <b>${item.product.price}</b>
-        </div>
-        <div className="quantity-wrapper">
-          <div>quantity: {item.quantity}</div>
         </div>
       </div>
     </div>

@@ -66,6 +66,15 @@ class Checkout extends React.Component {
   render() {
     return (
       <div className="checkout-page">
+        <div className="checkout-list">
+          {this.props.cartItems ? (
+            this.props.cartItems.map(item => {
+              return <OrderItem key={item.productId} item={item} />
+            })
+          ) : (
+            <div>Cart is empty!</div>
+          )}
+        </div>
         <div className="checkout-payment-info">
           <h2 className="checkout">Payment Information</h2>
           <form
@@ -137,18 +146,8 @@ class Checkout extends React.Component {
             />
           </form>
         </div>
-        <div className="checkout-list">
-          {this.props.cartItems ? (
-            this.props.cartItems.map(item => {
-              return <OrderItem key={item.productId} item={item} />
-            })
-          ) : (
-            <div>Cart is empty!</div>
-          )}
-        </div>
         <div className="checkout-summary">
-          <h3>Subtotal :</h3>
-          <h2>${this.props.subtotal}</h2>
+          <h3>Subtotal: ${this.props.subtotal}</h3>
           <CardElement />
           <button
             type="submit"

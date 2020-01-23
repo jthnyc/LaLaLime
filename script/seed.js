@@ -74,7 +74,7 @@ async function seed() {
       SKU: '10103001',
       name: 'Sutton Jogger',
       color: 'Gray',
-      size: 's',
+      size: 'S',
       price: 90,
       inventory: 10,
       category: 'leggings',
