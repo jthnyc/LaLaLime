@@ -50,7 +50,12 @@ const updatedOrderStatus = () => ({
 export const getCartItems = userId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/cart/${userId}`)
-    dispatch(gotCartItems(data))
+    console.log(typeof data)
+    if (typeof data === 'string') {
+      dispatch(gotCartItems([]))
+    } else {
+      dispatch(gotCartItems(data))
+    }
   } catch (error) {
     console.error(error)
   }
