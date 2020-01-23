@@ -304,6 +304,9 @@ input.item-quantity {
   align-content: flex-start;
 }
 .completed-order {
-  width: 300px;
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+  width: 20%;
   margin: 20px;
 }
