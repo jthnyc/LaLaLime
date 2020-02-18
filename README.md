@@ -10,9 +10,9 @@ Visit us at: http://lalalime.herokuapp.com/
 - [Joanna Huang](https://github.com/jthnyc)
 
 **Technologies Used**
-Frontend: React, Redux
-Backend: Sequelize, PostreSQL
-Deployment: Heroku
+- Frontend: React, Redux
+- Backend: Sequelize, PostreSQL
+- Deployment: Heroku
 
 Application Walk Through(maybe in gif):
 - All product page scroll
@@ -22,7 +22,7 @@ Application Walk Through(maybe in gif):
 - show past order 
 
 ```
-:closed_lock_with_key: Getting Started
+Getting Started
 - [ ] Fork and clone this repo
 - [ ] npm install
 - [ ] npm run start-dev
