@@ -16,7 +16,9 @@ Visit us at: http://lalalime.herokuapp.com/
 
 Application Walk Through(maybe in gif):
 - All product page scroll
-- Single product page add to cart and show cart page with added item
+- On single product page, user can add item to cart and seleted item shows in the shopping cart.
+![add to cart](https://media.giphy.com/media/Vh8jXfC4XihkVqNWdY/giphy.gif)
+
 - Edit cart view with + and - 
 - checkout
 - show past order 
