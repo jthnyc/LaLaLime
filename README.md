@@ -19,9 +19,8 @@ Application Walk Through(maybe in gif):
 ![all product](https://media.giphy.com/media/ifY2CH4szRVyra2Qbs/giphy.gif)
 - On single product page, users can add item to cart and seleted item shows in the shopping cart.
 ![add to cart](https://media.giphy.com/media/Vh8jXfC4XihkVqNWdY/giphy.gif)
-- User can modify quantity in the shopping cart
-
--![edit cart](https://media.giphy.com/media/MFfoLks0v9bnNUiFRk/giphy.gif)
+- User can modify quantity in the shopping cart and add a different item to cart
+![edit cart](https://media.giphy.com/media/MFfoLks0v9bnNUiFRk/giphy.gif)
 - Shopping cart items persist when users sign up in the shopping process
 ![persist](https://media.giphy.com/media/JqJKl5MKwDc77JPKWz/giphy.gif)
 - When checkout is successful through Stripe, the cart is cleared, and the Stripe will show the transaction history. Under the user tab, user can see the order history.
