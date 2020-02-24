@@ -14,7 +14,16 @@ Visit us at: http://lalalime.herokuapp.com/
 - Backend: Sequelize, PostreSQL
 - Deployment: Heroku
 
-Application Walk Through(maybe in gif):
+```
+Getting Started
+-[] Fork and clone this repo
+-[] npm install
+-[] npm run start-dev
+  ➤ Windows: npm run start-server and npm run build-watch
+-[] npm run seed
+```
+
+**Application Walk Through:**
 - Users can browse all the listing on the all products page
 ![all product](https://media.giphy.com/media/ifY2CH4szRVyra2Qbs/giphy.gif)
 - On single product page, users can add item to cart and seleted item shows in the shopping cart.
@@ -26,12 +35,3 @@ Application Walk Through(maybe in gif):
 - When checkout is successful through Stripe, the cart is cleared, and the Stripe will show the transaction history. Under the user tab, user can see the order history.
 ![checkout](https://media.giphy.com/media/mBMKgZY7gQsyalKldU/giphy.gif)
 ![stripe and order](https://media.giphy.com/media/L1JWH2lFBjgRPLtpKM/giphy.gif)
-
-```
-Getting Started
--[] Fork and clone this repo
--[] npm install
--[] npm run start-dev
-  ➤ Windows: npm run start-server and npm run build-watch
--[] npm run seed
-```
