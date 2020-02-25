@@ -33,5 +33,6 @@ Getting Started
 - Shopping cart items persist when users sign up in the shopping process
 ![persist](https://media.giphy.com/media/JqJKl5MKwDc77JPKWz/giphy.gif)
 - When checkout is successful through Stripe, the cart is cleared, and the Stripe will show the transaction history. Under the user tab, user can see the order history.
+
 ![checkout](https://media.giphy.com/media/mBMKgZY7gQsyalKldU/giphy.gif)
 ![stripe and order](https://media.giphy.com/media/L1JWH2lFBjgRPLtpKM/giphy.gif)
