@@ -1,4 +1,5 @@
 'use strict'
+require('../secrets')
 
 const db = require('../server/db')
 const {User, Product, Order, ProductOrder} = require('../server/db/models')
